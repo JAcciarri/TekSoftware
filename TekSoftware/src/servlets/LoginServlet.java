@@ -47,8 +47,14 @@ public class LoginServlet extends HttpServlet {
 		
 		u = controlador.validar(u);
 		if (u!=null) {
+			if(u.isAdmin()) {
 			request.getSession().setAttribute("usuario", u);
 			request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
+			}
+				else {
+					request.getSession().setAttribute("usuario", u);
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				}
 		}
 		else {
 			String error = ("Usuario o contraseña incorrectos");

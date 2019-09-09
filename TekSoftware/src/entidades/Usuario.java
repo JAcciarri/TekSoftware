@@ -33,7 +33,11 @@ public class Usuario {
 	public Usuario(String username) {
 		this.username = username;
 	}
-
+	
+	public void setPrivilegio(Boolean bool) {
+		this.privilegio = bool;
+	}
+	
 	public Boolean isAdmin() {
 		return this.privilegio;
 	}

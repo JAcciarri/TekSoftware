@@ -28,6 +28,7 @@ public class DataUsuario {
 						u.setTelefono(rs.getString("telefono"));
 						u.setUsername(rs.getString("usuario"));
 						u.setPassword(rs.getString("password"));
+						u.setPrivilegio(rs.getBoolean("isAdmin"));
 						listaUsuarios.add(u);
 					}
 				}
@@ -71,6 +72,7 @@ public class DataUsuario {
 				u.setTelefono(rs.getString("telefono"));
 				u.setUsername(rs.getString("usuario"));
 				u.setPassword(rs.getString("password"));
+				u.setPrivilegio(rs.getBoolean("isAdmin"));
 			}
 			
 		} catch (SQLException e) {

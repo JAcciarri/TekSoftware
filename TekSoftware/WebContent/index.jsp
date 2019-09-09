@@ -58,31 +58,6 @@
     </div>
   </div>
 
-			<table class="table">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th scope="col">ID</th>
-                                            <th scope="col">Nombre</th>
-                                            <th scope="col">Apellido</th>
-                                            <th scope="col">Email</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                    <% 
-                    
-                    
-                    ArrayList<Usuario> list = (ArrayList<Usuario>)request.getAttribute("listaUsuarios");
-                  	if (list!=null)
-                    for (Usuario us : list) {%> 
-                                        <tr>
-                                            <th scope="row"><%=us.getIdUsuario() %></th>
-                                            <td><%=us.getNombre() %></td>
-                                            <td><%=us.getApellido() %></td>
-                                            <td><%=us.getEmail() %></td>
-                                        </tr>
-                    <%} %>
-                                    </tbody>
-                                </table>
 
         
   <div class="section">
