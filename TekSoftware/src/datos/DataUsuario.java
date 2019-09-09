@@ -9,7 +9,7 @@ import entidades.Usuario;
 public class DataUsuario {
 
 	
-	public ArrayList<Usuario> getAll(){
+	public ArrayList<Usuario> getAllUsers(){
 		
 			Statement stmt=null;
 			ResultSet rs=null;

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import = "entidades.*" %>    
+<%@ page import = "entidades.*" %> 
+<%@ page import = "datos.*" %>   
+<%@ page import = "java.util.ArrayList" %>     
 
 <!DOCTYPE html>
 <html lang="es">
@@ -56,6 +58,29 @@
     </div>
   </div>
 
+			<table class="table">
+                                <thead class="thead-light">
+                                        <tr>
+                                            <th scope="col">ID</th>
+                                            <th scope="col">Nombre</th>
+                                            <th scope="col">Apellido</th>
+                                            <th scope="col">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                    <% DataUsuario du = new DataUsuario();
+                    Usuario us = new Usuario(); us.setUsername("pato");
+                    Usuario user = du.getByUsername(us); 
+                    %> 
+                                        <tr>
+                                            <th scope="row"> PATO </th>
+                                            <td> carp</td>
+                                            <td> </td>
+                                            <td></td>
+                                        </tr>
+                  
+                                    </tbody>
+                                </table>
 
 
   <div class="section">

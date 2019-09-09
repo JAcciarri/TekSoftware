@@ -252,7 +252,8 @@
                                     </thead>
                                     <tbody>
                     <% DataUsuario du = new DataUsuario();
-                    ArrayList<Usuario> list = du.getAll(); 
+                    ArrayList<Usuario> list = new ArrayList<Usuario>();
+                    list = du.getAllUsers(); 
                     for (Usuario u : list) {%> 
                                         <tr>
                                             <th scope="row"><%=u.getIdUsuario() %></th>
