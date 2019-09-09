@@ -111,6 +111,7 @@ public Usuario getByID(int ID) {
 				u.setUsername(rs.getString("usuario"));
 				u.setPassword(rs.getString("password"));
 				u.setPrivilegio(rs.getBoolean("isAdmin"));
+				u.setIdUsuario(rs.getInt("idUsuario"));
 			}
 			
 		} catch (SQLException e) {

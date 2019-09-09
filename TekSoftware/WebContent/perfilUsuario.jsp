@@ -198,6 +198,11 @@
                             <div class="card-body">
                                 <form action="EditUserServlet" METHOD="POST" class="form-horizontal form-material">
                                     <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="text" hidden="true" name="id" value="<%=u.getIdUsuario()%>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
                                             <input type="text" name="nombre" value="<%=u.getNombre() %>" class="form-control form-control-line">

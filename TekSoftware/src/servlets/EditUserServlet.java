@@ -43,11 +43,12 @@ public class EditUserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataUsuario dtu = new DataUsuario();
 		Usuario u = new Usuario();
+		u.setIdUsuario(Integer.parseInt(request.getParameter("id")));
 		u.setNombre(request.getParameter("nombre"));
 		u.setApellido(request.getParameter("apellido"));
 		u.setEmail(request.getParameter("email"));
 		u.setTelefono(request.getParameter("telefono"));
-		u.setUsername(request.getParameter("usuario"));
+		u.setUsername(request.getParameter("username"));
 		dtu.update(u);
 		request.setAttribute("listaUsuarios", dtu.getAllUsers());
 		request.getRequestDispatcher("tablaUsuarios.jsp").forward(request, response);
