@@ -90,7 +90,80 @@ public class DataUsuario {
 		return u;
 	}
 	
+public Usuario getByID(int ID) {
+		Usuario u = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null; 
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM usuarios WHERE idUsuario=?"
+					);
+			stmt.setInt(1, ID);
+			
+			rs = stmt.executeQuery();
+			
+			if(rs!=null && rs.next()) {
+				u = new Usuario();
+				u.setNombre(rs.getString("nombre"));
+				u.setApellido(rs.getString("apellido"));
+				u.setEmail(rs.getString("email"));
+				u.setTelefono(rs.getString("telefono"));
+				u.setUsername(rs.getString("usuario"));
+				u.setPassword(rs.getString("password"));
+				u.setPrivilegio(rs.getBoolean("isAdmin"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return u;
+	}
 
+	public void update(Usuario u) {
+		PreparedStatement stmt = null;
+		ResultSet keyResultSet = null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+			"UPDATE usuarios SET nombre=?, apellido=?, email=?, telefono=?, usuario=? WHERE idUsuario='"+u.getIdUsuario()+"'",
+							PreparedStatement.RETURN_GENERATED_KEYS
+							);
+			stmt.setString(1, u.getNombre());
+			stmt.setString(2, u.getApellido());
+			stmt.setString(3, u.getEmail());
+			stmt.setString(4, u.getTelefono());
+			stmt.setString(5, u.getUsername());
+			stmt.executeUpdate();
+			
+			keyResultSet = stmt.getGeneratedKeys();
+	       
+			if(keyResultSet!=null && keyResultSet.next()){
+	            u.setIdUsuario(keyResultSet.getInt(1));
+	        }
+	
+			
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(keyResultSet!=null) keyResultSet.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+	}
+	
 	public void add(Usuario u) {
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;

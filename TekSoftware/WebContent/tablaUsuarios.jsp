@@ -195,7 +195,7 @@
                                             <td><%=u.getApellido() %></td>
                                             <td><%=u.getEmail() %></td>
                                             <td>
-	                                           	 <button>Editar</button>
+	                                           	 <a href="EditUserServlet?id=<%=u.getIdUsuario()%>">Editar</a>
 	                                           	 <button>Eliminar</button>
                                             </td>
                                         </tr>
