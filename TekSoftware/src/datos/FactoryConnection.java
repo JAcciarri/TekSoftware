@@ -9,8 +9,8 @@ public class FactoryConnection {
 		private String driver="com.mysql.jdbc.Driver";
 		private String host="localhost";
 		private String port="3306";
-		private String user="sistema";
-		private String password="simplesystem";
+		private String user="root";
+		private String password="pacto";
 		private String db="tp_software";
 		private int conectados=0;
 		private Connection conn=null;
