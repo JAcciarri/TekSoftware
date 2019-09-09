@@ -47,7 +47,7 @@ public class DataUsuario {
 			
 			return listaUsuarios;
 		}
-	}
+	
 	
 	
 	public Usuario getByUsername(Usuario usuario) {
