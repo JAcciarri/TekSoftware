@@ -2,16 +2,53 @@ package datos;
 
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import entidades.Usuario;
 
 public class DataUsuario {
 
 	
-	private static String driver="com.mysql.jdbc.Driver";
-	private static String url="jdbc:mysql://localhost:3306/tp_software?serverTimezone=UTC";
-	private static String user="sistema";
-	private static String pass="simplesystem";
+	public ArrayList<Usuario> getAll(){
+		
+			Statement stmt=null;
+			ResultSet rs=null;
+			ArrayList<Usuario> listaUsuarios= new ArrayList<>();
+			
+			try {
+				stmt= FactoryConnection.getInstancia().getConn().createStatement();
+				rs= stmt.executeQuery("SELECT * FROM usuarios");
+				if(rs!=null) {
+					while(rs.next()) {
+						Usuario u = new Usuario();
+						u.setIdUsuario(rs.getInt("idUsuario"));
+						u.setNombre(rs.getString("nombre"));
+						u.setApellido(rs.getString("apellido"));
+						u.setEmail(rs.getString("email"));
+						u.setTelefono(rs.getString("telefono"));
+						u.setUsername(rs.getString("usuario"));
+						u.setPassword(rs.getString("password"));
+						listaUsuarios.add(u);
+					}
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				
+			} finally {
+				try {
+					if(rs!=null) {rs.close();}
+					if(stmt!=null) {stmt.close();}
+					FactoryConnection.getInstancia().releaseConn();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			return listaUsuarios;
+		}
+	}
+	
 	
 	public Usuario getByUsername(Usuario usuario) {
 		
@@ -51,40 +88,7 @@ public class DataUsuario {
 		return u;
 	}
 	
-	
-	public static void addUsuario(Usuario usuario) {
-		
-		PreparedStatement st = null;
-		ResultSet rs = null;
-		try {
-		Class.forName(driver);
-		
-		Connection conexion = DriverManager.getConnection(url, user, pass);
-		st = conexion.prepareStatement(
-				"INSERT INTO usuarios(nombre, apellido, email, telefono, usuario, password) VALUES(?, ?, ?, ?, ?, ?)");
-		st.setString(1, usuario.getNombre());
-		st.setString(2, usuario.getApellido());
-		st.setString(3, usuario.getEmail());
-		st.setString(4, usuario.getTelefono());
-		st.setString(5, usuario.getUsername());
-		st.setString(6, usuario.getPassword());
-		st.executeUpdate();
-			
-		rs = st.executeQuery();
-		if (rs!=null && rs.next())
-		{
 
-		}
-			if (rs!=null) {rs.close();}
-			if (st!=null) {st.close();}
-			conexion.close();
-				}
-			catch (Exception e)
-		{
-				e.printStackTrace();
-		} 
-	}
-	
 	public void add(Usuario u) {
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
