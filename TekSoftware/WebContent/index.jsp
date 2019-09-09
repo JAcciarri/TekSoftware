@@ -59,7 +59,7 @@
   </div>
 
 			<table class="table">
-                                <thead class="thead-light">
+                                    <thead class="thead-light">
                                         <tr>
                                             <th scope="col">ID</th>
                                             <th scope="col">Nombre</th>
@@ -68,21 +68,23 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                    <% DataUsuario du = new DataUsuario();
-                    Usuario us = new Usuario(); us.setUsername("pato");
-                    Usuario user = du.getByUsername(us); 
-                    %> 
+                    <% 
+                    
+                    
+                    ArrayList<Usuario> list = (ArrayList<Usuario>)request.getAttribute("listaUsuarios");
+                  	if (list!=null)
+                    for (Usuario us : list) {%> 
                                         <tr>
-                                            <th scope="row"> PATO </th>
-                                            <td> carp</td>
-                                            <td> </td>
-                                            <td></td>
+                                            <th scope="row"><%=us.getIdUsuario() %></th>
+                                            <td><%=us.getNombre() %></td>
+                                            <td><%=us.getApellido() %></td>
+                                            <td><%=us.getEmail() %></td>
                                         </tr>
-                  
+                    <%} %>
                                     </tbody>
                                 </table>
 
-
+        
   <div class="section">
     <div class="container">
       <div class="row">

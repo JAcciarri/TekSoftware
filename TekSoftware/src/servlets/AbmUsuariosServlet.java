@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -9,19 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
-import logica.Login;
 
 /**
- * Servlet implementation class LoginServlet
+ * Servlet implementation class AbmUsuariosServlet
  */
-@WebServlet("/LoginServlet")
-public class LoginServlet extends HttpServlet {
+@WebServlet("/AbmUsuariosServlet")
+public class AbmUsuariosServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginServlet() {
+    public AbmUsuariosServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +31,17 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getSession().invalidate();
-		request.getRequestDispatcher("index.jsp").forward(request, response);
+		DataUsuario du = new DataUsuario();
+		ArrayList<Usuario> users = du.getAllUsers();
+		request.setAttribute("listaUsuarios", users);
+		request.getRequestDispatcher("tablaUsuarios.jsp").forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Login controlador = new Login();
-		DataUsuario du = new DataUsuario();
 		
-		Usuario u = new Usuario();
-		u.setUsername(request.getParameter("usuario"));
-		u.setPassword(request.getParameter("password"));
-		
-		u = controlador.validar(u);
-		if (u!=null) {
-			request.getSession().setAttribute("usuario", u);
-			request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
-		}
-		else {
-			String error = ("Usuario o contraseña incorrectos");
-			request.setAttribute("error", error);
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
 	}
 
 }
