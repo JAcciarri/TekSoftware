@@ -18,6 +18,7 @@
     <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
+    <link href="dist/css/style.extras.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -158,8 +159,12 @@
                 <div class="row">
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Lista de Usuarios</h4>
+                        
                     </div>
-                   
+                    <div class="col-5 align-self-left">
+                 
+                        <a class="addbutton" href="addUsuario.jsp">+ Añadir Usuario</a>
+                    </div>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -195,8 +200,8 @@
                                             <td><%=u.getApellido() %></td>
                                             <td><%=u.getEmail() %></td>
                                             <td>
-	                                           	 <a href="EditUserServlet?id=<%=u.getIdUsuario()%>">Editar</a>
-	                                           	 <button>Eliminar</button>
+	                                           	 <a class="editbutton" href="EditUserServlet?id=<%=u.getIdUsuario()%> "> Editar </a>
+	                                           	 <a class="deletebutton" href="DeleteUserServlet?id=<%=u.getIdUsuario()%>"> Eliminar </a>
                                             </td>
                                         </tr>
                     <%} %>

@@ -20,25 +20,25 @@
                     
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="AbmUsuariosServlet" aria-expanded="false">
-                                <i class="mdi mdi-face"></i>
+                               <i class="mdi mdi-account"></i>
                                 <span class="hide-menu">ABM Usuarios</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="" aria-expanded="false">
-                                <i class="mdi mdi-alert-outline"></i>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                          	<i class="mdi mdi-cards"></i>
                                 <span class="hide-menu">ABM Caracteristicas</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="" aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                               <i class="mdi mdi-cart"></i>
                                 <span class="hide-menu">Pedidos</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LoginServlet" aria-expanded="false">
-                                <i class="mdi mdi-file"></i>
+                               <i class="mdi mdi-close-circle"></i>
                                 <span class="hide-menu">Cerrar Sesion</span>
                             </a>
                         </li>

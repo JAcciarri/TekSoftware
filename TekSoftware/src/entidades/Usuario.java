@@ -25,6 +25,17 @@ public class Usuario {
 		this.telefono = telefono;
 	}
 	
+	// FULL USUARIO
+	public Usuario(String nombre, String apellido, String usuario, String password , String email, String telefono, Boolean isAdmin) {
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.username = usuario;
+		this.password = password;
+		this.email = email;
+		this.telefono = telefono;
+		this.privilegio = isAdmin;
+	}
+	
 	public Usuario(String nombre, String apellido) {
 		this.nombre = nombre;
 		this.apellido = apellido;
@@ -48,16 +59,20 @@ public class Usuario {
 		this.idUsuario = idUsuario;
 	}
 	public String getNombre() {
-		return nombre;
+		String name = Character.toUpperCase(this.nombre.charAt(0)) + this.nombre.substring(1,this.nombre.length());
+		return name;
 	}
 	public void setNombre(String nombre) {
-		this.nombre = nombre;
+		String name = Character.toUpperCase(nombre.charAt(0)) + nombre.substring(1, nombre.length());
+		this.nombre = name;
 	}
 	public String getApellido() {
+		String apellido = Character.toUpperCase(this.apellido.charAt(0)) + this.apellido.substring(1,this.apellido.length());
 		return apellido;
 	}
 	public void setApellido(String apellido) {
-		this.apellido = apellido;
+		String ape = Character.toUpperCase(apellido.charAt(0)) + apellido.substring(1, apellido.length());
+		this.apellido = ape;
 	}
 	public String getTelefono() {
 		return telefono;

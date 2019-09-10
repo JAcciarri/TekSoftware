@@ -34,7 +34,7 @@ public class AbmUsuariosServlet extends HttpServlet {
 		DataUsuario du = new DataUsuario();
 		ArrayList<Usuario> users = du.getAllUsers();
 		request.setAttribute("listaUsuarios", users);
-		request.getRequestDispatcher("tablaUsuarios.jsp").forward(request, response);
+		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);
 	}
 
 	/**
