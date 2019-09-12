@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
+import logica.UsuarioController;
 
 /**
  * Servlet implementation class AddUserServlet
@@ -49,9 +50,9 @@ public class AddUserServlet extends HttpServlet {
 		if (values!=null) admin = true; else admin = false;
 		
 		Usuario u = new Usuario(nombre, apellido, username, password, email, telefono, admin);
-		DataUsuario du = new DataUsuario();
-		du.add(u);
-		request.setAttribute("listaUsuarios", du.getAllUsers());
+		UsuarioController userControl = new UsuarioController();
+		userControl.add(u);
+		request.setAttribute("listaUsuarios", userControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response); 
 	}
 

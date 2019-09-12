@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
+import logica.UsuarioController;
 
 /**
  * Servlet implementation class SigninServlet
@@ -44,8 +45,8 @@ public class SigninServlet extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 		String email = request.getParameter("email");
 		Usuario user = new Usuario(nombre, apellido, usuario, password, email, telefono);
-		DataUsuario du = new DataUsuario();
-		du.add(user);
+		UsuarioController usControl = new UsuarioController();
+		usControl.add(user);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
 		
 		

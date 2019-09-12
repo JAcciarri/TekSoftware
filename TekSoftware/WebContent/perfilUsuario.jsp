@@ -35,7 +35,8 @@
         </div>
     </div>
     
-     <% Usuario u = (Usuario)request.getAttribute("usuario"); %>	
+     <% 
+     Usuario u = (Usuario)request.getAttribute("usuarioAEditar"); %>	
      
      
     <!-- ============================================================== -->

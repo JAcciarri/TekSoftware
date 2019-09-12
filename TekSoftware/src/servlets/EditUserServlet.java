@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
+import logica.UsuarioController;
 
 /**
  * Servlet implementation class AbmUserServlet
@@ -29,11 +30,10 @@ public class EditUserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UsuarioController usControl = new UsuarioController();
 		int ID = Integer.parseInt(request.getParameter("id"));
-		response.getWriter().print(ID);
-		DataUsuario du = new DataUsuario();
-		Usuario u = du.getByID(ID);
-		request.setAttribute("usuario", u);
+		Usuario u = usControl.getByID(ID);
+		request.setAttribute("usuarioAEditar", u);
 		request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
 	}
 
@@ -41,7 +41,7 @@ public class EditUserServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DataUsuario dtu = new DataUsuario();
+		UsuarioController usControl = new UsuarioController();
 		Usuario u = new Usuario();
 		u.setIdUsuario(Integer.parseInt(request.getParameter("id")));
 		u.setNombre(request.getParameter("nombre"));
@@ -49,8 +49,8 @@ public class EditUserServlet extends HttpServlet {
 		u.setEmail(request.getParameter("email"));
 		u.setTelefono(request.getParameter("telefono"));
 		u.setUsername(request.getParameter("username"));
-		dtu.update(u);
-		request.setAttribute("listaUsuarios", dtu.getAllUsers());
+		usControl.update(u);
+		request.setAttribute("listaUsuarios", usControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);
 	}
 

@@ -54,11 +54,11 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="name">Nombre</label>
-                <input type="text" name="nombre" id="name" class="form-control" autocomplete="off">
+                <input type="text" name="nombre" id="name" class="form-control" autocomplete="off" required="">
               </div>
               <div class="col-md-6 form-group">
                 <label for="phone">Apellido</label>
-                <input type="text" name="apellido" id="phone" class="form-control" autocomplete="off">
+                <input type="text" name="apellido" id="phone" class="form-control" autocomplete="off" required="">
               </div>
             </div>
             <div class="row">
@@ -68,25 +68,25 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control ">
+                <input type="email" name="email" id="email" class="form-control " required="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="tel">Teléfono</label>
-                <input type="number" name="telefono" id="tel" class="form-control ">
+                <input type="number" name="telefono" id="tel" class="form-control " required="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="user">Usuario</label>
-                <input type="text" name="usuario" id="user" class="form-control ">
+                <input type="text" name="usuario" id="user" class="form-control " required="">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="pass">Contraseña</label>
-                <input type="password" name="password" id="pass" class="form-control ">
+                <input type="password" name="password" id="pass" class="form-control " required="">
               </div>
             </div>
 

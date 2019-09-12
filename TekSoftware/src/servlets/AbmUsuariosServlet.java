@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
+import logica.UsuarioController;
 
 /**
  * Servlet implementation class AbmUsuariosServlet
@@ -31,9 +32,8 @@ public class AbmUsuariosServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DataUsuario du = new DataUsuario();
-		ArrayList<Usuario> users = du.getAllUsers();
-		request.setAttribute("listaUsuarios", users);
+		UsuarioController userControl = new UsuarioController();
+		request.setAttribute("listaUsuarios", userControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);
 	}
 

@@ -90,7 +90,7 @@ public class DataUsuario {
 		return u;
 	}
 	
-public Usuario getByID(int ID) {
+	public Usuario getByID(int ID) {
 		Usuario u = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null; 
