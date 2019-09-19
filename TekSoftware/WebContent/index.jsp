@@ -43,7 +43,7 @@
           <div class="btn-play-wrap mx-auto">
             <% if (u != null) {%>
             	
-                <a href="perfilUsuario.jsp"  <%// ACA HAY QUE REDIRIGIR AL PEDIDO %>
+                <a href="pedido.jsp"  <% session.setAttribute("numeroPaso", 1);%>
                 class="btn-play"><span class="ion ion-ios-play"></span></a>
              <%} else{%>
                 <a href="login.jsp"
