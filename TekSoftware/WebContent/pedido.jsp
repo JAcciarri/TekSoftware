@@ -101,7 +101,7 @@
 				</div>
 			</section>
 			<!-- Features section end -->
-	<%}
+	<%; break;}
 	   case 2: { %>
 	 <!-- Features section -->
 			<section class="features-section spad">
@@ -141,7 +141,7 @@
 				</div>
 			</section>
 			<!-- Features section end -->
-		<% }
+		<% ; break;}
 	
 	// FIN DEL SWITCH
 	} %> 
