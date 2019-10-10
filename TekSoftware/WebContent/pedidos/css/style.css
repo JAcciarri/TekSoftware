@@ -19,6 +19,8 @@ body {
 	font-smoothing: antialiased;
 }
 
+
+
 h1,
 h2,
 h3,
@@ -100,6 +102,11 @@ ol {
 
 .section-title h2 {
 	font-size: 48px;
+	font-weight: 700;
+}
+
+.section-title h3 {
+	font-size: 38px;
 	font-weight: 700;
 }
 

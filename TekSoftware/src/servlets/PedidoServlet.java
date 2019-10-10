@@ -28,7 +28,6 @@ public class PedidoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("idCaracteristica");
-		response.getWriter().print("Caracteristica seleccionada: " + id );
 		request.getSession().setAttribute("numeroPaso", 1+(int)request.getSession().getAttribute("numeroPaso"));
 		request.getRequestDispatcher("pedido.jsp").forward(request, response);
 	}

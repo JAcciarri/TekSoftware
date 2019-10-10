@@ -22,7 +22,7 @@
 	<link rel="stylesheet" href="pedidos/css/flaticon.css"/>
 	<link rel="stylesheet" href="pedidos/css/owl.carousel.min.css"/>
 	<link rel="stylesheet" href="pedidos/css/style.css"/>
-
+    <link href="dist/css/style.extras.css" rel="stylesheet">
 
 	<!--[if lt IE 9]>
 		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -142,9 +142,23 @@
 			</section>
 			<!-- Features section end -->
 		<% ; break;}
+	   
+	   case 3: {		request.getSession().setAttribute("numeroPaso", new Integer(0));%> 	  
+	    			 
+	    			   <section class="features-section spad">
+				<div class="container">
+					<div class="section-title">
+						<h2>Su pedido ha sido registrado con éxito</h2>
+						<br>
+						<p>Podra ver el detalle del pedido en la seccion Mi Perfil</p>
+						<br><br> <br>
+						<h4> El monto final del pedido de Software es de $5000</h4>
+					</div>
+					</div>
+			</section>
 	
-	// FIN DEL SWITCH
-	} %> 
+	<% }
+	   } %> 
 	
 	
 
