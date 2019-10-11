@@ -59,7 +59,51 @@
 
 	<!--  SECCION DONDE MOSTRAMOS SEGUN EL ID SELECCIONADO -->
 	
-	<% int nPaso = (int)session.getAttribute("numeroPaso"); 
+	
+	<%  int nPaso = (int)session.getAttribute("numeroPaso"); %> 
+	
+	
+				<section class="features-section spad">
+				<div class="container">
+					<div class="section-title">
+						<p style="color:black; text-align: right; font-size: 1em; margin:20px;">Total: $0</p>
+						<h2>¿Necesita sistema de Login?</h2>
+						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
+					</div>
+					<div class="row">
+						
+						<div class="col-lg-4 col-md-6 feature-item">
+							<a class="ft-icon" href="PedidoServlet?idCaracteristica=1">
+								<i class="fa fa-twitter"></i>
+							</a>
+							<h4>Si, con redes sociales y email</h4>
+							<p>Los usuarios podran iniciar sesión registrandose con su email o a través de sus redes sociales. Para poder efectuar el ingreso, deberá aceptar los permisos en las respectivas redes.</p>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 feature-item">
+							<a class="ft-icon" href="PedidoServlet?idCaracteristica=2">
+								<i class="fa fa-envelope"></i>
+							</a>
+							<h4>Si, con email</h4>
+							<p>Los usuarios registrarán su email en la app e ingresarán con el mismo. Ofrecemos soportes para todo tipos de mail (Gmail, Yahoo!, etc.)</p>
+						</div>
+						
+						<div class="col-lg-4 col-md-6 feature-item">
+							<a class="ft-icon" href="PedidoServlet?idCaracteristica=3">
+								<i class="fa fa-times-circle"></i>
+							</a>
+							<h4>No necesita</h4>
+							<p>No habrá inicio de sesión por parte de los usuarios.</p>
+						</div>
+						
+					</div>
+				</div>
+			</section>
+	
+	
+
+	
+	<% 
 	
 	switch (nPaso) {
 	 case 1: { %>
