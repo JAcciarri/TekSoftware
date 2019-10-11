@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.16, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for macos10.12 (x86_64)
 --
 -- Host: 127.0.0.1    Database: tp_software
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	5.7.27
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `caracteristicas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caracteristicas` (
   `idCaracteristica` int(11) NOT NULL,
   `titulo` varchar(45) NOT NULL,
@@ -35,6 +35,7 @@ CREATE TABLE `caracteristicas` (
 
 LOCK TABLES `caracteristicas` WRITE;
 /*!40000 ALTER TABLE `caracteristicas` DISABLE KEYS */;
+INSERT INTO `caracteristicas` VALUES (1,'¿Necesita sistema de login?');
 /*!40000 ALTER TABLE `caracteristicas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -44,11 +45,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `opciones`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `opciones` (
   `idCaracteristica` int(11) NOT NULL,
   `idOpcion` int(11) NOT NULL,
-  `subtitulo` varchar(45) NOT NULL,
+  `subtitulo` varchar(80) NOT NULL,
   `descripcion` varchar(80) DEFAULT NULL,
   `textIcono` varchar(20) DEFAULT NULL,
   PRIMARY KEY (`idCaracteristica`,`idOpcion`),
@@ -62,6 +63,7 @@ CREATE TABLE `opciones` (
 
 LOCK TABLES `opciones` WRITE;
 /*!40000 ALTER TABLE `opciones` DISABLE KEYS */;
+INSERT INTO `opciones` VALUES (1,1,'Si, con redes sociales y email','Los usuarios podran iniciar sesión a través de ellos','fa-twitter'),(1,2,'Si, con email','Los usuarios se podrán loguear a través del email','fa-envelope'),(1,3,'No necesita','Los usuarios no iniciarán sesión','fa-times-circle');
 /*!40000 ALTER TABLE `opciones` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -71,7 +73,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `usuarios`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `usuarios` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(45) NOT NULL,
@@ -104,4 +106,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-10 16:04:10
+-- Dump completed on 2019-10-11 12:34:05
