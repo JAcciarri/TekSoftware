@@ -43,9 +43,14 @@
           <div class="btn-play-wrap mx-auto">
             <% if (u != null) {%>
             	
-                <a href="pedido.jsp"  <% session.setAttribute("numeroPaso", 1);%>
+            	<!-- SI EL USUARIO ESTA LOGGEADO REDIRIGIR AL PEDIDO -->
+                <a href="pedido.jsp" 
+                <% session.setAttribute("numeroPaso", 1);%>
+                <% session.setAttribute("opciones", new ArrayList<Integer>()); %>
                 class="btn-play"><span class="ion ion-ios-play"></span></a>
+            
              <%} else{%>
+             <!-- --SINO REDIRIGIRLO AL LOGIN -->
                 <a href="login.jsp"
                 class="btn-play"><span class="ion ion-ios-play"></span></a>
              <%} %>   
@@ -66,14 +71,14 @@
         <div class="col-lg-5 mr-auto mb-5">
           <span class="d-block text-uppercase text-secondary">Who We Are</span>
           <span class="divider my-4"></span>
-          <h2 class="mb-4 section-title">We Are <strong>Design Agency</strong> That Bring Your Ideas Alive</h2>
+          <h2 class="mb-4 section-title">SOMOS <strong>SONRISA PUNTO INFLEXION</strong> That Bring Your Ideas Alive</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id autem temporibus blanditiis accusamus perferendis libero accusantium nisi itaque tempore, harum aliquid aut, sapiente dolor tenetur. Tempora corrupti suscipit delectus perspiciatis!</p>
           <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatibus.</p>
           <p><a href="#" class="btn btn-outline-black">Learn More</a></p>
         </div>
         <div class="col-lg-6">
           <figure class="img-dotted-bg">
-            <img src="images/about_1.jpg" alt="Image" class="img-fluid">
+            <img src="images/face.png" alt="Image" class="img-fluid">
           </figure>
         </div>
       </div>

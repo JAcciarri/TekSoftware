@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import = "datos.DataCaracteristica"
+		 import = "entidades.Caracteristica"
+ 		 import = "entidades.Opcion" 
+ 		 import = "java.util.ArrayList" %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -60,153 +64,79 @@
 	<!--  SECCION DONDE MOSTRAMOS SEGUN EL ID SELECCIONADO -->
 	
 	
-	<%  int nPaso = (int)session.getAttribute("numeroPaso"); %> 
+	<%  int nPaso = (int)session.getAttribute("numeroPaso"); 
 	
+	if (nPaso==4) {  
+		ArrayList<Integer> opc = (ArrayList<Integer>)request.getSession().getAttribute("opciones");
+	%>
 	
+		<section class="features-section spad">
+		<div class="container">
+			<div class="section-title">
+				<h2>Su pedido ha sido registrado con éxito</h2>
+				<br>
+				<p>Podra ver el detalle del pedido en la seccion Mi Perfil</p>
+				<br><br> <br>
+				<h4> El monto final del pedido de Software es de $5000</h4>
+				<h4>Opciones elegidas: 
+				
+				<%
+				for(Integer i : opc){ 
+				  System.out.println(i);
+				}
+			%>
+			
+				</h4>
+			</div>
+		</div>
+	</section>
+	<% }
+	else{
+	DataCaracteristica dc = new DataCaracteristica();
+	Caracteristica c = dc.getByID(nPaso);
+	ArrayList<Opcion> opciones = dc.getOpcionesByIdCaracteristica(nPaso);
+	
+	%>
+
 				<section class="features-section spad">
 				<div class="container">
 					<div class="section-title">
 						<p style="color:black; text-align: right; font-size: 1em; margin:20px;">Total: $0</p>
-						<h2>¿Necesita sistema de Login?</h2>
+						<h2><%= c.getTitulo()%></h2>
 						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
 					</div>
+					
 					<div class="row">
-						
 						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=1">
-								<i class="fa fa-twitter"></i>
+							<a class="ft-icon" href="PedidoServlet?idOpcion=1">
+								<i class="fa <%=opciones.get(0).getTextIcono()%>"></i>
 							</a>
-							<h4>Si, con redes sociales y email</h4>
-							<p>Los usuarios podran iniciar sesión registrandose con su email o a través de sus redes sociales. Para poder efectuar el ingreso, deberá aceptar los permisos en las respectivas redes.</p>
+							<h4><%=opciones.get(0).getSubtitulo() %></h4>
+							<p><%=opciones.get(0).getDescripcion() %></p>
 						</div>
 						
 						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=2">
-								<i class="fa fa-envelope"></i>
+							<a class="ft-icon" href="PedidoServlet?idOpcion=2">
+								<i class="fa <%=opciones.get(1).getTextIcono()%>"></i>
 							</a>
-							<h4>Si, con email</h4>
-							<p>Los usuarios registrarán su email en la app e ingresarán con el mismo. Ofrecemos soportes para todo tipos de mail (Gmail, Yahoo!, etc.)</p>
+							<h4><%=opciones.get(1).getSubtitulo() %></h4>
+							<p><%=opciones.get(1).getDescripcion() %></p>
 						</div>
 						
 						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=3">
-								<i class="fa fa-times-circle"></i>
+							<a class="ft-icon" href="PedidoServlet?idOpcion=3">
+								<i class="fa <%=opciones.get(2).getTextIcono()%>"></i>
 							</a>
-							<h4>No necesita</h4>
-							<p>No habrá inicio de sesión por parte de los usuarios.</p>
+							<h4><%=opciones.get(2).getSubtitulo() %></h4>
+							<p><%=opciones.get(2).getDescripcion() %></p>
 						</div>
 						
 					</div>
 				</div>
 			</section>
-	
-	
 
-	
-	<% 
-	
-	switch (nPaso) {
-	 case 1: { %>
-		 <!-- Features section -->
-			<section class="features-section spad">
-				<div class="container">
-					<div class="section-title">
-						<p style="color:black; text-align: right; font-size: 1em; margin:20px;">Total: $0</p>
-						<h2>¿Necesita sistema de Login?</h2>
-						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
-					</div>
-					<div class="row">
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=1">
-								<i class="fa fa-twitter"></i>
-							</a>
-							<h4>Si, con redes sociales y email</h4>
-							<p>Los usuarios podran iniciar sesión registrandose con su email o a través de sus redes sociales. Para poder efectuar el ingreso, deberá aceptar los permisos en las respectivas redes.</p>
-						</div>
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=2">
-								<i class="fa fa-envelope"></i>
-							</a>
-							<h4>Si, con email</h4>
-							<p>Los usuarios registrarán su email en la app e ingresarán con el mismo. Ofrecemos soportes para todo tipos de mail (Gmail, Yahoo!, etc.)</p>
-						</div>
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=3">
-								<i class="fa fa-times-circle"></i>
-							</a>
-							<h4>No necesita</h4>
-							<p>No habrá inicio de sesión por parte de los usuarios.</p>
-						</div>
-						
-					</div>
-				</div>
-			</section>
-			<!-- Features section end -->
-	<%; break;}
-	   case 2: { %>
-	 <!-- Features section -->
-			<section class="features-section spad">
-				<div class="container">
-					<div class="section-title">
-						<p style="color:black; text-align: right; font-size: 1em; margin:20px;">Total: $0</p>
-						<h2>¿Necesita formulario de contacto?</h2>
-						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
-					</div>
-					<div class="row">
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=1">
-								<i class="fa fa-twitter"></i>
-							</a>
-							<h4>Si, con formulario de contacto</h4>
-							<p>Los usuarios podran contactar con su email o a través de sus redes sociales. Para poder efectuar el ingreso, deberá aceptar los permisos en las respectivas redes.</p>
-						</div>
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=2">
-								<i class="fa fa-envelope"></i>
-							</a>
-							<h4>No, solo email</h4>
-							<p>Los usuarios registrarán su email en la app e ingresarán con el mismo. Ofrecemos soportes para todo tipos de mail (Gmail, Yahoo!, etc.)</p>
-						</div>
-						
-						<div class="col-lg-4 col-md-6 feature-item">
-							<a class="ft-icon" href="PedidoServlet?idCaracteristica=3">
-								<i class="fa fa-times-circle"></i>
-							</a>
-							<h4>No necesita</h4>
-							<p>No habrá formulario de contacto.</p>
-						</div>
-						
-					</div>
-				</div>
-			</section>
-			<!-- Features section end -->
-		<% ; break;}
-	   
-	   case 3: {		request.getSession().setAttribute("numeroPaso", new Integer(0));%> 	  
-	    			 
-	    			   <section class="features-section spad">
-				<div class="container">
-					<div class="section-title">
-						<h2>Su pedido ha sido registrado con éxito</h2>
-						<br>
-						<p>Podra ver el detalle del pedido en la seccion Mi Perfil</p>
-						<br><br> <br>
-						<h4> El monto final del pedido de Software es de $5000</h4>
-					</div>
-					</div>
-			</section>
-	
-	<% }
-	   } %> 
-	
-	
-
-
+		<% } %>
+		
 	<!-- Footer top section -->
 	<section class="footer-top-section text-white spad">
 		<div class="container">

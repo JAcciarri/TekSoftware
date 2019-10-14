@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,11 @@ public class PedidoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("idCaracteristica");
+		int idOpcion = Integer.parseInt(request.getParameter("idOpcion"));
+		ArrayList<Integer> opciones = new ArrayList<Integer>();
+		opciones = (ArrayList<Integer>)request.getSession().getAttribute("opciones");
+		opciones.add(idOpcion);
+		request.getSession().setAttribute("opciones", opciones);
 		request.getSession().setAttribute("numeroPaso", 1+(int)request.getSession().getAttribute("numeroPaso"));
 		request.getRequestDispatcher("pedido.jsp").forward(request, response);
 	}
