@@ -66,6 +66,7 @@ public class DataUsuario {
 			
 			if(rs!=null && rs.next()) {
 				u = new Usuario();
+				u.setIdUsuario(rs.getInt("idUsuario"));
 				u.setNombre(rs.getString("nombre"));
 				u.setApellido(rs.getString("apellido"));
 				u.setEmail(rs.getString("email"));

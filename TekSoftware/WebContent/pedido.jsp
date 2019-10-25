@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "datos.DataCaracteristica"
-		 import = "entidades.Caracteristica"
- 		 import = "entidades.Opcion" 
- 		 import = "java.util.ArrayList" %>
+		 import = "entidades.*"
+ 		 import = "java.util.ArrayList" 
+ 		 import = "logica.PedidoController"
+ 		 %>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -66,8 +67,14 @@
 	
 	<%  int nPaso = (int)session.getAttribute("numeroPaso"); 
 	
+
+	
 	if (nPaso==4) {  
-		ArrayList<Integer> opc = (ArrayList<Integer>)request.getSession().getAttribute("opciones");
+		
+		PedidoController pCtrl = new PedidoController();
+		ArrayList<Seleccion> selects = (ArrayList<Seleccion>)request.getSession().getAttribute("selecciones");
+		Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
+		pCtrl.registrarPedido(selects, usu);
 	%>
 	
 		<section class="features-section spad">
@@ -75,39 +82,30 @@
 			<div class="section-title">
 				<h2>Su pedido ha sido registrado con éxito</h2>
 				<br>
-				<p>Podra ver el detalle del pedido en la seccion Mi Perfil</p>
+				<p>Podra ver el detalle del pedido en la seccion <a href="perfilUsuario.jsp">Mi Perfil</a></p>
 				<br><br> <br>
-				<h4> El monto final del pedido de Software es de $5000</h4>
-				<h4>Opciones elegidas: 
-				
-				<%
-				for(Integer i : opc){ 
-				  System.out.println(i);
-				}
-			%>
-			
-				</h4>
+				<h4> El monto final del pedido de Software es de $(Calcular monto)</h4>
+
 			</div>
 		</div>
 	</section>
 	<% }
 	else{
+		
 	DataCaracteristica dc = new DataCaracteristica();
 	Caracteristica c = dc.getByID(nPaso);
 	ArrayList<Opcion> opciones = dc.getOpcionesByIdCaracteristica(nPaso);
-	
 	%>
 
 				<section class="features-section spad">
 				<div class="container">
 					<div class="section-title">
-						<p style="color:black; text-align: right; font-size: 1em; margin:20px;">Total: $0</p>
-						<h2><%= c.getTitulo()%></h2>
+						<h2><%=c.getTitulo()%></h2>
 						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
 					</div>
 					
 					<div class="row">
-						<div class="col-lg-4 col-md-6 feature-item">
+						<div class="col-lg-4 col-md-6 feature-item" >
 							<a class="ft-icon" href="PedidoServlet?idOpcion=1">
 								<i class="fa <%=opciones.get(0).getTextIcono()%>"></i>
 							</a>

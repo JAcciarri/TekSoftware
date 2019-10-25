@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@ page import = "entidades.Usuario" %>
+    <%@ page import = "entidades.*" %>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -13,9 +13,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Admin Panel</title>
-    <!-- Custom CSS -->
-    <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
+    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,6 +34,11 @@
             <div class="lds-pos"></div>
         </div>
     </div>
+    
+     <% 
+     Usuario u = (Usuario)request.getAttribute("usuarioAEditar"); %>	
+     
+     
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
     <!-- ============================================================== -->
@@ -54,7 +57,7 @@
                     <!-- Logo -->
                     <!-- ============================================================== -->
                     <div class="navbar-brand">
-                        <a  class="logo">
+                        <a href="index.html" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -92,6 +95,25 @@
                     <!-- toggle and nav items -->
                     <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
+                        <!-- ============================================================== -->
+                        <!-- Search -->
+                        <!-- ============================================================== -->
+                        <li class="nav-item search-box">
+                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                                <div class="d-flex align-items-center">
+                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
+                                    <div class="ml-1 d-none d-sm-block">
+                                        <span>Search</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <form class="app-search position-absolute">
+                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                                <a class="srh-btn">
+                                    <i class="ti-close"></i>
+                                </a>
+                            </form>
+                        </li>
                     </ul>
                     <!-- ============================================================== -->
                     <!-- Right side toggle and nav items -->
@@ -101,10 +123,12 @@
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
                         <li class="nav-item dropdown">
-                           		<a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" 
-                           		 href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            	<img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31">
-                            	</a>
+                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
+                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+                            </div>
                         </li>
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
@@ -119,16 +143,13 @@
         <!-- ============================================================== -->
         <!-- Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
-      
-      
-      <!-- ============================================================== -->
-      <!-- PANEL BY JOSHUA AND PATRICIO -->
-      <!-- ============================================================== -->
-      
-         
-       <%@ include file = "panelAdmin.jsp"  %>
-        
-        
+        	
+        	
+        	
+        	<%@ include file = "panelAdmin.jsp" %>
+        	
+        	
+        	
         <!-- ============================================================== -->
         <!-- End Left Sidebar - style you can find in sidebar.scss  -->
         <!-- ============================================================== -->
@@ -139,15 +160,7 @@
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
-            <div class="page-breadcrumb">
-                <div class="row">
-                    <div class="col-5 align-self-center">
-                    <% Usuario u = (Usuario)session.getAttribute("usuario"); %>
-                        <h4 class="page-title">Bienvenido, <%=u.getNombre()%></h4>
-                    </div>
-                   
-                </div>
-            </div>
+           
             <!-- ============================================================== -->
             <!-- End Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
@@ -156,79 +169,96 @@
             <!-- ============================================================== -->
             <div class="container-fluid">
                 <!-- ============================================================== -->
-                <!-- Email campaign chart -->
+                <!-- Start Page Content -->
                 <!-- ============================================================== -->
-               
+                <!-- Row -->
                 <div class="row">
-                    <!-- column -->
-                    <div class="col-12">
+                    <!-- Column -->
+                    <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">Nuestros Administradores</h4>
+                                <center class="m-t-30"> <img src="assets/images/users/userdefault.png" class="rounded-circle" width="150" />
+                                    <h4 class="card-title m-t-10"><%=u.getNombre()+' '+u.getApellido()%></h4>
+                                    <h6 class="card-subtitle"><%=u.getEmail() %></h6>
+                                    <div class="row text-center justify-content-md-center">
+                                   
+                                    </div>
+                                </center>
                             </div>
-                            <div class="table-responsive">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-top-0">Admin</th>
-                                            <th class="border-top-0">ESTADO</th>
-                                            <th class="border-top-0">FECHA</th>
-                                            <th class="border-top-0">PRECIO</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td><span class="label label-success label-rounded">SALE</span> </td>
-                                            <td class="txt-oflo">April 18, 2017</td>
-                                            <td><span class="font-medium">$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td><span class="label label-info label-rounded">EXTENDED</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="font-medium">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td><span class="label label-purple label-rounded">Tax</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="font-medium">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td><span class="label label-success label-rounded">Sale</span></td>
-                                            <td class="txt-oflo">April 20, 2017</td>
-                                            <td><span class="font-medium">-$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td><span class="label label-success label-rounded">SALE</span></td>
-                                            <td class="txt-oflo">April 21, 2017</td>
-                                            <td><span class="font-medium">$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td><span class="label label-danger label-rounded">Tax</span> </td>
-                                            <td class="txt-oflo">April 23, 2017</td>
-                                            <td><span class="font-medium">-$14</span></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div>
+                          </div>
+                            
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                   
+                    
+                    <div class="col-lg-8 col-xlg-9 col-md-7">
+                        <div class="card">
+                            <div class="card-body">
+                                <form action="EditUserServlet" METHOD="POST" class="form-horizontal form-material">
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <input type="text" hidden="true" name="id" value="<%=u.getIdUsuario()%>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Nombre</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="nombre" value="<%=u.getNombre() %>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Apellido</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="apellido" value="<%=u.getApellido() %>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12">Email</label>
+                                        <div class="col-md-12">
+                                            <input type="email" name="email" value="<%=u.getEmail() %>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Telefono</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="telefono" value="<%=u.getTelefono() %>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-12">Usuario</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="username" value="<%=u.getUsername() %>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    
+                                 
+                                   
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <button class="btn btn-success">Actualizar Usuario</button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                    <!-- Column -->
                 </div>
+                <!-- Row -->
                 <!-- ============================================================== -->
-                <!-- Ravenue - page-view-bounce rate -->
+                <!-- End PAge Content -->
                 <!-- ============================================================== -->
-              
+                <!-- ============================================================== -->
+                <!-- Right sidebar -->
+                <!-- ============================================================== -->
+                <!-- .right-sidebar -->
+                <!-- ============================================================== -->
+                <!-- End Right sidebar -->
+                <!-- ============================================================== -->
+            </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -236,9 +266,8 @@
             <!-- footer -->
             <!-- ============================================================== -->
             <footer class="footer text-center">
-              <p>
-              TekSoftware - <script>document.write(new Date().getFullYear());</script>
-              </p>
+                All Rights Reserved by Nice admin. Designed and Developed by
+                <a href="https://wrappixel.com">WrapPixel</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
@@ -266,11 +295,6 @@
     <script src="dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!--chartis chart-->
-    <script src="assets/libs/chartist/dist/chartist.min.js"></script>
-    <script src="assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js"></script>
-    <script src="dist/js/pages/dashboards/dashboard1.js"></script>
 </body>
 
 </html>

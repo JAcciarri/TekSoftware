@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Seleccion;
+
 /**
  * Servlet implementation class PedidoServlet
  */
@@ -30,11 +32,17 @@ public class PedidoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		int idOpcion = Integer.parseInt(request.getParameter("idOpcion"));
-		ArrayList<Integer> opciones = new ArrayList<Integer>();
-		opciones = (ArrayList<Integer>)request.getSession().getAttribute("opciones");
-		opciones.add(idOpcion);
-		request.getSession().setAttribute("opciones", opciones);
-		request.getSession().setAttribute("numeroPaso", 1+(int)request.getSession().getAttribute("numeroPaso"));
+		int nPaso = (int)request.getSession().getAttribute("numeroPaso");
+		@SuppressWarnings("unchecked")
+		
+		//agregamos la opcion que eligio, el numero de paso se corresponde con el numero de caracteristica
+		// y el id opcion es la opcion elegida por el usuario entre las 3 posibles
+		ArrayList<Seleccion> selecciones = (ArrayList<Seleccion>)request.getSession().getAttribute("selecciones");
+		selecciones.add(new Seleccion(nPaso, idOpcion));
+		request.getSession().setAttribute("selecciones", selecciones);
+		
+		//aumentamos el paso en 1
+		request.getSession().setAttribute("numeroPaso", 1+ (int)request.getSession().getAttribute("numeroPaso"));
 		request.getRequestDispatcher("pedido.jsp").forward(request, response);
 	}
 

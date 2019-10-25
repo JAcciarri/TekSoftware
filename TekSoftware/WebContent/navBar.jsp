@@ -32,7 +32,7 @@
 						<li class="nav-item"><a class="nav-link" href="index.jsp">Inicio</a>
 						</li>
 						<li class="nav-item"><a class="nav-link"
-							href="perfilSimple.jsp">Mi Perfil</a></li>
+							href="perfilUsuario.jsp">Mi Perfil</a></li>
 						<li class="nav-item"><a class="nav-link" href="LoginServlet">Cerrar
 								Sesión</a></li>
 					</ul>

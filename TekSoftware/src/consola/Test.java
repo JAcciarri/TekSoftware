@@ -1,5 +1,6 @@
 package consola;
 
+import java.util.Date;
 import java.util.ArrayList;
 
 import datos.DataCaracteristica;
@@ -16,6 +17,9 @@ public class Test {
 		for (Opcion opc: opciones) {
 			System.out.println(opc.getIdOpcion() + " " + opc.getDescripcion() );
 		}
+		
+		Date fecha = new Date();
+		System.out.println(fecha.toString());
 	}
 
 }

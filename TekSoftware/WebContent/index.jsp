@@ -40,13 +40,14 @@
       <div class="row slider-text align-items-center justify-content-center">
         <div class="col-lg-9 text-center col-sm-12 element-animate">
           <h1 class="mb-4">Tu software a medida</h1>
+         
           <div class="btn-play-wrap mx-auto">
             <% if (u != null) {%>
             	
             	<!-- SI EL USUARIO ESTA LOGGEADO REDIRIGIR AL PEDIDO -->
                 <a href="pedido.jsp" 
                 <% session.setAttribute("numeroPaso", 1);%>
-                <% session.setAttribute("opciones", new ArrayList<Integer>()); %>
+                <% session.setAttribute("selecciones", new ArrayList<Seleccion>()); %>
                 class="btn-play"><span class="ion ion-ios-play"></span></a>
             
              <%} else{%>
