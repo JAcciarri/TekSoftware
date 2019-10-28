@@ -15,20 +15,9 @@ public class PedidoController {
 		
 		p.setCliente(cliente);
 		p.setEstado("Pendiente");
+		p.setFechaPedido(new Date());
 		dp.add(p);
-	    // p.setFechaPedido(new Date());
+		dp.addOpciones(selecciones, p);
 		
-		for (Seleccion sel : selecciones) {
-			dp.agregarPedidoOpcion(sel.getNroCaracteristica(), sel.getNroOpcion());
-		}
-		
-		System.out.println("Pedido registrado");
-		System.out.println("En el dia: " + p.getFechaPedido());
-		System.out.println("Cliente del pedido: " + cliente.getNombre() + cliente.getApellido());
-		System.out.println("Las opciones elegidas fueron:");
-		for (Seleccion s : selecciones) {
-			System.out.println(
-			   "Caract: " + s.getNroCaracteristica() + " Opc: " + s.getNroOpcion());
-		}
 	}
 }

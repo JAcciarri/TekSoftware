@@ -3,8 +3,10 @@ package datos;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import entidades.Pedido;
+import entidades.Seleccion;
 
 public class DataPedido {
 
@@ -16,11 +18,12 @@ public class DataPedido {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-							"INSERT INTO pedidos (idCliente, estado) values(?,?)",
+							"INSERT INTO pedidos (idCliente, fechaPedido, estado) values(?,?,?)",
 							PreparedStatement.RETURN_GENERATED_KEYS
 							);
 			stmt.setInt(1, p.getCliente().getIdUsuario());
-			stmt.setString(2, p.getEstado());
+			stmt.setTimestamp(2, new java.sql.Timestamp(p.getFechaPedido().getTime()));
+			stmt.setString(3, p.getEstado());
 			stmt.executeUpdate();
 			
 			keyResultSet = stmt.getGeneratedKeys();
@@ -43,8 +46,33 @@ public class DataPedido {
 		}
 	}
 	
-	public void agregarPedidoOpcion(int nroCaract, int nroOpc) {
+	public void addOpciones(ArrayList<Seleccion> selecciones, Pedido p) {
+		PreparedStatement stmt = null;
+		// ResultSet rs = null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+					"INSERT INTO pedido_caracteristicas (idPedido, idCaracteristica, idOpcion) values(?,?,?)");
+			
+			for(Seleccion sel : selecciones) 
+			{
+				stmt.setInt(1, p.getIdPedido());
+				stmt.setInt(2, sel.getNroCaracteristica());
+				stmt.setInt(3, sel.getNroOpcion());
+				stmt.executeUpdate();
+			}
+			
 		
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
 	}
 	
 }
