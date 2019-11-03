@@ -52,6 +52,10 @@ public class Usuario {
 	public Boolean isAdmin() {
 		return this.privilegio;
 	}
+	
+	public String getFullName() {
+		return nombre + " " + apellido;
+	}
 	public int getIdUsuario() {
 		return idUsuario;
 	}

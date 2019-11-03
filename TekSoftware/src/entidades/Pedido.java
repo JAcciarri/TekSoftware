@@ -11,7 +11,7 @@ public class Pedido {
 	private Usuario cliente;
 	private Usuario admin;
 	private String estado;
-	private float montoTotal;
+	private double montoTotal;
 	
 	public int getIdPedido() {
 		return idPedido;
@@ -55,10 +55,10 @@ public class Pedido {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
-	public float getMontoTotal() {
+	public double getMontoTotal() {
 		return montoTotal;
 	}
-	public void setMontoTotal(float montoTotal) {
+	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
 	}
 	

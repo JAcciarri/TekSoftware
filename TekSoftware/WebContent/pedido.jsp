@@ -66,15 +66,9 @@
 	
 	
 	<%  int nPaso = (int)session.getAttribute("numeroPaso"); 
-	
 
-	
 	if (nPaso==4) {  
-		
-		PedidoController pCtrl = new PedidoController();
-		ArrayList<Seleccion> selects = (ArrayList<Seleccion>)request.getSession().getAttribute("selecciones");
-		Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
-		pCtrl.registrarPedido(selects, usu);
+		Pedido p = (Pedido)request.getAttribute("pedido");
 	%>
 	
 		<section class="features-section spad">
@@ -84,7 +78,7 @@
 				<br>
 				<p>Podra ver el detalle del pedido en la seccion <a href="perfilUsuario.jsp">Mi Perfil</a></p>
 				<br><br> <br>
-				<h4> El monto final del pedido de Software es de $(Calcular monto)</h4>
+				<h4> El monto final del pedido de Software es de $<%=p.getMontoTotal()%></h4>
 
 			</div>
 		</div>

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.Usuario" %>
+    <%@ page import = "datos.DataUsuario" %>
+     <%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
 
@@ -170,56 +172,39 @@
                                 <table class="table table-hover">
                                     <thead>
                                         <tr>
-                                            <th class="border-top-0">Admin</th>
-                                            <th class="border-top-0">ESTADO</th>
-                                            <th class="border-top-0">FECHA</th>
-                                            <th class="border-top-0">PRECIO</th>
+                                            <th class="border-top-0">ADMIN</th>
+                                            <th class="border-top-0">EMAIL</th>
+                                            <th class="border-top-0">TELEFONO</th>
+                                            <th class="border-top-0">Fecha de inicio (Prox.)</th>
                                         </tr>
                                     </thead>
+                                    
                                     <tbody>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Elite admin</td>
-                                            <td><span class="label label-success label-rounded">SALE</span> </td>
-                                            <td class="txt-oflo">April 18, 2017</td>
-                                            <td><span class="font-medium">$24</span></td>
+                                     <% DataUsuario du = new DataUsuario(); 
+                                     	ArrayList<Usuario> admins = du.getAllAdmins(); 
+                                     	for(Usuario adm : admins) {
+                                     		String telefono;
+                                     		if(adm.getTelefono() == null)
+                                     		 {telefono = ("No especificado");}
+                                     		else {telefono = adm.getTelefono();}
+                                     %>
+                                    	 <tr>
+                                            <td class="txt-oflo"><%=adm.getApellido()+" "+adm.getNombre()%></td>
+                                            <td><%=adm.getEmail()%></td>
+                                            <td class="txt-oflo"><%=telefono%></td>
+                                            <td><span class="font-medium"></span></td>
                                         </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Real Homes WP Theme</td>
-                                            <td><span class="label label-info label-rounded">EXTENDED</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="font-medium">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Ample Admin</td>
-                                            <td><span class="label label-purple label-rounded">Tax</span></td>
-                                            <td class="txt-oflo">April 19, 2017</td>
-                                            <td><span class="font-medium">$1250</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Medical Pro WP Theme</td>
-                                            <td><span class="label label-success label-rounded">Sale</span></td>
-                                            <td class="txt-oflo">April 20, 2017</td>
-                                            <td><span class="font-medium">-$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Hosting press html</td>
-                                            <td><span class="label label-success label-rounded">SALE</span></td>
-                                            <td class="txt-oflo">April 21, 2017</td>
-                                            <td><span class="font-medium">$24</span></td>
-                                        </tr>
-                                        <tr>
-                                            
-                                            <td class="txt-oflo">Digital Agency PSD</td>
-                                            <td><span class="label label-danger label-rounded">Tax</span> </td>
-                                            <td class="txt-oflo">April 23, 2017</td>
-                                            <td><span class="font-medium">-$14</span></td>
-                                        </tr>
+                                        
+                                     <% } %>
                                     </tbody>
+                                        <!--     ESTO LO PODEMOS USAR PARA LOS ESTADOS
+                                        	<td><span class="label label-success label-rounded">SALE</span> </td>
+                                          
+                                            <td><span class="label label-info label-rounded">EXTENDED</span></td>
+                                      
+                                            <td><span class="label label-danger label-rounded">Tax</span> </td>
+                                           -->
+                                 
                                 </table>
                             </div>
                         </div>

@@ -31,7 +31,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pedidosAdmin.jsp" aria-expanded="false">
                                <i class="mdi mdi-cart"></i>
                                 <span class="hide-menu">Pedidos</span>
                             </a>
