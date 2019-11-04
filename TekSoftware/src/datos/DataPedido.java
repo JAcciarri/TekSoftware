@@ -1,6 +1,6 @@
 package datos;
 
-import java.sql.CallableStatement;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,12 +83,9 @@ public class DataPedido {
 	public double getValoresActuales(ArrayList<Seleccion> selects) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		CallableStatement call = null;
 		double total = 0;
 		try {
-			call = FactoryConnection.getInstancia().getConn().prepareCall("{call definir_valores_actuales()}");
-			call.execute();
-			
+		
 			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(		
 					"SELECT v.valor " +
 					"FROM valores v " +
@@ -111,7 +108,6 @@ public class DataPedido {
 	        e.printStackTrace();
 		} finally {
 	        try {
-	        	if(call!=null) call.close();
 	            if(rs!=null) rs.close();
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();

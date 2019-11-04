@@ -41,6 +41,11 @@ public class AbmUsuariosServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		UsuarioController uCtrl = new UsuarioController();
+		String datosParciales = request.getParameter("datosParciales");
+		ArrayList<Usuario> users = uCtrl.getUsersByPartialDesc(datosParciales);
+		request.setAttribute("listaParcial", users);
+		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);
 		
 	}
 

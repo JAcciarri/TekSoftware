@@ -101,37 +101,19 @@
                                 <div class="d-flex align-items-center">
                                     <i class="mdi mdi-magnify font-20 mr-1"></i>
                                     <div class="ml-1 d-none d-sm-block">
-                                        <span>Search</span>
+                                        <span>Search by username or email</span>
                                     </div>
                                 </div>
                             </a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter">
+                            <form class="app-search position-absolute" action="AbmUsuariosServlet" method="POST">
+                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese usuario o email">
                                 <a class="srh-btn">
                                     <i class="ti-close"></i>
                                 </a>
                             </form>
                         </li>
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
-                    <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                            </div>
-                        </li>
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                    </ul>
+                  
                 </div>
             </nav>
         </header>
@@ -186,6 +168,7 @@
                                             <th scope="col">Nombre</th>
                                             <th scope="col">Apellido</th>
                                             <th scope="col">Email</th>
+                                            <th scope="col">Username</th>
                                             <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
@@ -193,12 +176,18 @@
                     <% 
                     ArrayList<Usuario> list = (ArrayList<Usuario>)request.getAttribute("listaUsuarios");
                    
+                    if(list == null){
+                    	  list = new ArrayList<Usuario>();
+                    	  list = (ArrayList<Usuario>)request.getAttribute("listaParcial");
+                   }
+                	   
                     for (Usuario u : list) {%> 
                                         <tr>
                                             <td scope="row"><%=u.getIdUsuario() %></td>
                                             <td><%=u.getNombre() %></td>
                                             <td><%=u.getApellido() %></td>
                                             <td><%=u.getEmail() %></td>
+                                            <td><%=u.getUsername()%>
                                             <td>
 	                                           	 <a class="editbutton" href="EditUserServlet?id=<%=u.getIdUsuario()%> "> Editar </a>
 	                                           	 <a class="deletebutton" href="DeleteUserServlet?id=<%=u.getIdUsuario()%>"> Eliminar </a>
@@ -207,6 +196,9 @@
                     <%} %>
                                     </tbody>
                                 </table>
+                             <% if (list.isEmpty()) {
+                             	 %><p style="font-size:16px;"> No hay resultados </p>
+                             <%} %>
                             </div>
                         </div>
                     </div>

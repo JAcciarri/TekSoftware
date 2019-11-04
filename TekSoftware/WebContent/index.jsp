@@ -70,16 +70,16 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-5 mr-auto mb-5">
-          <span class="d-block text-uppercase text-secondary">Who We Are</span>
+          <span class="d-block text-uppercase text-secondary">Quiénes Somos</span>
           <span class="divider my-4"></span>
-          <h2 class="mb-4 section-title">SOMOS <strong>SONRISA PUNTO INFLEXION</strong> That Bring Your Ideas Alive</h2>
+          <h2 class="mb-4 section-title">SOMOS <strong>Tek Software</strong> That Bring Your Ideas Alive</h2>
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id autem temporibus blanditiis accusamus perferendis libero accusantium nisi itaque tempore, harum aliquid aut, sapiente dolor tenetur. Tempora corrupti suscipit delectus perspiciatis!</p>
           <p class="mb-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum, voluptatibus.</p>
           <p><a href="#" class="btn btn-outline-black">Learn More</a></p>
         </div>
         <div class="col-lg-6">
           <figure class="img-dotted-bg">
-            <img src="images/face.png" alt="Image" class="img-fluid">
+            <img src="images/index_2.jpg" alt="Image" class="img-fluid">
           </figure>
         </div>
       </div>

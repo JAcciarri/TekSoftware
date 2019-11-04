@@ -34,7 +34,7 @@ public class EditUserServlet extends HttpServlet {
 		int ID = Integer.parseInt(request.getParameter("id"));
 		Usuario u = usControl.getByID(ID);
 		request.setAttribute("usuarioAEditar", u);
-		request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
+		request.getRequestDispatcher("editarUsuario.jsp").forward(request, response);
 	}
 
 	/**

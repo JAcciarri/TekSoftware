@@ -167,6 +167,49 @@ public class DataUsuario {
 		return u;
 	}
 
+	public ArrayList<Usuario> getUsersByPartialDesc(String desc){
+		ArrayList<Usuario> users = new ArrayList<Usuario>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null; 
+		try {
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM usuarios "
+					+ "WHERE usuario LIKE ('"+desc+"%') OR email LIKE ('"+desc+"%')");
+	//		stmt.setString(1, desc);
+	//		stmt.setString(2, desc);
+			rs = stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Usuario u = new Usuario();
+					u.setIdUsuario(rs.getInt("idUsuario"));
+					u.setNombre(rs.getString("nombre"));
+					u.setApellido(rs.getString("apellido"));
+					u.setEmail(rs.getString("email"));
+					u.setTelefono(rs.getString("telefono"));
+					u.setUsername(rs.getString("usuario"));
+					u.setPassword(rs.getString("password"));
+					u.setPrivilegio(rs.getBoolean("isAdmin"));
+					users.add(u);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return users;
+	}
+	
+	
 		public void add(Usuario u) {
 			int admin;
 			PreparedStatement stmt = null;
