@@ -22,4 +22,12 @@ public class CaracteristicaController {
 		dc.add(c);
 		dc.addOpciones(opciones, c);
 	}
+	
+	public Caracteristica getByID(int ID) {
+		return dc.getByID(ID);
+	}
+	
+	public ArrayList<Opcion> getOpcionesByIdCaracteristica(int ID){
+		return dc.getOpcionesByIdCaracteristica(ID);
+	}
 }

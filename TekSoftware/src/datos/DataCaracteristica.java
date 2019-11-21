@@ -47,46 +47,6 @@ public class DataCaracteristica {
 		}
 	
 	
-	
-	public Usuario getByUsername(Usuario usuario) {
-		
-		Usuario u = null;
-		PreparedStatement stmt = null;
-		ResultSet rs = null; 
-		try {
-			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
-					"SELECT * FROM usuarios WHERE usuario=? AND password=?"
-					);
-			stmt.setString(1, usuario.getUsername());
-			stmt.setString(2, usuario.getPassword());
-			rs = stmt.executeQuery();
-			
-			if(rs!=null && rs.next()) {
-				u = new Usuario();
-				u.setNombre(rs.getString("nombre"));
-				u.setApellido(rs.getString("apellido"));
-				u.setEmail(rs.getString("email"));
-				u.setTelefono(rs.getString("telefono"));
-				u.setUsername(rs.getString("usuario"));
-				u.setPassword(rs.getString("password"));
-				u.setPrivilegio(rs.getBoolean("isAdmin"));
-			}
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				if(rs!=null) {rs.close();}
-				if(stmt!=null) {stmt.close();}
-				FactoryConnection.getInstancia().releaseConn();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		}
-		
-		return u;
-	}
-	
 	public Caracteristica getByID(int ID) {
 		Caracteristica c = null;
 		PreparedStatement stmt = null;

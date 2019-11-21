@@ -101,7 +101,7 @@
                                 </div>
                             </a>
                             <form class="app-search position-absolute" action="AbmUsuariosServlet" method="POST">
-                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese usuario o email">
+                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese caracteristica o email">
                                 <a class="srh-btn">
                                     <i class="ti-close"></i>
                                 </a>
@@ -158,7 +158,7 @@
                                             <td scope="row"><%=c.getIdCaracteristica() %></td>
                                             <td><%=c.getTitulo() %></td>
                                             <td>
-	                                           	 <a class="editbutton" href="EditUserServlet?id=<%=c.getIdCaracteristica()%> "> Editar </a>
+	                                           	 <a class="editbutton" href="EditCaracteristicaServlet?id=<%=c.getIdCaracteristica()%> "> Editar </a>
 	                                           	 <a class="deletebutton" href="DeleteUserServlet?id=<%=c.getIdCaracteristica()%>"> Eliminar </a>
                                             </td>
                                         </tr>
