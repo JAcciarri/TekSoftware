@@ -1,5 +1,5 @@
 .editbutton{
-  background-color: #d1bb15; 
+  background-color: #8c8c8c;
   border: none;
   border-radius:10px;
   color: white;
@@ -9,9 +9,9 @@
   display: inline-block;
    cursor:pointer;
  }
- 
+
  .deletebutton{
-  background-color: #b5271d; 
+  background-color: #fa5838;
   border: none;
   border-radius:10px;
   color: white;
@@ -21,9 +21,9 @@
   display: inline-block;
    cursor:pointer;
  }
- 
+
   .addbutton{
-  background-color: #388a21; 
+  background-color: #5ac146; 
   border: none;
   border-radius:10px;
   color: white;
@@ -37,4 +37,3 @@
  	 color:white;
  	 box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
  }
- 
