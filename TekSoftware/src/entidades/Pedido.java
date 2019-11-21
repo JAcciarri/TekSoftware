@@ -25,6 +25,7 @@ public class Pedido {
 	public void setFechaPedido(Date fechaPedido) {
 		this.fechaPedido = fechaPedido;
 	}
+
 	public Date getFechaAprobacion() {
 		return fechaAprobacion;
 	}

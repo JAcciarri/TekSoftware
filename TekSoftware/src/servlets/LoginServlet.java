@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//CIERRE DE SESION
 		request.getSession().invalidate();
 		request.getRequestDispatcher("index.jsp").forward(request, response);
 	}
@@ -39,8 +40,6 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Login controlador = new Login();
-		DataUsuario du = new DataUsuario();
-		
 		Usuario u = new Usuario();
 		u.setUsername(request.getParameter("usuario"));
 		u.setPassword(request.getParameter("password"));

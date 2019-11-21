@@ -1,6 +1,7 @@
 package consola;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import datos.DataPedido;
 import entidades.Seleccion;
@@ -25,6 +26,9 @@ public class Test {
 		for (Usuario u : users) {
 			System.out.println(u.getFullName());
 		}
+		
+		Date date = new Date();
+		System.out.println(date);
 		
 	} 
 
