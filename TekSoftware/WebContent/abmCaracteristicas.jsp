@@ -188,9 +188,8 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a href="https://wrappixel.com">WrapPixel</a>.
+            <footer style="background: #f2f4f5;" class="footer text-center">
+                Todos los derechos reservados por <a href="index.jsp"> TekSoftware</a>.
             </footer>
             <!-- ============================================================== -->
             <!-- End footer -->
