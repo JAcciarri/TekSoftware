@@ -50,6 +50,8 @@
         <div class="col-md-3 mb-5 order-2">
         </div>
         <div class="col-md-6 mb-5 order-2">
+          
+          
           <form action="LoginServlet" method="POST">
 	           <% if (error!=null){ %>
 	            <div class="row">

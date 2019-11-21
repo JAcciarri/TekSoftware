@@ -11,27 +11,22 @@ import entidades.Usuario;
 public class DataCaracteristica {
 
 	
-	public ArrayList<Usuario> getAllUsers(){
+	public ArrayList<Caracteristica> getAllCaracteristicas(){
 		
 			Statement stmt=null;
 			ResultSet rs=null;
-			ArrayList<Usuario> listaUsuarios= new ArrayList<>();
+			ArrayList<Caracteristica> listaCaracteristicas= new ArrayList<>();
 			
 			try {
 				stmt= FactoryConnection.getInstancia().getConn().createStatement();
-				rs= stmt.executeQuery("SELECT * FROM usuarios");
+				rs = stmt.executeQuery("SELECT * FROM caracteristicas");
+				
 				if(rs!=null) {
 					while(rs.next()) {
-						Usuario u = new Usuario();
-						u.setIdUsuario(rs.getInt("idUsuario"));
-						u.setNombre(rs.getString("nombre"));
-						u.setApellido(rs.getString("apellido"));
-						u.setEmail(rs.getString("email"));
-						u.setTelefono(rs.getString("telefono"));
-						u.setUsername(rs.getString("usuario"));
-						u.setPassword(rs.getString("password"));
-						u.setPrivilegio(rs.getBoolean("isAdmin"));
-						listaUsuarios.add(u);
+						Caracteristica c = new Caracteristica();
+						c.setIdCaracteristica(rs.getInt("idCaracteristica"));
+						c.setTitulo(rs.getString("titulo"));
+						listaCaracteristicas.add(c);
 					}
 				}
 				
@@ -48,7 +43,7 @@ public class DataCaracteristica {
 				}
 			}
 			
-			return listaUsuarios;
+			return listaCaracteristicas;
 		}
 	
 	
@@ -173,32 +168,19 @@ public class DataCaracteristica {
 
 	
 	
-		public void add(Usuario u) {
-			int admin;
+		public void add(Caracteristica c) {
+			
 			PreparedStatement stmt = null;
 			ResultSet keyResultSet = null;
 			try {
 				stmt = FactoryConnection.getInstancia().getConn().
 						prepareStatement(
-								"INSERT INTO usuarios (nombre, apellido, email, telefono, usuario, password, isAdmin) values(?,?,?,?,?,?,?)",
+								"INSERT INTO caracteristicas (idCaracteristica, titulo) values(?,?)",
 								PreparedStatement.RETURN_GENERATED_KEYS
 								);
-				stmt.setString(1, u.getNombre());
-				stmt.setString(2, u.getApellido());
-				stmt.setString(3, u.getEmail());
-				stmt.setString(4, u.getTelefono());
-				stmt.setString(5, u.getUsername());
-				stmt.setString(6, u.getPassword());
-				if (u.isAdmin()) admin=1; else admin=0;
-				stmt.setInt(7, admin);
+				stmt.setInt(1, c.getIdCaracteristica());
+				stmt.setString(2,c.getTitulo());
 				stmt.executeUpdate();
-				
-				keyResultSet = stmt.getGeneratedKeys();
-		       
-				if(keyResultSet!=null && keyResultSet.next()){
-		            u.setIdUsuario(keyResultSet.getInt(1));
-		        }
-		
 				
 			}  catch (SQLException e) {
 		        e.printStackTrace();
@@ -212,6 +194,41 @@ public class DataCaracteristica {
 		        }
 			}
 		}
+		
+		public void addOpciones(ArrayList<Opcion> opciones, Caracteristica c) {
+			
+			PreparedStatement stmt = null;
+			ResultSet keyResultSet = null;
+			try {
+				stmt = FactoryConnection.getInstancia().getConn().
+						prepareStatement(
+								"INSERT INTO opciones ("
+								+ "idCaracteristica, idOpcion, subtitulo, descripcion, textIcono) values(?,?,?,?,?)",
+								PreparedStatement.RETURN_GENERATED_KEYS
+								);
+				
+				for(int i = 1; i <= opciones.size(); i++) {
+					stmt.setInt(1, c.getIdCaracteristica());
+					stmt.setInt(2, opciones.get(i-1).getIdOpcion());
+					stmt.setString(3, opciones.get(i-1).getSubtitulo());
+					stmt.setString(4, opciones.get(i-1).getDescripcion());
+					stmt.setString(5, opciones.get(i-1).getTextIcono());
+					stmt.executeUpdate();
+				}
+				
+			}  catch (SQLException e) {
+		        e.printStackTrace();
+			} finally {
+		        try {
+		            if(keyResultSet!=null) keyResultSet.close();
+		            if(stmt!=null) stmt.close();
+		            FactoryConnection.getInstancia().releaseConn();
+		        } catch (SQLException e) {
+		        	e.printStackTrace();
+		        }
+			}
+		}
+		
 		
 	public void update(Usuario u) {
 		PreparedStatement stmt = null;

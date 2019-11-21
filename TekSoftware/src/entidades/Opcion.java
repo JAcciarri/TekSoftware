@@ -6,6 +6,14 @@ public class Opcion {
 	private String textIcono;
 	private String descripcion;
 	
+	public Opcion() {}
+	public Opcion(int id, String subtitulo, String text, String desc) {
+		this.idOpcion = id;
+		this.descripcion = desc;
+		this.textIcono = text;
+		this.subtitulo = subtitulo;
+	}
+	
 	public int getIdOpcion() {
 		return idOpcion;
 	}

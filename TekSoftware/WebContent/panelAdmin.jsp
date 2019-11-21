@@ -25,7 +25,7 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="AbmCaracteristicasServlet" aria-expanded="false">
                           	<i class="mdi mdi-cards"></i>
                                 <span class="hide-menu">ABM Caracteristicas</span>
                             </a>

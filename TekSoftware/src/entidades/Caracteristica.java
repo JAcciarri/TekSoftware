@@ -4,6 +4,12 @@ public class Caracteristica {
 	private int idCaracteristica;
 	private String titulo;
 	
+	public Caracteristica() {}
+	
+	public Caracteristica(int id, String titulo) {
+		this.idCaracteristica = id; 
+		this.titulo = titulo;
+	}
 	public int getIdCaracteristica() {
 		return idCaracteristica;
 	}
