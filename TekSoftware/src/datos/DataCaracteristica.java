@@ -135,11 +135,11 @@ public class DataCaracteristica {
 			try {
 				stmt = FactoryConnection.getInstancia().getConn().
 						prepareStatement(
-								"INSERT INTO caracteristicas (idCaracteristica, titulo) values(?,?)",
+								"INSERT INTO caracteristicas (titulo) values(?)",
 								PreparedStatement.RETURN_GENERATED_KEYS
 								);
-				stmt.setInt(1, c.getIdCaracteristica());
-				stmt.setString(2,c.getTitulo());
+				
+				stmt.setString(2, c.getTitulo());
 				stmt.executeUpdate();
 				
 			}  catch (SQLException e) {
@@ -162,10 +162,8 @@ public class DataCaracteristica {
 			try {
 				stmt = FactoryConnection.getInstancia().getConn().
 						prepareStatement(
-								"INSERT INTO opciones ("
-								+ "idCaracteristica, idOpcion, subtitulo, descripcion, textIcono) values(?,?,?,?,?)",
-								PreparedStatement.RETURN_GENERATED_KEYS
-								);
+								"INSERT INTO opciones (idCaracteristica, idOpcion, subtitulo, descripcion, textIcono) "
+								+ "values (?, ?, ?, ?, ?)");
 				
 				for(int i = 1; i <= opciones.size(); i++) {
 					stmt.setInt(1, c.getIdCaracteristica());
@@ -187,6 +185,35 @@ public class DataCaracteristica {
 		        	e.printStackTrace();
 		        }
 			}
+		}
+		
+		
+		public int getMaxID() {
+			
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			int maxID = -1;
+			
+			try {
+				stmt = FactoryConnection.getInstancia().getConn().
+						prepareStatement( "SELECT MAX(idCaracteristica) FROM caracteristicas");
+				rs = stmt.executeQuery();
+				if (rs != null) {
+					maxID = rs.getInt("idCaracteristica");
+				}
+				
+			}  catch (SQLException e) {
+		        e.printStackTrace();
+			} finally {
+		        try {
+		            if(stmt!=null) stmt.close();
+		            if (rs!=null) rs.close();
+		            FactoryConnection.getInstancia().releaseConn();
+		        } catch (SQLException e) {
+		        	e.printStackTrace();
+		        }
+			}
+			return maxID;
 		}
 		
 		

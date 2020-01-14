@@ -52,6 +52,7 @@
             
              <%} else{%>
              <!-- --SINO REDIRIGIRLO AL LOGIN -->
+                
                 <a href="login.jsp"
                 class="btn-play"><span class="ion ion-ios-play"></span></a>
              <%} %>   

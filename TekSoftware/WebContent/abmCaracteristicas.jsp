@@ -92,20 +92,7 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                                <div class="d-flex align-items-center">
-                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
-                                    <div class="ml-1 d-none d-sm-block">
-                                        <span>Search by username or email</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <form class="app-search position-absolute" action="AbmUsuariosServlet" method="POST">
-                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese caracteristica o email">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
-                            </form>
+                         
                         </li>
                     </ul>
                   

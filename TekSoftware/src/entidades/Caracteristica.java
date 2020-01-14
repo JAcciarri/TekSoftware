@@ -5,7 +5,9 @@ public class Caracteristica {
 	private String titulo;
 	
 	public Caracteristica() {}
-	
+	public Caracteristica(String titulo) {
+		this.titulo = titulo;
+	}
 	public Caracteristica(int id, String titulo) {
 		this.idCaracteristica = id; 
 		this.titulo = titulo;

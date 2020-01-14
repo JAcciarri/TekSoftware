@@ -41,29 +41,31 @@ public class AddCaracteristicaServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		CaracteristicaController cc = new CaracteristicaController();
-		int idCaracteristica = Integer.parseInt(request.getParameter("idcaracteristica"));
-		String titulo = request.getParameter("titulo");
 		
-		String subtitulo1 = request.getParameter("subtitulo-1");
-		String texticono1 = request.getParameter("icono-1");
-		String descripcion1 = request.getParameter("descripcion-1");	
-		String subtitulo2 = request.getParameter("subtitulo-2");
-		String texticono2 = request.getParameter("icono-2");
-		String descripcion2 = request.getParameter("descripcion-2");	
-		String subtitulo3 = request.getParameter("subtitulo-3");
-		String texticono3 = request.getParameter("icono-3");
-		String descripcion3 = request.getParameter("descripcion-3");	
-		ArrayList<Opcion> opciones = new ArrayList<Opcion>();
-		opciones.add(new Opcion(1, subtitulo1, texticono1, descripcion1));
-		opciones.add(new Opcion(2, subtitulo2, texticono2, descripcion2));
-		opciones.add(new Opcion(3, subtitulo3, texticono3, descripcion3));
-		
-		cc.addCaracteristica(new Caracteristica(idCaracteristica, titulo) , opciones);
-		
-		request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
-		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
-		
-	}
+				CaracteristicaController cc = new CaracteristicaController();
+			
+				String titulo = request.getParameter("titulo");
+				String subtitulo1 = request.getParameter("subtitulo-1");
+				String texticono1 = request.getParameter("icono-1");
+				String descripcion1 = request.getParameter("descripcion-1");	
+				String subtitulo2 = request.getParameter("subtitulo-2");
+				String texticono2 = request.getParameter("icono-2");
+				String descripcion2 = request.getParameter("descripcion-2");	
+				String subtitulo3 = request.getParameter("subtitulo-3");
+				String texticono3 = request.getParameter("icono-3");
+				String descripcion3 = request.getParameter("descripcion-3");	
+				ArrayList<Opcion> opciones = new ArrayList<Opcion>();
+				opciones.add(new Opcion(1, subtitulo1, texticono1, descripcion1));
+				opciones.add(new Opcion(2, subtitulo2, texticono2, descripcion2));
+				opciones.add(new Opcion(3, subtitulo3, texticono3, descripcion3));
+				
+				int maxID = cc.getMaxIDfromDB();
+				cc.addCaracteristica(new Caracteristica(maxID + 1, titulo) , opciones);
+				
+				
+			//	request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
+			//	request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
+				
+			}
 
 }

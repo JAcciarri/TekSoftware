@@ -30,4 +30,8 @@ public class CaracteristicaController {
 	public ArrayList<Opcion> getOpcionesByIdCaracteristica(int ID){
 		return dc.getOpcionesByIdCaracteristica(ID);
 	}
+	
+	public int getMaxIDfromDB() {
+		return dc.getMaxID();
+	}
 }

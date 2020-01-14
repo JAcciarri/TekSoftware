@@ -82,10 +82,7 @@
                     <!-- ============================================================== -->
                     <!-- Toggle which is visible on mobile only -->
                     <!-- ============================================================== -->
-                    <a class="topbartoggler d-block d-md-none waves-effect waves-light" href="javascript:void(0)" data-toggle="collapse" data-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="ti-more"></i>
-                    </a>
+                    
                 </div>
                 <!-- ============================================================== -->
                 <!-- End Logo -->
@@ -117,14 +114,7 @@
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                            </div>
-                        </li>
+                      
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -176,19 +166,10 @@
                               
                               
                                 <form action="AddCaracteristicaServlet" METHOD="POST" class="form-horizontal form-material">
+                                   
+                                    
                                     <div class="form-group">
-                                        <div class="col-md-12">
-                                            <input type="text" hidden="true" name="id"  class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">ID</label>
-                                        <div class="col-md-12">
-                                            <input type="text" name="idcaracteristica" autocomplete="off" required="" class="form-control form-control-line">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-md-12">Titulo</label>
+                                        <label class="col-md-12">Titulo Caracteristica</label>
                                         <div class="col-md-12">
                                             <input type="text" name="titulo" autocomplete="off" required="" class="form-control form-control-line">
                                         </div>
@@ -196,7 +177,7 @@
                                     
                                     
                                     <div class="form-group">
-                                        <label for="example-email" class="col-md-12">ID Opcion 1</label>
+                                        <label class="col-md-12">ID Opcion 1</label>
                                         <div class="col-md-12">
                                             <input type="text" name="idopcion1" readonly value="1" autocomplete="off" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
@@ -220,7 +201,7 @@
 				                                        </div>
 				                                    </div>
 				                                    
-				                                    
+				                      <br>              
 				                                 
 				                      <div class="form-group">
                                         <label for="example-email" class="col-md-12">ID Opcion 2</label>
@@ -246,7 +227,8 @@
 				                                            <input style="line-height: 5;" type="text" name="descripcion-2" autocomplete="off" required="" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
-				                                                    
+				                   
+				                   <br><br>                                 
                                    <div class="form-group">
                                         <label for="example-email" class="col-md-12">ID Opcion 3</label>
                                         <div class="col-md-12">
