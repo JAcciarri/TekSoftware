@@ -136,11 +136,16 @@ public class DataCaracteristica {
 				stmt = FactoryConnection.getInstancia().getConn().
 						prepareStatement(
 								"INSERT INTO caracteristicas (titulo) values(?)",
-								PreparedStatement.RETURN_GENERATED_KEYS
-								);
+						PreparedStatement.RETURN_GENERATED_KEYS);
 				
-				stmt.setString(2, c.getTitulo());
+				stmt.setString(1, c.getTitulo());
 				stmt.executeUpdate();
+				
+				keyResultSet = stmt.getGeneratedKeys();
+			       
+				if(keyResultSet!=null && keyResultSet.next()){
+		            c.setIdCaracteristica(keyResultSet.getInt(1));
+		        }
 				
 			}  catch (SQLException e) {
 		        e.printStackTrace();
@@ -198,8 +203,8 @@ public class DataCaracteristica {
 				stmt = FactoryConnection.getInstancia().getConn().
 						prepareStatement( "SELECT MAX(idCaracteristica) FROM caracteristicas");
 				rs = stmt.executeQuery();
-				if (rs != null) {
-					maxID = rs.getInt("idCaracteristica");
+				if (rs != null && rs.next()) {
+					maxID = rs.getInt(1);
 				}
 				
 			}  catch (SQLException e) {

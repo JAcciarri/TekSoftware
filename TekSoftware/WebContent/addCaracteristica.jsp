@@ -167,11 +167,10 @@
                               
                                 <form action="AddCaracteristicaServlet" METHOD="POST" class="form-horizontal form-material">
                                    
-                                    
-                                    <div class="form-group">
-                                        <label class="col-md-12">Titulo Caracteristica</label>
+                                     <div class="form-group">
+                                        <label class="col-md-12">Titulo</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="titulo" autocomplete="off" required="" class="form-control form-control-line">
+                                            <input type="text" name="titulo" autocomplete="off" required="" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
                                     
