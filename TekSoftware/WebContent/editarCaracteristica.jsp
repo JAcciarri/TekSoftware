@@ -41,7 +41,8 @@
      <% 
      CaracteristicaController cc = new CaracteristicaController();
      Caracteristica c = (Caracteristica)request.getAttribute("caracteristicaAEditar"); 
-     ArrayList<Opcion> opciones = cc.getOpcionesByIdCaracteristica(c.getIdCaracteristica()); 
+     ArrayList<Opcion> opciones = cc.getOpcionesByIdCaracteristica(c.getIdCaracteristica());
+     
      %>	
     <!-- ============================================================== -->
     <!-- Main wrapper - style you can find in pages.scss -->
@@ -103,20 +104,7 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                                <div class="d-flex align-items-center">
-                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
-                                    <div class="ml-1 d-none d-sm-block">
-                                        <span>Search</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
-                            </form>
+                           
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -126,14 +114,7 @@
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                            </div>
-                        </li>
+                       
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -180,8 +161,9 @@
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style=background:#e4e8f0;>
                    					<% String id = "Caracteristica " + c.getIdCaracteristica(); %>
+                                    <i class="fas fa-bookmark"></i>
                                     <h4 class="card-title m-t-10"><%=id%></h4>
                                     <h6 class="card-subtitle"><%=c.getTitulo() %></h6>
                               
@@ -197,9 +179,20 @@
                     
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style=background:#dae1ed;>
                                 <form action="EditCaracteristicaServlet" METHOD="POST" class="form-horizontal form-material">
                                    
+                                   <input type="text" name="id" value=<%=c.getIdCaracteristica()%> hidden="true">
+                                   
+                                   <div class="form-group">
+                                        <label class="col-md-12">Titulo Caracteristica</label>
+                                        <div class="col-md-12">
+                                            <input type="text" name="titulo" value="<%=c.getTitulo()%>" class="form-control form-control-line">
+                                        </div>
+                                    </div>
+                                    
+                                    <hr>
+                                    <br> 
                                     <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 1</label>
                                         <div class="col-md-12">
@@ -218,8 +211,15 @@
                                             <input type="text" name="descripcion-1" value="<%=opciones.get(0).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
+                                        <div class="col-md-12">
+                                            <input type="number" name="precio-1" value="<%=opciones.get(0).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        </div>
+                                    </div>
                                    
-                                   <br> <br>
+                                   <hr>
+                                   <br> 
                                    
                                    <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 2</label>
@@ -239,8 +239,15 @@
                                             <input type="text" name="descripcion-2" value="<%=opciones.get(1).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
+                                        <div class="col-md-12">
+                                            <input type="number" name="precio-2" value="<%=opciones.get(1).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        </div>
+                                    </div>
                                     
-                                    <br> <br>
+                                    <hr>
+                                    <br> 
                                     
                                     <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 3</label>
@@ -260,8 +267,15 @@
                                             <input type="text" name="descripcion-3" value="<%=opciones.get(2).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
+                                   
+                                 	<div class="form-group">
+                                        <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
+                                        <div class="col-md-12">
+                                            <input type="number" name="precio-3" value="<%=opciones.get(2).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                        </div>
+                                    </div>
                                     
-                                 
+                                   <br>
                                    
                                     <div class="form-group">
                                         <div class="col-sm-12">

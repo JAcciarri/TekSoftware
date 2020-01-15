@@ -5,6 +5,9 @@ public class Opcion {
 	private String subtitulo;
 	private String textIcono;
 	private String descripcion;
+	private float valorActual;
+	
+	
 	
 	public Opcion() {}
 	public Opcion(int id, String subtitulo, String text, String desc) {
@@ -14,6 +17,20 @@ public class Opcion {
 		this.subtitulo = subtitulo;
 	}
 	
+	public Opcion(int id, String subtitulo, String text, String desc, float valor) {
+		this.idOpcion = id;
+		this.descripcion = desc;
+		this.textIcono = text;
+		this.subtitulo = subtitulo;
+		this.valorActual = valor;
+	}
+	
+	public float getValorActual() {
+		return valorActual;
+	}
+	public void setValorActual(float valorActual) {
+		this.valorActual = valorActual;
+	}
 	public int getIdOpcion() {
 		return idOpcion;
 	}

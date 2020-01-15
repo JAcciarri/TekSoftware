@@ -34,4 +34,12 @@ public class CaracteristicaController {
 	public int getMaxIDfromDB() {
 		return dc.getMaxID();
 	}
+	
+	public void updateCaracteristica(Caracteristica c) {
+		dc.updateCaracteristica(c);
+	}
+	
+	public void updateOpciones(Caracteristica c, ArrayList<Opcion> opciones) {
+		dc.updateOpciones(c, opciones);
+	}
 }

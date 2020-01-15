@@ -17,6 +17,7 @@
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
      <link href="dist/css/style.extras.css" rel="stylesheet">
+     
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -162,7 +163,7 @@
                     
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style=background:#e4e8f0;>
                               
                               
                                 <form action="AddCaracteristicaServlet" METHOD="POST" class="form-horizontal form-material">
@@ -174,7 +175,8 @@
                                         </div>
                                     </div>
                                     
-                                    
+                                   <div class="simple-container">
+                                   
                                     <div class="form-group">
                                         <label class="col-md-12">ID Opcion 1</label>
                                         <div class="col-md-12">
@@ -199,6 +201,7 @@
 				                                            <input style="line-height: 5;" type="text" name="descripcion-1" autocomplete="off" required="" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
+				                     </div>
 				                                    
 				                      <br>              
 				                                 

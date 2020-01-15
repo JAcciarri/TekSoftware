@@ -99,20 +99,7 @@
                         <!-- Search -->
                         <!-- ============================================================== -->
                         <li class="nav-item search-box">
-                            <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                                <div class="d-flex align-items-center">
-                                    <i class="mdi mdi-magnify font-20 mr-1"></i>
-                                    <div class="ml-1 d-none d-sm-block">
-                                        <span>Search</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <form class="app-search position-absolute">
-                                <input type="text" class="form-control" placeholder="Search &amp; enter">
-                                <a class="srh-btn">
-                                    <i class="ti-close"></i>
-                                </a>
-                            </form>
+                           
                         </li>
                     </ul>
                     <!-- ============================================================== -->
@@ -122,14 +109,7 @@
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="assets/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                            <div class="dropdown-menu dropdown-menu-right user-dd animated">
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-                                <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
-                            </div>
-                        </li>
+                        
                         <!-- ============================================================== -->
                         <!-- User profile and search -->
                         <!-- ============================================================== -->
@@ -176,7 +156,7 @@
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style=background:#e4e8f0;>
                                 <center class="m-t-30"> <img src="assets/images/users/userdefault.png" class="rounded-circle" width="150" />
                                     <h4 class="card-title m-t-10"><%=u.getNombre()+' '+u.getApellido()%></h4>
                                     <h6 class="card-subtitle"><%=u.getEmail() %></h6>
@@ -196,7 +176,7 @@
                     
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
-                            <div class="card-body">
+                            <div class="card-body" style=background:#dae1ed;>
                                 <form action="EditUserServlet" METHOD="POST" class="form-horizontal form-material">
                                     <div class="form-group">
                                         <div class="col-md-12">
