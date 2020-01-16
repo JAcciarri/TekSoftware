@@ -57,15 +57,17 @@ public class AddCaracteristicaServlet extends HttpServlet {
 		opciones.add(new Opcion(1, subtitulo1, texticono1, descripcion1));
 		opciones.add(new Opcion(2, subtitulo2, texticono2, descripcion2));
 		opciones.add(new Opcion(3, subtitulo3, texticono3, descripcion3));
-		
-		// YA NO ES NECESARIO, USAMOS RETURN GENERATED KEYS
-		// int maxID = cc.getMaxIDfromDB();
-		
+	
+		//LA AGREGAMOS A LA BD
 		cc.addCaracteristica(new Caracteristica(titulo) , opciones);
 		
-		request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
-		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
-				
-			}
+		// UNA VEZ INSERTADA EN LA BD LA RECUPERAMOS Y REDIRIGIMOS A LA PAGINA EDITAR
+		// PARA ASI PONERLE EL PRECIO, EL ID ES AUTOINCREMENTAL.
+		int IDGenerated = cc.getMaxIDfromDB();
+		Caracteristica car = cc.getByID(IDGenerated);
+		request.setAttribute("caracteristicaAEditar", car);
+		request.getRequestDispatcher("editarCaracteristica.jsp").forward(request, response);;
+		
+		}
 
 }

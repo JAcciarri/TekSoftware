@@ -313,15 +313,34 @@ public class DataCaracteristica {
 		}
 	}
 	
-	public void delete(int ID) {
+	public void deleteCaracteristica(int ID) {
 		
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
-					"DELETE FROM usuarios WHERE idUsuario=?"
+					"DELETE FROM valores WHERE idCaracteristica=?"
 					);
 			stmt.setInt(1, ID);
 			stmt.executeUpdate();
+			stmt.close();
+			
+			
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"DELETE FROM opciones WHERE idCaracteristica=?"
+					);
+			stmt.setInt(1, ID);
+			stmt.executeUpdate();
+			stmt.close();
+			
+			
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"DELETE FROM caracteristicas WHERE idCaracteristica=?"
+					);
+			stmt.setInt(1, ID);
+			stmt.executeUpdate();
+			
+			
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

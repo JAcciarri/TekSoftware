@@ -146,7 +146,7 @@
                                             <td><%=c.getTitulo() %></td>
                                             <td>
 	                                           	 <a class="editbutton" href="EditCaracteristicaServlet?id=<%=c.getIdCaracteristica()%> "> Editar </a>
-	                                           	 <a class="deletebutton" href="DeleteUserServlet?id=<%=c.getIdCaracteristica()%>"> Eliminar </a>
+	                                           	 <a class="deletebutton" href="DeleteCaracteristicaServlet?id=<%=c.getIdCaracteristica()%>"> Eliminar </a>
                                             </td>
                                         </tr>
                     <%} %>

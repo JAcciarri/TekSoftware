@@ -42,4 +42,8 @@ public class CaracteristicaController {
 	public void updateOpciones(Caracteristica c, ArrayList<Opcion> opciones) {
 		dc.updateOpciones(c, opciones);
 	}
+	
+	public void deleteCaracteristica(int ID) {
+		dc.deleteCaracteristica(ID);
+	}
 }

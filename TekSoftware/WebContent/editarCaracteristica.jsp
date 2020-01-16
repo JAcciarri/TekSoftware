@@ -214,7 +214,7 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="number" name="precio-1" value="<%=opciones.get(0).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="number" name="precio-1" value="<%=opciones.get(0).getValorActual()%>" required="Por favor coloca un precio" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
                                    
@@ -242,7 +242,7 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="number" name="precio-2" value="<%=opciones.get(1).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="number" name="precio-2" value="<%=opciones.get(1).getValorActual()%>" required="Por favor coloca un precio" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
                                     
@@ -271,7 +271,7 @@
                                  	<div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="number" name="precio-3" value="<%=opciones.get(2).getValorActual()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="number" name="precio-3" value="<%=opciones.get(2).getValorActual()%>" required="Por favor coloca un precio" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
                                     
