@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
     <%@ page import = "entidades.Usuario" %>
-
+    <%@ page import = "logica.PedidoController" %>
+	<%@ page import = "java.util.ArrayList" %>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,28 +31,32 @@
 	
 	
       <%@ include file="/partials/navBar.jsp" %>
+      <% PedidoController pCtrl = new PedidoController();
+      	 ArrayList<Pedido> pedidos = pCtrl.getPedidosAprobadosByCliente(u.getIdUsuario());
+      %>  
+        
         
         <div  class="slider-item overlay"  data-stellar-background-ratio="0.5" 
         style="background-image: url('images/hero_2.jpg');">
         
             <div class="container-fluid">
-         
                 <div class="row">
                     <!-- Column -->
                     <div class="col-lg-4 col-xlg-3 col-md-5"></div>
                     <div class="col-lg-4 col-xlg-3 col-md-5"  style=margin-top:7%;>
                         <div class="card" style=background:#e4e8f0;>
                             <div class="card-body">
+                            	<h4 class="card-title m-t-10 text-center">¡Bienvenido de nuevo!</h4>
                                 <center class="m-t-30"> <img src="assets/images/users/userdefault.png" class="rounded-circle" width="150" />
-                                    <h4 class="card-title m-t-10"><%=u.getFullName()%></h4>
+                                    <h4 class="card-title m-t-10"><%=u.getUsername()%></h4>
                                     <div class="row text-center justify-content-md-center">
                                     </div>
                                 </center>
                             </div>
                             <div>
                                 <hr> </div>
-                            <div class="card-body"> <small class="text-muted"><center>Email</center> </small>
-                                <h6><center><%=u.getEmail() %></center></h6>
+                            <div class="card-body"> <small class="text-muted"><center><strong><%=u.getFullName()%></strong></center> </small>
+                            	<small class="text-muted"><center><%=u.getEmail()%></center> </small>
                             </div>
                         </div>
                     </div>
@@ -62,8 +68,8 @@
                       <div class="col-8">
                           <div class="card">
                               <div class="card-body">
-                                  <h4 class="card-title" >Crea tu pedido!</h4>
-                                  <h6 class="card-subtitle">No tienes ningún pedido en estado Pendiente. Realiza uno nuevo dando click <a href="pedido.jsp">aquí</a> y nosotros nos encargaremos de revisarlo lo antes posible para comenzar a llevarlo a cabo.</h6>
+                                  <h4 class="card-title" >¡Crea tu pedido!</h4>
+                                  <h6 >No tienes ningún pedido en estado <strong>Pendiente</strong>. Realiza uno nuevo dando click <a href="pedido.jsp">aquí</a> y nosotros nos encargaremos de revisarlo lo antes posible para comenzar a llevarlo a cabo.</h6>
                               </div>
                           </div>
                       </div>
@@ -72,8 +78,14 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="card-title">Últimos pedidos</h4>
-                                    <h6 class="card-subtitle">Aquí se encuentran los pedidos que haz realizado con anterioridad.</h6>
+                                    <h6 class="card-subtitle">Aquí se encuentran los pedidos que has realizado con anterioridad.</h6>
                                 </div>
+                                
+                                <% if (pedidos.isEmpty()) { %>
+                                	<p style=text-align:center;>No se encontraron pedidos aprobados</p>
+                                	<p style=text-align:center;><a href="pedido.jsp">¡Crea uno!</a></p>
+                                <%} else{ %>
+                                
                                 <div class="table-responsive">
                                     <table class="table">
                                         <thead class="thead-light">
@@ -86,37 +98,20 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                          <% for (Pedido p : pedidos){ %>
                                           <tr>
-                                              <th scope="row">542</th>
-                                              <td>15-01-2020</td>
-                                              <td>Sin especificar</td>
-                                              <td>Sin especificar</td>
-                                              <td><span class="label label-rounded label-primary">Pendiente</span></td>
+                                              <th scope="row"><%=p.getIdPedido()%></th>
+                                              <td><%=p.getFechaPedido()%></td>
+                                              <td><%=p.getFechaAprobacion()%></td>
+                                              <td><%=p.getMontoTotal() %></td>
+                                              <td><span class="label label-rounded label-primary"><%=p.getEstado()%></span></td>
                                           </tr>
-                                            <tr>
-                                                <th scope="row">220</th>
-                                                <td>15-11-2019</td>
-                                                <td>20-12-2019</td>
-                                                <td>$150.000</td>
-                                                <td><span class="label label-success label-rounded">Aprobado</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">213</th>
-                                                <td>15-11-2019</td>
-                                                <td>20-12-2019</td>
-                                                <td>$150.000</td>
-                                                <td><span class="label label-rounded label-danger">Rechazado</span></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">211</th>
-                                                <td>15-11-2019</td>
-                                                <td>20-12-2019</td>
-                                                <td>$150.000</td>
-                                                <td><span class="label label-success label-rounded">Aprobado</span></td>
-                                            </tr>
+                                          <%} %>
                                         </tbody>
                                     </table>
                                 </div>
+                                 <%}  //FIN DEL ELSE%>
+                                
                             </div>
                         </div>
                     </div>

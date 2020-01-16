@@ -2,9 +2,13 @@ package consola;
 
 
 
+import java.util.ArrayList;
+
 import datos.FactoryConnection;
 import entidades.Opcion;
+import entidades.Pedido;
 import logica.CaracteristicaController;
+import logica.PedidoController;
 
 
 public class Test {
@@ -13,11 +17,11 @@ public class Test {
 	public static void main(String[] args) {
 		
 		
-		CaracteristicaController carCtrl = new CaracteristicaController();
-		System.out.println(carCtrl.getMaxIDfromDB());
-
-		java.util.Date now = new java.util.Date();
-	    System.out.println(new java.sql.Timestamp(now.getTime()));
+		PedidoController pc = new PedidoController();
+		ArrayList<Pedido> pedidos = pc.getPedidosAprobadosByCliente(10);
+		for (Pedido p : pedidos) {
+		System.out.println(p.getEstado() + " " + p.getMontoTotal());
+		}
 		
 	} 
 

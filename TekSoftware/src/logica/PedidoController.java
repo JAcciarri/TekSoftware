@@ -3,15 +3,21 @@ package logica;
 import java.util.Date;
 
 import datos.DataPedido;
+import datos.DataUsuario;
 
 import java.util.ArrayList;
 import entidades.*;
 
 public class PedidoController {
 
+	DataPedido dp;
+	
+	public PedidoController() {
+		this.dp = new DataPedido();
+	}
+	
 	public Pedido registrarPedido(ArrayList<Seleccion> selecciones, Usuario cliente) {
 		Pedido p = new Pedido();
-		DataPedido dp = new DataPedido();
 		
 		p.setCliente(cliente);
 		p.setEstado("Pendiente");
@@ -32,4 +38,8 @@ public class PedidoController {
 		p.setMontoTotal(total);
 	}
 	
+	public ArrayList<Pedido> getPedidosAprobadosByCliente(int IDCliente){
+		
+		return dp.getPedidosAprobadosByCliente(IDCliente);
+	}
 }

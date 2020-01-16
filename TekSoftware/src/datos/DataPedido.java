@@ -121,14 +121,17 @@ public class DataPedido {
 	
 	public ArrayList<Pedido> getAllPedidos(){
 		
-			Statement stmt=null;
+			PreparedStatement stmt=null;
 			ResultSet rs=null;
 			ArrayList<Pedido> listaPedidos= new ArrayList<>();
 			DataUsuario du = new DataUsuario();
 			
 			try {
-				stmt= FactoryConnection.getInstancia().getConn().createStatement();
-				rs= stmt.executeQuery("SELECT * FROM pedidos");
+				stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
+						"SELECT * FROM pedidos");
+				
+				rs = stmt.executeQuery();
+				
 				if(rs!=null) {
 					while(rs.next()) {
 						Pedido p = new Pedido();
@@ -157,5 +160,48 @@ public class DataPedido {
 			
 			return listaPedidos;
 		}
+	
+	public ArrayList<Pedido> getPedidosAprobadosByCliente(int IDCliente){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+		DataUsuario du = new DataUsuario();
+		
+		try {
+			
+			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM pedidos WHERE idCliente=? AND estado='Aprobado'");
+			stmt.setInt(1, IDCliente);
+			rs = stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Pedido p = new Pedido();
+					p.setIdPedido(rs.getInt("idPedido"));
+					p.setFechaPedido(rs.getDate("fechaPedido"));
+					Usuario user = du.getByID(IDCliente);
+					p.setCliente(user);
+					p.setEstado(rs.getString("estado"));
+					p.setMontoTotal(rs.getDouble("montoTotal"));
+					pedidos.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return pedidos;
+	}
 	
 }

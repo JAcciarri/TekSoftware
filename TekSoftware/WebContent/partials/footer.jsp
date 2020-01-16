@@ -5,6 +5,9 @@
 <head>
 <meta charset="ISO-8859-1">
 <title></title>
+
+ <link rel="stylesheet" href="css/style.css">
+   <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
 </head>
 <body>
 
