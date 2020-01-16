@@ -1104,6 +1104,7 @@ pre code {
     -ms-flex: 0 0 41.66667%;
     flex: 0 0 41.66667%;
     max-width: 41.66667%;
+    margin-top: 40px;
   }
   .col-md-6 {
     -webkit-box-flex: 0;
