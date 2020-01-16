@@ -131,7 +131,7 @@
         	
         	
         	
-        	<%@ include file = "panelAdmin.jsp" %>
+        	<%@ include file = "/partials/panelAdmin.jsp" %>
         	
         	
         	

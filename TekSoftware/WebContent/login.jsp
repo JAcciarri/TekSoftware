@@ -29,7 +29,7 @@
 
 <body>
 
-	<%@ include file ="navBar.jsp" %>
+	<%@ include file ="/partials/navBar.jsp" %>
 	<% String error = (String)request.getAttribute("error"); %>
 
   <div class="inner-page">

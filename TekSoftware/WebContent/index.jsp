@@ -32,7 +32,7 @@
 
 <body>
 
-	<%@ include file="navBar.jsp" %>
+	<%@ include file="/partials/navBar.jsp" %>
 
   <div class="slider-item overlay" data-stellar-background-ratio="0.5"
     style="background-image: url('images/hero_2.jpg');">

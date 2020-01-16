@@ -29,7 +29,7 @@
 
 <body>
  
- <%@ include file ="navBar.jsp" %>
+ <%@ include file ="/partials/navBar.jsp" %>
 
 
   <div class="inner-page">

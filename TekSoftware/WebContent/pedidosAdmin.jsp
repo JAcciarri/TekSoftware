@@ -114,7 +114,7 @@
         </header>
       
     
-    	<%@ include file = "panelAdmin.jsp" %>
+    	<%@ include file = "/partials/panelAdmin.jsp" %>
     
     
         <div class="page-wrapper">
