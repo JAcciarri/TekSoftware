@@ -28,9 +28,10 @@
 </head>
 
 <body>
-    <!-- ============================================================== -->
-    <!-- Preloader - style you can find in spinners.css -->
-    <!-- ============================================================== -->
+    
+    <%@ include file = "/security/isNotLoggedIn.jsp" %>
+    <%@ include file = "/security/isNotAdmin.jsp" %>
+    
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>

@@ -1,19 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page import="entidades.*"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Perfil de Usuario%></title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-	<% Usuario u = (Usuario)session.getAttribute("usuario");
-  				if (u != null) { %>
+	<% Usuario user = (Usuario)session.getAttribute("usuario");
+  				if (user != null) { %>
 
 	<header role="banner">
 		<nav class="navbar navbar-expand-lg  bg-dark">
@@ -34,7 +34,7 @@
 						<li class="nav-item"><a class="nav-link"
 							href="perfilUsuario.jsp">Mi Perfil</a></li>
 						<li class="nav-item"><a class="nav-link" href="LoginServlet">Cerrar
-								Sesión</a></li>
+								SesiÃ³n</a></li>
 					</ul>
 
 				</div>
@@ -61,7 +61,7 @@
 				<div class="collapse navbar-collapse" id="navbarsExample05">
 					<ul class="navbar-nav pl-md-5 ml-auto">
 						<li class="nav-item"><a class="nav-link" href="login.jsp">Iniciar
-								Sesión</a></li>
+								SesiÃ³n</a></li>
 						<li class="nav-item"><a class="nav-link" href="signin.jsp">Registrarse</a>
 						</li>
 					</ul>

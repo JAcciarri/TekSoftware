@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title></title>
 
- <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css">
    <link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
 </head>
 <body>
@@ -27,10 +27,10 @@
         </div>
         <div class="col-md-5 mb-5 pl-md-5">
           <div class="mb-5">
-            <h3 class="mb-4">Información de contacto</h3>
+            <h3 class="mb-4">InformaciÃ³n de contacto</h3>
             <ul class="list-unstyled footer-link">
               <li class="d-block">
-                <span class="d-block">Dirección:</span>
+                <span class="d-block">DirecciÃ³n:</span>
                 <span class="text-white">Zeballos 1341, Rosario.</span>
               </li>
               <li class="d-block">
@@ -60,11 +60,9 @@
       <div class="row">
         <div class="col-12 text-md-center text-left">
           <p>
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
             Copyright &copy;
-            <script>document.write(new Date().getFullYear());</script>                 Todos los derechos reservados por <a href="index.jsp"> TekSoftware</a>.
-
-            <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+            <script>document.write(new Date().getFullYear());</script>    
+            Todos los derechos reservados por <a href="index.jsp"> TekSoftware</a>.
           </p>
         </div>
       </div>

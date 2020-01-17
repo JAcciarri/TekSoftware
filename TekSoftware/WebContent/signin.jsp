@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -28,8 +28,9 @@
 </head>
 
 <body>
- 
- <%@ include file ="/partials/navBar.jsp" %>
+ 	
+  <%@ include file = "/security/isLoggedIn.jsp" %>
+  <%@ include file ="/partials/navBar.jsp" %>
 
 
   <div class="inner-page">
@@ -73,7 +74,7 @@
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
-                <label for="tel">Teléfono</label>
+                <label for="tel">TelÃ©fono</label>
                 <input type="number" name="telefono" id="tel" class="form-control " required="">
               </div>
             </div>
@@ -85,7 +86,7 @@
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
-                <label for="pass">Contraseña</label>
+                <label for="pass">ContraseÃ±a</label>
                 <input type="password" name="password" id="pass" class="form-control " required="">
               </div>
             </div>

@@ -39,7 +39,10 @@ public class PedidoController {
 	}
 	
 	public ArrayList<Pedido> getPedidosAprobadosByCliente(int IDCliente){
-		
 		return dp.getPedidosAprobadosByCliente(IDCliente);
+	}
+	
+	public Pedido getPedidoPendienteByCliente(int IDCliente) {
+		return dp.getPedidoPendienteByCliente(IDCliente);
 	}
 }

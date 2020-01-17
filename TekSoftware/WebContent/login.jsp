@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
 <html lang="en">
@@ -29,6 +29,8 @@
 
 <body>
 
+	<%@ include file = "/security/isLoggedIn.jsp" %>
+    
 	<%@ include file ="/partials/navBar.jsp" %>
 	<% String error = (String)request.getAttribute("error"); %>
 
@@ -38,7 +40,7 @@
       <div class="container">
         <div class="row slider-text align-items-center justify-content-center">
           <div class="col-lg-9 text-center col-sm-12 element-animate">
-            <h1 class="mb-4">Iniciar Sesión</h1>
+            <h1 class="mb-4">Iniciar SesiÃ³n</h1>
           </div>
         </div>
       </div>
@@ -68,17 +70,17 @@
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
-                <label for="pass">Contraseña</label>
+                <label for="pass">ContraseÃ±a</label>
                 <input type="password" name="password" id="pass" class="form-control ">
               </div>
             </div>
 
             <div class="row">
               <div class="col-md-6 form-group">
-                <input type="submit" value="Iniciar Sesión" class="btn btn-primary px-3 py-3">
+                <input type="submit" value="Iniciar SesiÃ³n" class="btn btn-primary px-3 py-3">
               </div>
             </div>
-            <p style=font-size:14px;>Aún no tienes una cuenta? <a href="signin.jsp">Registrate aqui</a></p>
+            <p style=font-size:14px;>AÃºn no tienes una cuenta? <a href="signin.jsp">Registrate aqui</a></p>
           </form>
         </div>
       </div>

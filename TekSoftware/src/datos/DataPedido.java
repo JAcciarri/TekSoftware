@@ -204,4 +204,43 @@ public class DataPedido {
 		return pedidos;
 	}
 	
+	public Pedido getPedidoPendienteByCliente(int IDCliente){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Pedido pedido = null;
+		DataUsuario du = new DataUsuario();
+		
+		try {
+			
+			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM pedidos WHERE idCliente=? AND estado='Pendiente'");
+			stmt.setInt(1, IDCliente);
+			rs = stmt.executeQuery();
+			
+			if(rs!=null && rs.next()) {
+					pedido = new Pedido();
+					pedido.setIdPedido(rs.getInt("idPedido"));
+					pedido.setFechaPedido(rs.getDate("fechaPedido"));
+					Usuario user = du.getByID(IDCliente);
+					pedido.setCliente(user);
+					pedido.setEstado(rs.getString("estado"));
+					pedido.setMontoTotal(rs.getDouble("montoTotal"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}		
+		return pedido;
+	}
+	
 }

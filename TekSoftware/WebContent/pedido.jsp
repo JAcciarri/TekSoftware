@@ -36,7 +36,9 @@
 
 </head>
 <body>
-	<!-- Page Preloder -->
+	
+	 <%@ include file = "/security/isNotLoggedIn.jsp" %>
+	
 	<div id="preloder">
 		<div class="loader"></div>
 	</div>

@@ -18,10 +18,9 @@ public class Test {
 		
 		
 		PedidoController pc = new PedidoController();
-		ArrayList<Pedido> pedidos = pc.getPedidosAprobadosByCliente(10);
-		for (Pedido p : pedidos) {
-		System.out.println(p.getEstado() + " " + p.getMontoTotal());
-		}
+		Pedido p = pc.getPedidoPendienteByCliente(11);
+		if (p!=null) System.out.println(p.getEstado() + " " + p.getMontoTotal());
+		else System.out.println("0 pedidos pendientes");
 		
 	} 
 
