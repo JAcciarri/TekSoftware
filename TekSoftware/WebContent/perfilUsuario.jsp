@@ -19,6 +19,18 @@
     <!-- Custom CSS -->
     <link href="perfil-usuario/dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <link
+	href="https://fonts.googleapis.com/css?family=Raleway:400,700&display=swap"
+	rel="stylesheet">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/jquery.fancybox.min.css">
+	<link rel="stylesheet" href="fonts/ionicons/css/ionicons.min.css">
+	<link rel="stylesheet" href="fonts/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+<!-- Theme Style -->
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
@@ -61,10 +73,7 @@
                         </div>
                     </div>
                   
-                  
-                    <div class="row">
-                      
-  
+                    <div class="row">¿
 					<%
 						if (pedidoPendiente == null) {
 					%>
@@ -93,7 +102,7 @@
 									<h4 class="card-title">Máximos pedidos pendientes alcanzados</h4>
 									<h6>
 										Ya tienes un pedido en estado <strong>Pendiente</strong>.
-										Puedes revisarlo justo aquí debajo y en caso de querer hacer uno nuevo 
+										Puedes revisarlo justo aquí debajo, y en caso de querer hacer uno nuevo, 
 										primero debes cancelar el mismo.
 									</h6>
 								</div>

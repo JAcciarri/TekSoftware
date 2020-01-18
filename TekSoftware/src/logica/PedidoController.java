@@ -45,4 +45,8 @@ public class PedidoController {
 	public Pedido getPedidoPendienteByCliente(int IDCliente) {
 		return dp.getPedidoPendienteByCliente(IDCliente);
 	}
+	
+	public ArrayList<Pedido> getPedidosByPartialClient(String datosParciales){
+		return dp.getPedidosByPartialClient(datosParciales);
+	}
 }

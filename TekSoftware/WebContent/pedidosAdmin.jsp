@@ -26,7 +26,17 @@
     
 	<%@ include file = "/security/isNotLoggedIn.jsp" %>
     <%@ include file = "/security/isNotAdmin.jsp" %>
-    
+	<%			 
+	   DataPedido dp = new DataPedido();
+	   ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+	   
+	   if (request.getAttribute("pedidosDelCliente") == null){
+		    pedidos = dp.getAllPedidos();
+	   } else{
+		   pedidos = (ArrayList<Pedido>)request.getAttribute("pedidosDelCliente");
+	   }
+	
+	%>
     <div class="preloader">
         <div class="lds-ripple">
             <div class="lds-pos"></div>
@@ -97,12 +107,12 @@
                                 <div class="d-flex align-items-center">
                                     <i class="mdi mdi-magnify font-20 mr-1"></i>
                                     <div class="ml-1 d-none d-sm-block">
-                                        <span>Search by Cliente o Fecha</span>
+                                        <span>Search by Cliente</span>
                                     </div>
                                 </div>
                             </a>
-                            <form class="app-search position-absolute" action="AbmUsuariosServlet" method="POST">
-                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese cliente o fecha de pedido">
+                            <form class="app-search position-absolute" action="PedidoServlet" method="POST">
+                                <input type="text" name="datosParciales" class="form-control" placeholder="Ingrese cliente">
                                 <a class="srh-btn">
                                     <i class="ti-close"></i>
                                 </a>
@@ -146,10 +156,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<% 
-				 DataPedido dp = new DataPedido();
-				 ArrayList<Pedido> pedidos = dp.getAllPedidos();
-                    for (Pedido p : pedidos) {%>
+				<% //SI NO HAY NINGUN PEDIDO MOSTRAMOS CARTEL "No hay Resultados"
+				   if (pedidos.isEmpty()){ %> <p> No hay resultados </p>
+                <% } 
+					// y sino mostramos todos los pedidos
+				   else { 
+                	  for (Pedido p : pedidos) {
+                  %>
+                  
 				<tr>
 					<td scope="row"><%=p.getIdPedido() %></td>
 					<td><%=p.getCliente().getFullName() %></td>
@@ -163,65 +177,35 @@
 					<%} %>
 					
 					<% if (p.getEstado().equals("Pendiente")){ %>
-					<td><span class="label label-info label-rounded">Pendiente</span></td>
+					<td><span class="label label-info label-rounded" style=color:#7a7c80;>Pendiente</span></td>
 					<% } else {%>
-					<td><span class="label label-success label-rounded">Aprobado</span></td>
+					<td><span class="label label-success label-rounded" style=color:#000>Aprobado</span></td>
 					<%} %>
 					
 					<td><%=p.getMontoTotal() %></td>
 				</tr>
-				<%} %>
+				<% }
+				}	
+				%> 
 			</tbody>
 		</table>
                             
                             </div>
                         </div>
                     </div>
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
             <footer style="background: #f2f4f5;" class="footer text-center">
                 Todos los derechos reservados por <a href="index.jsp"> TekSoftware</a>.
             </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+    
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
 </body>
 

@@ -60,8 +60,12 @@ public class PedidoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		//palabra en el buscador
+		String datosParciales = request.getParameter("datosParciales");
+		PedidoController pController = new PedidoController();
+		ArrayList<Pedido> pedidosDelCliente = pController.getPedidosByPartialClient(datosParciales);
+		request.setAttribute("pedidosDelCliente", pedidosDelCliente);
+		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);
 	}
 
 }

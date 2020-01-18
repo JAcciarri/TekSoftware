@@ -13,7 +13,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Agregar Caracteristica</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
      <link href="dist/css/style.extras.css" rel="stylesheet">
@@ -37,17 +37,7 @@
             <div class="lds-pos"></div>
         </div>
     </div>
-    
-  
-     
-     
-    <!-- ============================================================== -->
-    <!-- Main wrapper - style you can find in pages.scss -->
-    <!-- ============================================================== -->
     <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full" data-boxed-layout="full">
-        <!-- ============================================================== -->
-        <!-- Topbar header - style you can find in pages.scss -->
-        <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin6">
             <nav class="navbar top-navbar navbar-expand-md navbar-light">
                 <div class="navbar-header" data-logobg="skin5">
@@ -55,15 +45,10 @@
                     <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)">
                         <i class="ti-menu ti-close"></i>
                     </a>
-                    <!-- ============================================================== -->
-                    <!-- Logo -->
-                    <!-- ============================================================== -->
                     <div class="navbar-brand">
                         <a href="index.html" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
-                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
-                                <!-- Dark Logo icon -->
                                 <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                                 <!-- Light Logo icon -->
                                 <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
@@ -78,28 +63,12 @@
                             </span>
                         </a>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- End Logo -->
-                    <!-- ============================================================== -->
-                    <!-- ============================================================== -->
-                    <!-- Toggle which is visible on mobile only -->
-                    <!-- ============================================================== -->
                     
                 </div>
-                <!-- ============================================================== -->
-                <!-- End Logo -->
-                <!-- ============================================================== -->
                 <div class="navbar-collapse collapse" id="navbarSupportedContent" data-navbarbg="skin6">
-                    <!-- ============================================================== -->
-                    <!-- toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav float-left mr-auto">
-                        <!-- ============================================================== -->
-                        <!-- Search -->
-                        <!-- ============================================================== -->
                         <li class="nav-item search-box">
                             <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
-                              
                             </a>
                             <form class="app-search position-absolute">
                                 <input type="text" class="form-control" placeholder="Search &amp; enter">
@@ -109,73 +78,30 @@
                             </form>
                         </li>
                     </ul>
-                    <!-- ============================================================== -->
-                    <!-- Right side toggle and nav items -->
-                    <!-- ============================================================== -->
                     <ul class="navbar-nav float-right">
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
-                      
-                        <!-- ============================================================== -->
-                        <!-- User profile and search -->
-                        <!-- ============================================================== -->
                     </ul>
                 </div>
             </nav>
         </header>
-        <!-- ============================================================== -->
-        <!-- End Topbar header -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        	
-        	
         	
         	<%@ include file = "/partials/panelAdmin.jsp" %>
         	
         	
-        	
-        <!-- ============================================================== -->
-        <!-- End Left Sidebar - style you can find in sidebar.scss  -->
-        <!-- ============================================================== -->
-        <!-- ============================================================== -->
-        <!-- Page wrapper  -->
-        <!-- ============================================================== -->
         <div class="page-wrapper">
-            <!-- ============================================================== -->
-            <!-- Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-           
-            <!-- ============================================================== -->
-            <!-- End Bread crumb and right sidebar toggle -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- Container fluid  -->
-            <!-- ============================================================== -->
             <div class="container-fluid">
-                <!-- ============================================================== -->
-                <!-- Start Page Content -->
-                <!-- ============================================================== -->
-                <!-- Row -->
                 <div class="row">
-                   
-                    
                     <div class="col-lg-8 col-xlg-9 col-md-7">
                         <div class="card">
                             <div class="card-body" style=background:#e4e8f0;>
                               
                               
                                 <form action="AddCaracteristicaServlet" METHOD="POST" class="form-horizontal form-material">
-                                   
                                      <div class="form-group">
                                         <label class="col-md-12">Titulo</label>
                                         <div class="col-md-12">
                                             <input type="text" name="titulo" autocomplete="off" required="" class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
-                                    
                                    <div class="simple-container">
                                    
                                     <div class="form-group">
@@ -260,7 +186,7 @@
                                    
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                        
+                                        	<!--  Este boton redirige a AddCaracteristicaServlet por formulario -->
                                             <button class="addbutton" >Crear Caracteristica</button>
                                         </div>
                                     </div>
@@ -270,53 +196,17 @@
                     </div>
                     <!-- Column -->
                 </div>
-                <!-- Row -->
-                <!-- ============================================================== -->
-                <!-- End PAge Content -->
-                <!-- ============================================================== -->
-                <!-- ============================================================== -->
-                <!-- Right sidebar -->
-                <!-- ============================================================== -->
-                <!-- .right-sidebar -->
-                <!-- ============================================================== -->
-                <!-- End Right sidebar -->
-                <!-- ============================================================== -->
             </div>
-            <!-- ============================================================== -->
-            <!-- End Container fluid  -->
-            <!-- ============================================================== -->
-            <!-- ============================================================== -->
-            <!-- footer -->
-            <!-- ============================================================== -->
-            <footer class="footer text-center">
-                All Rights Reserved by Nice admin. Designed and Developed by
-                <a href="https://wrappixel.com">WrapPixel</a>.
-            </footer>
-            <!-- ============================================================== -->
-            <!-- End footer -->
-            <!-- ============================================================== -->
+		
         </div>
-        <!-- ============================================================== -->
-        <!-- End Page wrapper  -->
-        <!-- ============================================================== -->
     </div>
-    <!-- ============================================================== -->
-    <!-- End Wrapper -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
+    
     <script src="assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
     <script src="assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
     <script src="assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
     <script src="dist/js/waves.js"></script>
-    <!--Menu sidebar -->
     <script src="dist/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
     <script src="dist/js/custom.min.js"></script>
 </body>
 

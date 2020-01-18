@@ -40,8 +40,7 @@
 	<div class="slider-item overlay" data-stellar-background-ratio="0.5"
 		style="background-image: url('images/hero_2.jpg');">
 		<div class="container">
-			<div
-				class="row slider-text align-items-center justify-content-center">
+			<div class="row slider-text align-items-center justify-content-center">
 				<div class="col-lg-9 text-center col-sm-12 element-animate">
 					<h1 class="mb-4">Tu software a medida</h1>
 
