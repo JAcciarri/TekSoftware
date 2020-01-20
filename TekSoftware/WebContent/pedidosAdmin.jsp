@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "entidades.*" %>    
-<%@ page import = "datos.*" %>   
+<%@ page import = "datos.*" %>
+<%@ page import = "logica.PedidoController" %>   
 <%@ page import = "java.util.ArrayList" %>   
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -26,12 +27,13 @@
     
 	<%@ include file = "/security/isNotLoggedIn.jsp" %>
     <%@ include file = "/security/isNotAdmin.jsp" %>
+	
 	<%			 
-	   DataPedido dp = new DataPedido();
+	   PedidoController pController = new PedidoController();
 	   ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	   
 	   if (request.getAttribute("pedidosDelCliente") == null){
-		    pedidos = dp.getAllPedidos();
+		    pedidos = pController.getAllPedidos();
 	   } else{
 		   pedidos = (ArrayList<Pedido>)request.getAttribute("pedidosDelCliente");
 	   }
@@ -153,41 +155,45 @@
 					<th scope="col">Fecha Pedido</th>
 					<th scope="col">Estado</th>
 					<th scope="col">Monto</th>
+					<th scope="col">Acciones</th>
 				</tr>
 			</thead>
 			<tbody>
 				<% //SI NO HAY NINGUN PEDIDO MOSTRAMOS CARTEL "No hay Resultados"
 				   if (pedidos.isEmpty()){ %> <p> No hay resultados </p>
-                <% } 
-					// y sino mostramos todos los pedidos
-				   else { 
-                	  for (Pedido p : pedidos) {
-                  %>
-                  
-				<tr>
-					<td scope="row"><%=p.getIdPedido() %></td>
-					<td><%=p.getCliente().getFullName() %></td>
-					
-					<% String fecha;
-						if (p.getFechaPedido() == null){
-					  %>
-					<td> <%=("No especificado")%></td>
-					<%} else {%>  
-					<td> <%=p.getFechaPedido()%></td>
-					<%} %>
-					
-					<% if (p.getEstado().equals("Pendiente")){ %>
-					<td><span class="label label-info label-rounded" style=color:#7a7c80;>Pendiente</span></td>
-					<% } else {%>
-					<td><span class="label label-success label-rounded" style=color:#000>Aprobado</span></td>
-					<%} %>
-					
-					<td><%=p.getMontoTotal() %></td>
-				</tr>
-				<% }
-				}	
-				%> 
-			</tbody>
+	                <% } 
+						// y sino mostramos todos los pedidos
+					   else { 
+	                	  for (Pedido p : pedidos) {
+	                  %>
+	                  
+					<tr>
+						<td scope="row"><%=p.getIdPedido() %></td>
+						<td><%=p.getCliente().getFullName() %></td>
+						
+						<% String fecha;
+							if (p.getFechaPedido() == null){
+						  %>
+						<td> <%=("No especificado")%></td>
+						<%} else {%>  
+						<td> <%=p.getFechaPedido()%></td>
+						<%} %>
+						
+						<% if (p.getEstado().equals("Pendiente")){ %>
+						<td><span class="label label-info label-rounded" style=color:#7a7c80;>Pendiente</span></td>
+						<% } else {%>
+						<td><span class="label label-success label-rounded" style=color:#000>Aprobado</span></td>
+						<%} %>
+						
+						<td><%=p.getMontoTotal() %></td>
+						<td>
+		               <a class="editbutton" href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver </a>                                    
+	                    </td>
+					</tr>
+					<% }
+					}	
+					%> 
+				</tbody>
 		</table>
                             
                             </div>

@@ -33,6 +33,13 @@ public class PedidoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		if (request.getParameter("idPedido") != null) {
+			PedidoController pController = new PedidoController();
+			Pedido p = pController.getPedidoByID(Integer.parseInt(request.getParameter("idPedido")));
+			request.setAttribute("pedido", p);
+			request.getRequestDispatcher("editarPedido.jsp").forward(request, response);
+		}
+		else {
 		int nPaso = (int)request.getSession().getAttribute("numeroPaso");
 		int idOpcion = Integer.parseInt(request.getParameter("idOpcion"));
 		@SuppressWarnings("unchecked")
@@ -50,10 +57,10 @@ public class PedidoServlet extends HttpServlet {
 			Pedido p = new Pedido();
 			p = pCtrl.registrarPedido(selecciones, usu);
 			request.setAttribute("pedido", p);
-			
 		} 
 		
 		request.getRequestDispatcher("pedido.jsp").forward(request, response);
+		}
 	}
 
 	/**

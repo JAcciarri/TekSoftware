@@ -14,14 +14,9 @@
 	<meta name="description" content="Cloud 83 - hosting template ">
 	<meta name="keywords" content="cloud, hosting, creative, html">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Favicon -->
 	<link href="pedidos/img/favicon.ico" rel="shortcut icon"/>
-
-	<!-- Google Font -->
 	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-
-	<!-- Stylesheets -->
 	<link rel="stylesheet" href="pedidos/css/bootstrap.min.css"/>
 	<link rel="stylesheet" href="pedidos/css/font-awesome.min.css"/>
 	<link rel="stylesheet" href="pedidos/css/flaticon.css"/>
@@ -29,15 +24,12 @@
 	<link rel="stylesheet" href="pedidos/css/style.css"/>
     <link href="dist/css/style.extras.css" rel="stylesheet">
 
-	<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-
 </head>
 <body>
 	
 	 <%@ include file = "/security/isNotLoggedIn.jsp" %>
+	 <%@ include file = "/security/isAdmin.jsp" %>
+	 <%@ include file ="/security/logicPedidoPendiente.jsp" %>
 	
 	<div id="preloder">
 		<div class="loader"></div>

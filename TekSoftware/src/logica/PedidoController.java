@@ -16,6 +16,10 @@ public class PedidoController {
 		this.dp = new DataPedido();
 	}
 	
+	public ArrayList<Pedido> getAllPedidos(){
+		return dp.getAllPedidos();
+	}
+	
 	public Pedido registrarPedido(ArrayList<Seleccion> selecciones, Usuario cliente) {
 		Pedido p = new Pedido();
 		
@@ -48,5 +52,9 @@ public class PedidoController {
 	
 	public ArrayList<Pedido> getPedidosByPartialClient(String datosParciales){
 		return dp.getPedidosByPartialClient(datosParciales);
+	}
+	
+	public Pedido getPedidoByID(int IDPedido) {
+		return dp.getPedidoByID(IDPedido);
 	}
 }

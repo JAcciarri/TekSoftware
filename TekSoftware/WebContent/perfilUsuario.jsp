@@ -36,6 +36,7 @@
 <body>
 
 	   <%@ include file = "/security/isNotLoggedIn.jsp" %>
+	   <%@ include file = "/security/isAdmin.jsp" %>
        <%@ include file="/partials/navBar.jsp" %>
       
       

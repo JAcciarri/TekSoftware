@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import entidades.Pedido;
 import entidades.Seleccion;
 import entidades.Usuario;
+import logica.UsuarioController;
 import oracle.jrockit.jfr.tools.ConCatRepository;
 
 
@@ -285,4 +286,40 @@ public class DataPedido {
 			return pedidosDelCliente;
 	}
 	
+	public Pedido getPedidoByID(int IDPedido) {
+		UsuarioController uController = new UsuarioController();
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		Pedido p = null;
+		
+		try {
+			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM pedidos WHERE idPedido = ?");
+			stmt.setInt(1, IDPedido);
+			rs = stmt.executeQuery();
+			
+			if(rs!=null && rs.next()) {
+					p = new Pedido();
+					p.setIdPedido(rs.getInt("idPedido"));
+					p.setFechaPedido(rs.getDate("fechaPedido"));
+					Usuario user = uController.getByID((rs.getInt("idCliente")));
+					p.setCliente(user);
+					p.setEstado(rs.getString("estado"));
+					p.setMontoTotal(rs.getDouble("montoTotal"));
+				}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return p;
+	}
+	
 }
+	
