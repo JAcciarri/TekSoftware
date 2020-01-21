@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import entidades.Caracteristica;
+import entidades.Opcion;
 import entidades.Pedido;
 import entidades.Seleccion;
 import entidades.Usuario;
@@ -320,6 +322,52 @@ public class DataPedido {
 		}
 		return p;
 	}
-	
+
+	public ArrayList<Seleccion> getSeleccionesByIDPedido(int IDPedido){
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Seleccion> selecciones = new ArrayList<Seleccion>();
+		
+		try {
+			
+			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT c.titulo, o.subtitulo, o.descripcion "
+					+ "FROM pedido_caracteristicas pc "
+					+ "INNER JOIN caracteristicas c ON pc.idCaracteristica = c.idCaracteristica "
+					+ "INNER JOIN opciones o ON pc.idOpcion = o.idOpcion AND pc.idCaracteristica = o.idCaracteristica "
+					+ "WHERE idPedido = ?");
+			stmt.setInt(1, IDPedido);
+			rs = stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Seleccion sel = new Seleccion();
+					Caracteristica c = new Caracteristica();
+					c.setTitulo(rs.getString("c.titulo"));
+					sel.setCaracteristica(c);
+					Opcion o = new Opcion();
+					o.setSubtitulo(rs.getString("o.subtitulo"));
+					o.setDescripcion(rs.getString("o.descripcion"));
+					sel.setOpcion(o);
+					
+					selecciones.add(sel);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return selecciones;
+	}
 }
 	

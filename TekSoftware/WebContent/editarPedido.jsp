@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="logica.PedidoController"%>
 <%@ page import="entidades.Pedido"%>    
 <%@ page import="entidades.Usuario"%>   
@@ -7,9 +7,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link href="dist/css/style.extras.css" rel="stylesheet">
 <link href="dist/css/style.min.css" rel="stylesheet">
+
 <title>Editar Pedido</title>
 </head>
 <body>

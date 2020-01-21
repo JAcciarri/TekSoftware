@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import datos.FactoryConnection;
 import entidades.Opcion;
 import entidades.Pedido;
+import entidades.Seleccion;
 import logica.CaracteristicaController;
 import logica.PedidoController;
 
@@ -18,9 +19,14 @@ public class Test {
 		
 		
 		PedidoController pc = new PedidoController();
-		Pedido p = pc.getPedidoPendienteByCliente(11);
-		if (p!=null) System.out.println(p.getEstado() + " " + p.getMontoTotal());
-		else System.out.println("0 pedidos pendientes");
+		ArrayList<Seleccion> selecciones = pc.getSeleccionesByIDPedido(8);
+		System.out.println(selecciones.size());
+		for(Seleccion s : selecciones) {
+			System.out.println(
+					s.getCaracteristica().getTitulo() + " "
+					+ s.getOpcion().getSubtitulo() + " " 
+					+ s.getOpcion().getDescripcion());
+		}
 		
 	} 
 

@@ -60,8 +60,8 @@
 	
 	
 	<%  int nPaso = (int)session.getAttribute("numeroPaso"); 
-
-	if (nPaso==4) {  
+		
+	if (request.getAttribute("pedidoJustCreated") != null) {  
 		Pedido p = (Pedido)request.getAttribute("pedido");
 	%>
 	

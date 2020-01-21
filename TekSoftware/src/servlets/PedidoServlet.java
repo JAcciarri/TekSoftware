@@ -36,8 +36,19 @@ public class PedidoServlet extends HttpServlet {
 		if (request.getParameter("idPedido") != null) {
 			PedidoController pController = new PedidoController();
 			Pedido p = pController.getPedidoByID(Integer.parseInt(request.getParameter("idPedido")));
-			request.setAttribute("pedido", p);
-			request.getRequestDispatcher("editarPedido.jsp").forward(request, response);
+			Usuario actualUser = (Usuario)request.getSession().getAttribute("usuario");
+				
+			// reutilizamos tanto para admin como para usuario comun
+				if (actualUser.isAdmin()) {
+					// si es admin lo redirigimos para que edite el pedido
+					request.setAttribute("pedido", p);
+					request.getRequestDispatcher("editarPedido.jsp").forward(request, response);
+				}  
+				// si no es admin entonces es un usuario comun que quiere ver su pedido
+				else {
+					request.setAttribute("pedido", p);
+					request.getRequestDispatcher("pedidoUsuario.jsp").forward(request, response);
+				}
 		}
 		else {
 		int nPaso = (int)request.getSession().getAttribute("numeroPaso");
@@ -57,6 +68,7 @@ public class PedidoServlet extends HttpServlet {
 			Pedido p = new Pedido();
 			p = pCtrl.registrarPedido(selecciones, usu);
 			request.setAttribute("pedido", p);
+			request.setAttribute("pedidoJustCreated", true);
 		} 
 		
 		request.getRequestDispatcher("pedido.jsp").forward(request, response);

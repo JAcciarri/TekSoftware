@@ -12,17 +12,20 @@
 </head>
 <body>
 
-<!--  JSP diseñado para proteger las rutas
+	<!--  JSP diseñado para proteger las rutas
 	Por ejemplo, un usuario loggeado no deberia poder ver la pagina 
 	de registro o la pagina de login -->
-					
-		<%  PedidoController pCtrl = new PedidoController();
-		    Usuario user = (Usuario)request.getSession().getAttribute("usuario");
+
+	<%
+		if (request.getAttribute("pedidoJustCreated") == null) {
+			PedidoController pCtrl = new PedidoController();
+			Usuario user = (Usuario) request.getSession().getAttribute("usuario");
 			Pedido ped = pCtrl.getPedidoPendienteByCliente(user.getIdUsuario());
-			if (ped != null){
+			if (ped != null) {
 				// ya tiene un pedido pendiente, redirigimos a su perfil
 				request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
 			}
-		%>
+		}
+	%>
 </body>
 </html>

@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.Usuario" %>
     <%@ page import = "logica.PedidoController" %>
@@ -31,6 +31,8 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
 <!-- Theme Style -->
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="dist/css/style.extras.css">
+
 </head>
 
 <body>
@@ -74,7 +76,7 @@
                         </div>
                     </div>
                   
-                    <div class="row">¿
+                    <div class="row">
 					<%
 						if (pedidoPendiente == null) {
 					%>
@@ -132,6 +134,7 @@
                                                 <th scope="col">Fecha de aprobación</th>
                                                 <th scope="col">Monto total</th>
                                                 <th scope="col">Estado</th>
+                                                <th scope="col">Acciones</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -145,9 +148,12 @@
 											  <td><span class="label label-info label-rounded">Pendiente</span></td>
 										  <% } else {%>
 											  <td><span class="label label-success label-rounded">Aprobado</span></td>
-											  <%} %>
-                                          </tr>
+						                   		<%} %>
+						                   <td>
+							               <a class="editbutton" href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver </a>                                    
+						                  </td>
                                           <%} %>
+						                   </tr>
                                         </tbody>
                                     </table>
                                 </div>

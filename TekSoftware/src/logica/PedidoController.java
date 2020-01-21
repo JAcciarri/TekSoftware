@@ -57,4 +57,8 @@ public class PedidoController {
 	public Pedido getPedidoByID(int IDPedido) {
 		return dp.getPedidoByID(IDPedido);
 	}
+	
+	public ArrayList<Seleccion> getSeleccionesByIDPedido(int IDPedido){
+		return dp.getSeleccionesByIDPedido(IDPedido);
+	}
 }
