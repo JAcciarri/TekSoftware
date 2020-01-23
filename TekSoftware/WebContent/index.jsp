@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="entidades.*"%>
-<%@ page import="datos.*"%>
 <%@ page import="java.util.ArrayList"%>
+<%@ page import="logica.CaracteristicaController"%>
 
 <!DOCTYPE html>
 <html lang="es">
@@ -54,8 +54,13 @@
 						%>
 
 						<!-- SI EL USUARIO ESTA LOGGEADO REDIRIGIR AL PEDIDO -->
-						<a href="pedido.jsp" <%session.setAttribute("numeroPaso", 1);%>
-							<%session.setAttribute("selecciones", new ArrayList<Seleccion>());%>
+						<a href="pedido.jsp" 
+							<%	
+								CaracteristicaController carCtrl = new CaracteristicaController();
+								session.setAttribute("caracteristicas", carCtrl.getAllCaracteristicas());
+								session.setAttribute("numeroPaso", 1);
+								session.setAttribute("selecciones", new ArrayList<Seleccion>());
+							%>
 							class="btn-play"><span class="ion ion-ios-play"></span> </a>
 						<%
 							} else {

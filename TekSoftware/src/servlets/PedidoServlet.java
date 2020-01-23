@@ -9,9 +9,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.Caracteristica;
 import entidades.Pedido;
 import entidades.Seleccion;
 import entidades.Usuario;
+import logica.CaracteristicaController;
 import logica.PedidoController;
 
 /**
@@ -29,10 +31,10 @@ public class PedidoServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if (request.getParameter("idPedido") != null) {
 			PedidoController pController = new PedidoController();
 			Pedido p = pController.getPedidoByID(Integer.parseInt(request.getParameter("idPedido")));
@@ -50,19 +52,31 @@ public class PedidoServlet extends HttpServlet {
 					request.getRequestDispatcher("pedidoUsuario.jsp").forward(request, response);
 				}
 		}
+		
+		
 		else {
+		ArrayList<Caracteristica> cars = (ArrayList<Caracteristica>)request.getSession().getAttribute("caracteristicas");	
+		
+		// recuperamos el numero de paso, este se corresponde con el indice del arraylist que apunta a la caracteristica
+		// que estamos tratando de recuperar, pero restando uno ya que comienza desde 0. Luego podremos saber la caracteristica
+		// y asi agregar esta Seleccion (caract + opcion) al atributo selecciones guardado en la sesion
 		int nPaso = (int)request.getSession().getAttribute("numeroPaso");
-		int idOpcion = Integer.parseInt(request.getParameter("idOpcion"));
-		@SuppressWarnings("unchecked")
-		//agregamos la opcion que eligio, el numero de paso se corresponde con el numero de caracteristica
+		int idCaracteristica = cars.get(nPaso - 1).getIdCaracteristica();
+		
 		// y el id opcion es la opcion elegida por el usuario entre las 3 posibles
+		int idOpcion = Integer.parseInt(request.getParameter("idOpcion"));
+		
 		ArrayList<Seleccion> selecciones = (ArrayList<Seleccion>)request.getSession().getAttribute("selecciones");
-		selecciones.add(new Seleccion(nPaso, idOpcion));
+		selecciones.add(new Seleccion(idCaracteristica, idOpcion));
+		// actualizamos las selecciones elegidas (y que se guardan en la sesion)
 		request.getSession().setAttribute("selecciones", selecciones);
 		//aumentamos el paso en 1
-		request.getSession().setAttribute("numeroPaso", 1+ (int)request.getSession().getAttribute("numeroPaso"));
+		request.getSession().setAttribute("numeroPaso", nPaso + 1);
 		
-		if (nPaso + 1 == 4) {  
+		CaracteristicaController carCtrl = new CaracteristicaController();
+		int count = carCtrl.getCountCaracteristicas();
+		if (nPaso == count) {  
+			// significa que llegamos al final, a la cantidad total de caracteristicas de nuestra base de datos
 			PedidoController pCtrl = new PedidoController();
 			Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
 			Pedido p = new Pedido();

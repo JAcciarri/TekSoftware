@@ -353,5 +353,32 @@ public class DataCaracteristica {
 		}
 	}
 	
+	public int getCountCaracteristicas() {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int count = -1;
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement( "SELECT COUNT(idCaracteristica) FROM caracteristicas");
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            if (rs!=null) rs.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		return count;
+	}
+	
 	
 }

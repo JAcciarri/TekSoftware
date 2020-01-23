@@ -176,14 +176,29 @@
 						  %>
 						<td> <%=("No especificado")%></td>
 						<%} else {%>  
-						<td> <%=p.getFechaPedido()%></td>
+						<td> <%=p.getFechaPedido().toString().substring(0, 10)%></td>
 						<%} %>
 						
-						<% if (p.getEstado().equals("Pendiente")){ %>
-						<td><span class="label label-info label-rounded" style=color:#7a7c80;>Pendiente</span></td>
-						<% } else {%>
-						<td><span class="label label-success label-rounded" style=color:#000>Aprobado</span></td>
-						<%} %>
+						<%
+											if (p.getEstado().equals("Pendiente")) {
+										%>
+										<td><span class="label label-info label-rounded"
+											style="color: #7a7c80;">Pendiente</span></td>
+										<%
+											} else  
+												if (p.getEstado().equals("Aprobado")){
+										%>
+										<td><span class="label label-success label-rounded"
+											style="color: #000">Aprobado</span></td>
+										<%
+											} else
+												if (p.getEstado().equals("Rechazado")){
+										%>
+										<td><span class="label label-danger label-rounded"
+											style="color: #000">Rechazado</span></td>
+										<%
+											}
+										%>
 						
 						<td><%=p.getMontoTotal() %></td>
 						<td>

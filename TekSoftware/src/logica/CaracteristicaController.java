@@ -46,4 +46,8 @@ public class CaracteristicaController {
 	public void deleteCaracteristica(int ID) {
 		dc.deleteCaracteristica(ID);
 	}
+	
+	public int getCountCaracteristicas() {
+		return dc.getCountCaracteristicas();
+	}
 }

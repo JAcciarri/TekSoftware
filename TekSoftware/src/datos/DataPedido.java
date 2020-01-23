@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 
 import entidades.Caracteristica;
 import entidades.Opcion;
@@ -140,7 +142,7 @@ public class DataPedido {
 					while(rs.next()) {
 						Pedido p = new Pedido();
 						p.setIdPedido(rs.getInt("idPedido"));
-						p.setFechaPedido(rs.getDate("fechaPedido"));
+						p.setFechaPedido(rs.getTimestamp("fechaPedido"));
 						Usuario u = du.getByID(rs.getInt("idCliente"));
 						p.setCliente(u);
 						p.setEstado(rs.getString("estado"));
@@ -175,7 +177,7 @@ public class DataPedido {
 		try {
 			
 			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
-					"SELECT * FROM pedidos WHERE idCliente=? AND estado='Aprobado'");
+					"SELECT * FROM pedidos WHERE idCliente=? AND estado='Aprobado' OR estado='Rechazado'");
 			stmt.setInt(1, IDCliente);
 			rs = stmt.executeQuery();
 			
@@ -183,7 +185,7 @@ public class DataPedido {
 				while(rs.next()) {
 					Pedido p = new Pedido();
 					p.setIdPedido(rs.getInt("idPedido"));
-					p.setFechaPedido(rs.getDate("fechaPedido"));
+					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
 					Usuario user = du.getByID(IDCliente);
 					p.setCliente(user);
 					p.setEstado(rs.getString("estado"));
@@ -225,7 +227,7 @@ public class DataPedido {
 			if(rs!=null && rs.next()) {
 					pedido = new Pedido();
 					pedido.setIdPedido(rs.getInt("idPedido"));
-					pedido.setFechaPedido(rs.getDate("fechaPedido"));
+					pedido.setFechaPedido(rs.getTimestamp("fechaPedido"));
 					Usuario user = du.getByID(IDCliente);
 					pedido.setCliente(user);
 					pedido.setEstado(rs.getString("estado"));
@@ -265,7 +267,7 @@ public class DataPedido {
 					while(rs.next()) {
 						Pedido p = new Pedido();
 						p.setIdPedido(rs.getInt("idPedido"));
-						p.setFechaPedido(rs.getDate("fechaPedido"));
+						p.setFechaPedido(rs.getTimestamp("fechaPedido"));
 						Usuario user = du.getByID(rs.getInt("idCliente"));
 						p.setCliente(user);
 						p.setEstado(rs.getString("estado"));
@@ -303,7 +305,7 @@ public class DataPedido {
 			if(rs!=null && rs.next()) {
 					p = new Pedido();
 					p.setIdPedido(rs.getInt("idPedido"));
-					p.setFechaPedido(rs.getDate("fechaPedido"));
+					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
 					Usuario user = uController.getByID((rs.getInt("idCliente")));
 					p.setCliente(user);
 					p.setEstado(rs.getString("estado"));
@@ -369,5 +371,63 @@ public class DataPedido {
 		
 		return selecciones;
 	}
+	
+	public void deletePedido(int IDPedido) {
+		
+		PreparedStatement stmt=null;
+		try {
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"DELETE FROM pedido_caracteristicas WHERE idPedido=?"
+					);
+			stmt.setInt(1, IDPedido);
+			stmt.executeUpdate();
+			stmt.close();
+			
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"DELETE FROM pedidos WHERE idPedido=?"
+					);
+			stmt.setInt(1, IDPedido);
+			stmt.executeUpdate();
+			stmt.close();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void updatePedido(int IDPedido) {
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+			"UPDATE pedidos SET fechaRechazo=?, estado = ? "
+			+ "WHERE idPedido=?");
+			
+			stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+			stmt.setString(2, "Rechazado");
+			stmt.setInt(3, IDPedido);
+			stmt.executeUpdate();	
+			
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+	}
+
 }
 	

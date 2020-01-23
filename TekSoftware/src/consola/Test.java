@@ -17,16 +17,8 @@ public class Test {
 	
 	public static void main(String[] args) {
 		
-		
 		PedidoController pc = new PedidoController();
-		ArrayList<Seleccion> selecciones = pc.getSeleccionesByIDPedido(8);
-		System.out.println(selecciones.size());
-		for(Seleccion s : selecciones) {
-			System.out.println(
-					s.getCaracteristica().getTitulo() + " "
-					+ s.getOpcion().getSubtitulo() + " " 
-					+ s.getOpcion().getDescripcion());
-		}
+		System.out.println(pc.getSeleccionesByIDPedido(31).size());
 		
 	} 
 

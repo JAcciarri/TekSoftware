@@ -141,15 +141,36 @@
                                           <% for (Pedido p : pedidos){ %>
                                           <tr>
                                               <th scope="row"><%=p.getIdPedido()%></th>
-                                              <td><%=p.getFechaPedido()%></td>
-                                              <td><%=p.getFechaAprobacion()%></td>
-                                              <td><%=p.getMontoTotal() %></td>
-                                          <% if (p.getEstado().equals("Pendiente")){ %>
-											  <td><span class="label label-info label-rounded">Pendiente</span></td>
+                                              <td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
+                                              
+                                              <% if (p.getFechaAprobacion() == null){ %>
+											  <td><%= ("No aprobado") %></td>
 										  <% } else {%>
-											  <td><span class="label label-success label-rounded">Aprobado</span></td>
+											  <td><%=p.getFechaAprobacion()%></td>
 						                   		<%} %>
-						                   <td>
+						                  
+                                              <td><%=p.getMontoTotal() %></td>
+
+											<%
+											if (p.getEstado().equals("Pendiente")) {
+										%>
+											<td><span class="label label-info label-rounded"
+												style="color: #000;">Pendiente</span></td>
+											<%
+												} else if (p.getEstado().equals("Aprobado")) {
+											%>
+											<td><span class="label label-success label-rounded"
+												style="color: #000">Aprobado</span></td>
+											<%
+												} else if (p.getEstado().equals("Rechazado")) {
+											%>
+											<td><span class="label label-danger label-rounded"
+												style="color: #000">Rechazado</span></td>
+											<%
+												}
+											%>
+
+											<td>
 							               <a class="editbutton" href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver </a>                                    
 						                  </td>
                                           <%} %>

@@ -7,6 +7,7 @@ import datos.DataUsuario;
 
 import java.util.ArrayList;
 import entidades.*;
+import jdk.nashorn.internal.ir.RuntimeNode.Request;
 
 public class PedidoController {
 
@@ -61,4 +62,16 @@ public class PedidoController {
 	public ArrayList<Seleccion> getSeleccionesByIDPedido(int IDPedido){
 		return dp.getSeleccionesByIDPedido(IDPedido);
 	}
+	
+	public void deletePedido(int IDPedido) {
+		// lo borramos solo si es que existe
+		if (dp.getPedidoByID(IDPedido) != null) {
+		 dp.deletePedido(IDPedido);
+		}
+	}
+	
+	public void rechazarPedido(int IDPedido) {
+		dp.updatePedido(IDPedido);
+	}
+
 }

@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "datos.DataCaracteristica"
-		 import = "entidades.*"
+<%@ page import = "entidades.*"
  		 import = "java.util.ArrayList" 
  		 import = "logica.PedidoController"
+ 		 import = "logica.CaracteristicaController"
  		 %>
     
 <!DOCTYPE html>
@@ -59,8 +59,9 @@
 	<!--  SECCION DONDE MOSTRAMOS SEGUN EL ID SELECCIONADO -->
 	
 	
-	<%  int nPaso = (int)session.getAttribute("numeroPaso"); 
+	<%  int numPaso = (int)session.getAttribute("numeroPaso"); 
 		
+	
 	if (request.getAttribute("pedidoJustCreated") != null) {  
 		Pedido p = (Pedido)request.getAttribute("pedido");
 	%>
@@ -80,16 +81,17 @@
 	<% }
 	else{
 		
-	DataCaracteristica dc = new DataCaracteristica();
-	Caracteristica c = dc.getByID(nPaso);
-	ArrayList<Opcion> opciones = dc.getOpcionesByIdCaracteristica(nPaso);
+	CaracteristicaController carCtrl = new CaracteristicaController();
+	ArrayList<Caracteristica> caracteristicas = (ArrayList<Caracteristica>)session.getAttribute("caracteristicas");
+	Caracteristica c = caracteristicas.get(numPaso - 1);
+	ArrayList<Opcion> opciones = carCtrl.getOpcionesByIdCaracteristica(c.getIdCaracteristica());
 	%>
 
 				<section class="features-section spad">
 				<div class="container">
 					<div class="section-title">
 						<h2><%=c.getTitulo()%></h2>
-						<p style="text-transform:uppercase;">PASO <%=nPaso%>/10</p>
+						<p style="text-transform:uppercase;">PASO <%=numPaso%>/<%=caracteristicas.size()%></p>
 					</div>
 					
 					<div class="row">

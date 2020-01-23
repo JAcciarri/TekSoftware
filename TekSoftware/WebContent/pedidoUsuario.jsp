@@ -17,6 +17,7 @@
 <title>Editar Pedido</title>
 </head>
 <body>
+
 	<%  PedidoController pc = new PedidoController();
 		Pedido p = (Pedido)request.getAttribute("pedido");
 		ArrayList<Seleccion> selecciones = pc.getSeleccionesByIDPedido(p.getIdPedido());
@@ -60,7 +61,7 @@
 										<%
 											} else {
 										%>
-										<td><%=p.getFechaPedido()%></td>
+										<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
 										<%
 											}
 										%>
@@ -71,10 +72,17 @@
 										<td><span class="label label-info label-rounded"
 											style="color: #7a7c80;">Pendiente</span></td>
 										<%
-											} else {
+											} else  
+												if (p.getEstado().equals("Aprobado")){
 										%>
 										<td><span class="label label-success label-rounded"
 											style="color: #000">Aprobado</span></td>
+										<%
+											} else
+												if (p.getEstado().equals("Rechazado")){
+										%>
+										<td><span class="label label-danger label-rounded"
+											style="color: #000">Rechazado</span></td>
 										<%
 											}
 										%>
@@ -111,7 +119,7 @@
 							</table>
 							<br>
 							<a class="addbutton" href="perfilUsuario.jsp">Volver</a> <a
-								class="deletebutton" href="perfilUsuario.jsp">Cancelar
+								class="deletebutton" href="DeletePedidoServlet?id=<%=p.getIdPedido()%>">Cancelar
 								pedido</a>
 							<br> <br>
 						</div>
