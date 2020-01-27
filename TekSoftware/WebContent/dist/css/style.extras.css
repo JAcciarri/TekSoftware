@@ -8,6 +8,7 @@
   text-decoration: none;
   display: inline-block;
    cursor:pointer;
+   margin:5px;
  }
 
  .deletebutton{
@@ -20,6 +21,7 @@
   text-decoration: none;
   display: inline-block;
    cursor:pointer;
+   margin:5px;
  }
 
   .addbutton{
@@ -32,6 +34,7 @@
   text-decoration: none;
   display: inline-block;
   cursor:pointer;
+  margin:5px;
  }
  .editbutton:hover, .deletebutton:hover, .addbutton:hover{
  	 color:white;

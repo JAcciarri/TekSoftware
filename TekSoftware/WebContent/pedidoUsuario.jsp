@@ -29,12 +29,14 @@
 		style="background-image: url('images/hero_2.jpg');">
 
 		<br> <br> <br>
-		<div class="container-fluid" style=padding:0>
+		<div class="container-fluid" style="padding: 0">
 			<div class="row">
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body">
-							<h6 class="card-title">Aquí esta tu pedido, <%=user.getUsername() %></h6>
+							<h6 class="card-title">
+								Aquí esta tu pedido,
+								<%=user.getUsername() %></h6>
 						</div>
 
 
@@ -93,6 +95,12 @@
 						</div>
 
 
+						<% if (p.getEstado().equals("Rechazado")){%>
+						<div class="col-12">
+							<h6>Motivo de rechazo:</h6>
+							<p><%=p.getMotivoRechazo() %></p>
+						</div>
+						<%} %>
 
 						<div class="table-responsive">
 							<table class="table">
@@ -118,18 +126,29 @@
 								</tbody>
 							</table>
 							<br>
-							<a class="addbutton" href="perfilUsuario.jsp">Volver</a> <a
-								class="deletebutton" href="DeletePedidoServlet?id=<%=p.getIdPedido()%>">Cancelar
-								pedido</a>
-							<br> <br>
+							<div class="col-12">
+								<div style="text-align: center;">
+									<a class="editbutton" href="perfilUsuario.jsp">Volver</a>
+									<% if (!p.getEstado().equals("Aprobado")){%>
+									<a class="deletebutton"
+										href="DeletePedidoServlet?id=<%=p.getIdPedido()%>">
+										Eliminar pedido</a>
+									<%
+										}
+									%>
+									<br> <br>
+								</div>
+							</div>
+
 						</div>
 
 					</div>
 				</div>
 
 			</div>
-</div>
 		</div>
 		<%@ include file="/partials/footer.jsp"%>
+	</div>
+
 </body>
 </html>

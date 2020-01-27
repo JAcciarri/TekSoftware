@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ page import="logica.PedidoController"%>
-<%@ page import="entidades.Pedido"%>    
-<%@ page import="entidades.Usuario"%>   
-<%@ page import="entidades.Seleccion"%>   
-<%@ page import="java.util.ArrayList"%>   
+<%@ page import="entidades.Pedido"%>
+<%@ page import="entidades.Usuario"%>
+<%@ page import="entidades.Seleccion"%>
+<%@ page import="java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html>
@@ -35,9 +35,11 @@
 				<div class="col-12">
 					<div class="card">
 						<div class="card-body">
-							<h4 class="card-title">
-								Este es el pedido del cliente:
-								<%=p.getCliente().getFullName()%></h4>
+							<h6 class="card-title">
+								Este es el pedido de <strong><%=p.getCliente().getFullName()%></strong>
+							</h6>
+							<h6 class="card-title">Puedes aprobarlo, rechazarlo o simplemente verlo</h6>
+							
 						</div>
 
 						<table class="table">
@@ -71,27 +73,34 @@
 									<%
 											if (p.getEstado().equals("Pendiente")) {
 										%>
-										<td><span class="label label-info label-rounded"
-											style="color: #7a7c80;">Pendiente</span></td>
-										<%
+									<td><span class="label label-info label-rounded"
+										style="color: #7a7c80;">Pendiente</span></td>
+									<%
 											} else  
 												if (p.getEstado().equals("Aprobado")){
 										%>
-										<td><span class="label label-success label-rounded"
-											style="color: #000">Aprobado</span></td>
-										<%
+									<td><span class="label label-success label-rounded"
+										style="color: #000">Aprobado</span></td>
+									<%
 											} else
 												if (p.getEstado().equals("Rechazado")){
 										%>
-										<td><span class="label label-danger label-rounded"
-											style="color: #000">Rechazado</span></td>
-										<%
+									<td><span class="label label-danger label-rounded"
+										style="color: #000">Rechazado</span></td>
+									<%
 											}
 										%>
 
 									<td><%=p.getMontoTotal()%></td>
 							</tbody>
 						</table>
+
+						<% if (p.getEstado().equals("Rechazado")){ %>
+						<div class="col-12 center">
+							<h6>Motivo del rechazo:</h6>
+							<p><%=p.getMotivoRechazo()%></p>
+						</div>
+						<%} %>
 
 						<div class="table-responsive">
 							<table class="table">
@@ -116,18 +125,54 @@
 									%>
 								</tbody>
 							</table>
-							<br>
-							<div>
-								<a class="addbutton" href="indexAdmin.jsp">Volver</a> 
-								<a class="deletebutton" href="DeletePedidoServlet?idRechazado=<%=p.getIdPedido()%>">Rechazar Pedido</a>.
-							</div>
+							<div></div>
+
+
+							<%
+								if (p.getEstado().equals("Pendiente")) {
+							%>
+							<form action="DeletePedidoServlet" METHOD="POST">
+								<div class="form-group">
+									<label class="col-md-12">¿Deseas rechazar este pedido?</label>
+									<div class="col-md-12">
+										<input style="line-height: 10;" type="text"
+											name="motivoRechazo" autocomplete="off" required
+											placeholder="Motivo de rechazo"
+											class="form-control form-control-line"> <input
+											hidden="true" name="idRechazado" value="<%=p.getIdPedido()%>">
+									</div>
+								</div>
+								<%
+									}
+								%>
+								<div class="form-group" style="text-align: center;">
+									<a class="editbutton" href="pedidosAdmin.jsp">Volver</a>
+									<%
+										if (p.getEstado().equals("Pendiente")) {
+									%>
+
+									<button class="deletebutton">Rechazar Pedido</button>
+									<a class="addbutton"
+										href="EditPedidoServlet?idPedido=<%=p.getIdPedido()%>">
+										Aprobar Pedido</a>
+									<%
+										}
+									%>
+								</div>
+								<br>
+							</form>
+
+
 						</div>
 					</div>
 				</div>
 			</div>
+			<%@ include file="/partials/footer.jsp"%>
 		</div>
+
 	</div>
-	<%@ include file = "/partials/footer.jsp" %>
-		
+
+
+
 </body>
 </html>

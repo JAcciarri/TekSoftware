@@ -16,6 +16,9 @@ public class UsuarioController {
 	public ArrayList<Usuario> getAllUsers(){
 		return du.getAllUsers();
 	}
+	public ArrayList<Usuario> getAllAdmins(){
+		return du.getAllAdmins();
+	}
 	
 	public ArrayList<Usuario> getUsersByPartialDesc(String desc){
 		return du.getUsersByPartialDesc(desc);

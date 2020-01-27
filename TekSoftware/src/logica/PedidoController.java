@@ -43,8 +43,8 @@ public class PedidoController {
 		p.setMontoTotal(total);
 	}
 	
-	public ArrayList<Pedido> getPedidosAprobadosByCliente(int IDCliente){
-		return dp.getPedidosAprobadosByCliente(IDCliente);
+	public ArrayList<Pedido> getPedidosByCliente(int IDCliente){
+		return dp.getPedidosByCliente(IDCliente);
 	}
 	
 	public Pedido getPedidoPendienteByCliente(int IDCliente) {
@@ -63,6 +63,10 @@ public class PedidoController {
 		return dp.getSeleccionesByIDPedido(IDPedido);
 	}
 	
+	public int getCountPedidosPendientes() {
+		return dp.getCountPedidosPendientes();
+	}
+	
 	public void deletePedido(int IDPedido) {
 		// lo borramos solo si es que existe
 		if (dp.getPedidoByID(IDPedido) != null) {
@@ -70,8 +74,11 @@ public class PedidoController {
 		}
 	}
 	
-	public void rechazarPedido(int IDPedido) {
-		dp.updatePedido(IDPedido);
+	public void rechazarPedido(Pedido pedido) {
+		dp.rechazarPedido(pedido);
 	}
-
+	
+	public void aprobarPedido(Pedido pedido) {
+		dp.aprobarPedido(pedido);
+	}
 }

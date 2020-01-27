@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.Usuario" %>
     <%@ page import = "logica.PedidoController" %>
+    <%@ page import = "logica.CaracteristicaController" %>
 	<%@ page import = "java.util.ArrayList" %>
 	
 <!DOCTYPE html>
@@ -32,6 +33,7 @@
 <!-- Theme Style -->
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="dist/css/style.extras.css">
+<link rel="stylesheet" href="dist/css/style.min.css">
 
 </head>
 
@@ -45,117 +47,137 @@
       <% PedidoController pCtrl = new PedidoController();
          int IDCliente = user.getIdUsuario();
          Pedido pedidoPendiente = pCtrl.getPedidoPendienteByCliente(IDCliente);
-      	 ArrayList<Pedido> pedidos = pCtrl.getPedidosAprobadosByCliente(IDCliente);
+      	 ArrayList<Pedido> pedidos = pCtrl.getPedidosByCliente(IDCliente);
       	 if (pedidoPendiente != null) {
       		 pedidos.add(pedidoPendiente);
       	 }
-      %>  
-        
-        <div  class="slider-item overlay"  data-stellar-background-ratio="0.5" 
-        style="background-image: url('images/hero_2.jpg');">
-        
-            <div class="container-fluid">
-                <div class="row">
-                    <!-- Column -->
-                    <div class="col-lg-4 col-xlg-3 col-md-5"></div>
-                    <div class="col-lg-4 col-xlg-3 col-md-5"  style=margin-top:7%;>
-                        <div class="card" style=background:#e4e8f0;>
-                            <div class="card-body">
-                            	<h4 class="card-title m-t-10 text-center">¡Bienvenido de nuevo!</h4>
-                                <center class="m-t-30"> <img src="assets/images/users/userdefault.png" class="rounded-circle" width="150" />
-                                    <h4 class="card-title m-t-10"><%=user.getUsername()%></h4>
-                                    <div class="row text-center justify-content-md-center">
-                                    </div>
-                                </center>
-                            </div>
-                            <div>
-                                <hr> </div>
-                            <div class="card-body"> <small class="text-muted"><center><strong><%=user.getFullName()%></strong></center> </small>
-                            	<small class="text-muted"><center><%=user.getEmail()%></center> </small>
-                            </div>
-                        </div>
-                    </div>
-                  
-                    <div class="row">
+      %>
+
+	<div class="slider-item overlay" data-stellar-background-ratio="0.5"
+		style="background-image: url('images/hero_2.jpg');">
+
+		<div class="container-fluid">
+			<div class="row">
+				<!-- Column -->
+				<div class="col-lg-4 col-xlg-3 col-md-5"></div>
+				<div class="col-lg-4 col-xlg-3 col-md-5" style="margin-top: 7%;">
+					<div class="card" style="background: #e4e8f0;">
+						<div class="card-body">
+							<h4 class="card-title m-t-10 text-center">¡Bienvenido de
+								nuevo!</h4>
+							<center class="m-t-30">
+								<img src="assets/images/users/userdefault.png"
+									class="rounded-circle" width="150" />
+								<h4 class="card-title m-t-10"><%=user.getUsername()%></h4>
+								<div class="row text-center justify-content-md-center"></div>
+							</center>
+						</div>
+						<div>
+							<hr>
+						</div>
+						<div class="card-body">
+							<small class="text-muted"><center>
+									<strong><%=user.getFullName()%></strong>
+								</center> </small> <small class="text-muted"><center><%=user.getEmail()%></center>
+							</small>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
 					<%
 						if (pedidoPendiente == null) {
 					%>
-					<div class="col-2"> </div>
+					<div class="col-2"></div>
 					<div class="col-8">
 						<div class="card">
 							<div class="card-body">
 								<h4 class="card-title">¡Crea tu pedido!</h4>
 								<h6>
 									No tienes ningún pedido en estado <strong>Pendiente</strong>.
-									Realiza uno nuevo dando click <a href="pedido.jsp">aquí</a> y
-									nosotros nos encargaremos de revisarlo lo antes posible para
+									Realiza uno nuevo dando click <strong> 
+								<%
+						 		CaracteristicaController carCtrl = new CaracteristicaController();
+						 		session.setAttribute("caracteristicas", carCtrl.getAllCaracteristicas());
+						 		session.setAttribute("numeroPaso", 1);
+						 		session.setAttribute("selecciones", new ArrayList<Seleccion>());
+						 		%> 
+ 								<a href="pedido.jsp">aquí</a>
+									</strong> y nosotros nos encargaremos de revisarlo lo antes posible para
 									comenzar a llevarlo a cabo.
 								</h6>
 							</div>
 						</div>
 					</div>
-					
+
 					<%
 						} else {
 					%>
-						<div class="col-2"> </div>
-						<div class="col-8">
-							<div class="card">
-								<div class="card-body">
-									<h4 class="card-title">Máximos pedidos pendientes alcanzados</h4>
-									<h6>
-										Ya tienes un pedido en estado <strong>Pendiente</strong>.
-										Puedes revisarlo justo aquí debajo, y en caso de querer hacer uno nuevo, 
-										primero debes cancelar el mismo.
-									</h6>
-								</div>
+					<div class="col-2"></div>
+					<div class="col-8">
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Máximos pedidos pendientes
+									alcanzados</h4>
+								<h6>
+									Ya tienes un pedido en estado <strong>Pendiente</strong>.
+									Puedes revisarlo justo aquí debajo, y en caso de querer hacer
+									uno nuevo, primero debes cancelar el mismo.
+								</h6>
 							</div>
 						</div>
-					<%//FIN DEL ELSE 
-						}	
+					</div>
+					<%
+						//FIN DEL ELSE 
+						}
 					%>
-					
+
 					<div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="card-title">Últimos pedidos</h4>
-                                    <h6 class="card-subtitle">Aquí se encuentran los pedidos que has realizado con anterioridad.</h6>
-                                </div>
-                                
-                                <% if (pedidos.isEmpty()) { %>
-                                	<p style=text-align:center;>No se encontraron pedidos aprobados o pendientes</p>
-                                <%} else{ %>
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <thead class="thead-light">
-                                            <tr>
-                                                <th scope="col">Número de pedido</th>
-                                                <th scope="col">Fecha de pedido</th>
-                                                <th scope="col">Fecha de aprobación</th>
-                                                <th scope="col">Monto total</th>
-                                                <th scope="col">Estado</th>
-                                                <th scope="col">Acciones</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          <% for (Pedido p : pedidos){ %>
-                                          <tr>
-                                              <th scope="row"><%=p.getIdPedido()%></th>
-                                              <td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
-                                              
-                                              <% if (p.getFechaAprobacion() == null){ %>
-											  <td><%= ("No aprobado") %></td>
-										  <% } else {%>
-											  <td><%=p.getFechaAprobacion()%></td>
-						                   		<%} %>
-						                  
-                                              <td><%=p.getMontoTotal() %></td>
+						<div class="card">
+							<div class="card-body">
+								<h4 class="card-title">Últimos pedidos</h4>
+								<h6 class="card-subtitle">Aquí se encuentran los pedidos
+									que has realizado con anterioridad.</h6>
+							</div>
+
+							<%
+								if (pedidos.isEmpty()) {
+							%>
+							<p style="text-align: center;">No se encontraron pedidos
+								aprobados o rechazados</p>
+							<%
+								} else {
+							%>
+							<div class="table-responsive">
+								<table class="table">
+									<thead class="thead-light">
+										<tr>
+											<th scope="col">Número de pedido</th>
+											<th scope="col">Fecha de pedido</th>
+											<th scope="col">Fecha de aprobación</th>
+											<th scope="col">Monto total</th>
+											<th scope="col">Estado</th>
+											<th scope="col">Acciones</th>
+										</tr>
+									</thead>
+									<tbody>
+										<% for (Pedido p : pedidos){ %>
+										<tr>
+											<th scope="row"><%=p.getIdPedido()%></th>
+											<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
+
+											<% if (p.getFechaAprobacion() == null){ %>
+											<td><%=("No aprobado") %></td>
+											<% } else {%>
+											<td><%=p.getFechaAprobacion().toString().substring(0, 10)%></td>
+											<%} %>
+
+											<td><%=p.getMontoTotal() %></td>
 
 											<%
 											if (p.getEstado().equals("Pendiente")) {
 										%>
-											<td><span class="label label-info label-rounded"
-												style="color: #000;">Pendiente</span></td>
+											<td><span class="label label-info label-rounded" style="color: #000">Pendiente</span></td>
 											<%
 												} else if (p.getEstado().equals("Aprobado")) {
 											%>
@@ -170,29 +192,29 @@
 												}
 											%>
 
-											<td>
-							               <a class="editbutton" href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver </a>                                    
-						                  </td>
-                                          <%} %>
-						                   </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                 <%}  //FIN DEL ELSE%>
-                                
-                            </div>
-                        </div>
-                    </div>
-               
-            </div>
-        </div>  
- 
-    
-           <%@include file="/partials/footer.jsp" %>
-        
-       </div>
+											<td><a class="editbutton"
+												href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver
+											</a></td>
+											<%} %>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+							<%}  //FIN DEL ELSE%>
 
-    <script src="perfil-usuario/assets/libs/jquery/dist/jquery.min.js"></script>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<%@include file="/partials/footer.jsp"%>
+
+	</div>
+
+	<script src="perfil-usuario/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="perfil-usuario/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="perfil-usuario/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>

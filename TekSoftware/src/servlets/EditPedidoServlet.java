@@ -11,16 +11,16 @@ import entidades.Pedido;
 import logica.PedidoController;
 
 /**
- * Servlet implementation class DeletePedidoServlet
+ * Servlet implementation class EditPedidoServlet
  */
-@WebServlet("/DeletePedidoServlet")
-public class DeletePedidoServlet extends HttpServlet {
+@WebServlet("/EditPedidoServlet")
+public class EditPedidoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeletePedidoServlet() {
+    public EditPedidoServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +29,19 @@ public class DeletePedidoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Si la llamda es por GET es porque el usuario quiere cancelar su pedido. Lo eliminamos
-		PedidoController pc = new PedidoController();
-			int IDPedido = Integer.parseInt(request.getParameter("id"));
-			pc.deletePedido(IDPedido);
-			request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
-		
+		// Clase pensada para aprobar el pedido, por ahora
+		PedidoController pCtrl = new PedidoController();
+		int IDPedido = Integer.parseInt(request.getParameter("idPedido"));
+		Pedido p = pCtrl.getPedidoByID(IDPedido);
+		pCtrl.aprobarPedido(p);
+		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);;
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Si es por POST es porque el admin quiere rechazar el pedido
-		PedidoController pc = new PedidoController();
-		int IDPedidoRechazado = Integer.parseInt(request.getParameter("idRechazado"));
-		Pedido ped = pc.getPedidoByID(IDPedidoRechazado);
-		String motivoRechazo = request.getParameter("motivoRechazo");
-		ped.setMotivoRechazo(motivoRechazo);
-		pc.rechazarPedido(ped);
-		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);
+		doGet(request, response);
 	}
 
 }

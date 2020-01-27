@@ -12,6 +12,7 @@ public class Pedido {
 	private Usuario admin;
 	private String estado;
 	private double montoTotal;
+	private String motivoRechazo;
 	
 	public int getIdPedido() {
 		return idPedido;
@@ -61,6 +62,12 @@ public class Pedido {
 	}
 	public void setMontoTotal(double montoTotal) {
 		this.montoTotal = montoTotal;
+	}
+	public String getMotivoRechazo() {
+		return motivoRechazo;
+	}
+	public void setMotivoRechazo(String motivoRechazo) {
+		this.motivoRechazo = motivoRechazo;
 	}
 	
 		

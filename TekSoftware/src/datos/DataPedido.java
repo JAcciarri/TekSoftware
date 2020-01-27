@@ -147,6 +147,7 @@ public class DataPedido {
 						p.setCliente(u);
 						p.setEstado(rs.getString("estado"));
 						p.setMontoTotal(rs.getDouble("montoTotal"));
+						p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
 						listaPedidos.add(p);
 					}
 				}
@@ -167,7 +168,7 @@ public class DataPedido {
 			return listaPedidos;
 		}
 	
-	public ArrayList<Pedido> getPedidosAprobadosByCliente(int IDCliente){
+	public ArrayList<Pedido> getPedidosByCliente(int IDCliente){
 		
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -177,7 +178,7 @@ public class DataPedido {
 		try {
 			
 			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
-					"SELECT * FROM pedidos WHERE idCliente=? AND estado='Aprobado' OR estado='Rechazado'");
+					"SELECT * FROM pedidos WHERE idCliente=? AND (estado='Aprobado' OR estado='Rechazado')");
 			stmt.setInt(1, IDCliente);
 			rs = stmt.executeQuery();
 			
@@ -190,6 +191,7 @@ public class DataPedido {
 					p.setCliente(user);
 					p.setEstado(rs.getString("estado"));
 					p.setMontoTotal(rs.getDouble("montoTotal"));
+					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
 					pedidos.add(p);
 				}
 			}
@@ -310,6 +312,8 @@ public class DataPedido {
 					p.setCliente(user);
 					p.setEstado(rs.getString("estado"));
 					p.setMontoTotal(rs.getDouble("montoTotal"));
+					p.setMotivoRechazo(rs.getString("motivoRechazo"));
+					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -372,6 +376,34 @@ public class DataPedido {
 		return selecciones;
 	}
 	
+	public int getCountPedidosPendientes() {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int count = -1;
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement( "SELECT COUNT(idPedido) FROM pedidos WHERE estado=?");
+			stmt.setString(1, "Pendiente");
+			rs = stmt.executeQuery();
+			if (rs != null && rs.next()) {
+				count = rs.getInt(1);
+			}
+			
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            if (rs!=null) rs.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		return count;
+	}
+	
 	public void deletePedido(int IDPedido) {
 		
 		PreparedStatement stmt=null;
@@ -403,18 +435,45 @@ public class DataPedido {
 		}
 	}
 	
-	public void updatePedido(int IDPedido) {
+	public void rechazarPedido(Pedido p) {
 		PreparedStatement stmt = null;
 		
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-			"UPDATE pedidos SET fechaRechazo=?, estado = ? "
+			"UPDATE pedidos SET fechaRechazo = ?, estado = ?, motivoRechazo = ? "
 			+ "WHERE idPedido=?");
 			
 			stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
 			stmt.setString(2, "Rechazado");
-			stmt.setInt(3, IDPedido);
+			stmt.setString(3, p.getMotivoRechazo());
+			stmt.setInt(4, p.getIdPedido());
+			stmt.executeUpdate();	
+			
+		}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+	}
+	
+	public void aprobarPedido(Pedido p) {
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+			"UPDATE pedidos SET fechaAprobacion = ?, estado = ?"
+			+ "WHERE idPedido=?");
+			
+			stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
+			stmt.setString(2, "Aprobado");
+			stmt.setInt(3, p.getIdPedido());
 			stmt.executeUpdate();	
 			
 		}  catch (SQLException e) {
