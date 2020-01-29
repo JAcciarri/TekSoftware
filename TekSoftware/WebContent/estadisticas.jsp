@@ -70,12 +70,35 @@
 
 
 		<div class="page-wrapper">
-
 			<div class="container-fluid">
-			<p> Testing </p>
-			<a href="EstadisticasServlet" class="addbutton">Button A </a>
-			<a href="EstadisticasServlet" class="editbutton">Button B </a>
-			<a href="EstadisticasServlet" class="deletebutton">Button C </a>
+			
+			
+			<div class="col-lg-3 col-xlg-3 col-md-5">
+				<div class="card" style="background: #e4e8f0;">
+					<div class="card-body">
+						<h4 class="card-title m-t-10 text-center"><a href="EstadisticasServlet?servicio=clientes">Clientes</a></h4>
+						<center class="m-t-30">
+							<img src="images/clientes.png"
+								class="rounded-circle" width="150" />
+							<div class="row text-center justify-content-md-center"></div>
+						</center>
+					</div>
+				</div>
+			</div>	
+			
+			<div class="col-lg-3 col-xlg-3 col-md-5">
+				<div class="card" style="background: #e4e8f0;">
+					<div class="card-body">
+						<h4 class="card-title m-t-10 text-center"><a href="EstadisticasServlet?servicio=pedidos">Pedidos</a></h4>
+						<center class="m-t-30">
+							<img src="images/pedidos.png"
+								class="rounded-circle" width="150" />
+							<div class="row text-center justify-content-md-center"></div>
+						</center>
+					</div>
+				</div>
+			</div>
+	
 			</div>
 		</div>
 

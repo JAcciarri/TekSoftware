@@ -26,8 +26,10 @@ public class EstadisticasServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// se podria hacer un case y segun el servicio mostrar las estadisticas solicitadas
+		
+		response.getWriter().println(request.getParameter("servicio"));
+		
 	}
 
 	/**
