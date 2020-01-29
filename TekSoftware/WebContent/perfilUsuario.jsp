@@ -152,55 +152,54 @@
 								<table class="table">
 									<thead class="thead-light">
 										<tr>
-											<th scope="col">Número de pedido</th>
+											<th scope="col">Cliente</th>
 											<th scope="col">Fecha de pedido</th>
-											<th scope="col">Fecha de aprobación</th>
-											<th scope="col">Monto total</th>
+											<th scope="col">Fecha aprobación/rechazo</th>
 											<th scope="col">Estado</th>
+											<th scope="col">Monto total</th>
+											<th scope="col">Revisado por</th>
 											<th scope="col">Acciones</th>
+											
 										</tr>
 									</thead>
 									<tbody>
-										<% for (Pedido p : pedidos){ %>
+									<% for (Pedido p : pedidos){ %>
 										<tr>
-											<th scope="row"><%=p.getIdPedido()%></th>
-											<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
+					<!-- cliente -->		<th scope="row"><%=p.getCliente().getFullName()%></th>
+					<!-- Fecha pedido -->	<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
 
-											<% if (p.getFechaAprobacion() == null){ %>
-											<td><%=("No aprobado") %></td>
-											<% } else {%>
-											<td><%=p.getFechaAprobacion().toString().substring(0, 10)%></td>
-											<%} %>
-
-											<td><%=p.getMontoTotal() %></td>
-
-											<%
-											if (p.getEstado().equals("Pendiente")) {
-										%>
+					<!-- Estados -->		<% if (p.getEstado().equals("Aprobado")){ 
+											%>
+					<!-- y fechas -->		<td><%=p.getFechaAprobacion().toString().substring(0, 10)%></td>
+											<td><span class="label label-success label-rounded" style="color: #000">Aprobado</span></td>
+										
+										<% } else if (p.getEstado().equals("Rechazado")){%>
+											<td><%=p.getFechaCancelacion().toString().substring(0, 10)%></td>
+											<td><span class="label label-danger label-rounded" style="color: #000">Rechazado</span></td>
+										
+										<%} else { %>
+											<td><%=("Pendiente")%></td>
 											<td><span class="label label-info label-rounded" style="color: #000">Pendiente</span></td>
-											<%
-												} else if (p.getEstado().equals("Aprobado")) {
-											%>
-											<td><span class="label label-success label-rounded"
-												style="color: #000">Aprobado</span></td>
-											<%
-												} else if (p.getEstado().equals("Rechazado")) {
-											%>
-											<td><span class="label label-danger label-rounded"
-												style="color: #000">Rechazado</span></td>
-											<%
-												}
-											%>
-
-											<td><a class="editbutton"
-												href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver
-											</a></td>
+										<%} %>
+											
+					<!-- Monto -->			<td>$<%=p.getMontoTotal() %></td>
+											<% if (p.getAdmin()!=null){%>
+				<!-- Admin que reviso -->		<td><%=p.getAdmin().getFullName() %></td>
+											<%} else {%>
+												<td><%=("Aún no revisado")%></td>
 											<%} %>
+					<!-- Acciones -->		<td>
+											<a href="PedidoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton" > Ver</a>
+										<% if (!p.getEstado().equals("Pendiente")){ %>
+											<a href="ContactoServlet?id=<%=p.getAdmin().getIdUsuario()%>" class="editbutton"> Contactar</a>
+										<%} %>
+											</td>
 										</tr>
+										<%} %>
 									</tbody>
 								</table>
 							</div>
-							<%}  //FIN DEL ELSE%>
+							<% } // FIN DEL ELSE%>
 
 						</div>
 					</div>

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Pedido;
+import entidades.Usuario;
 import logica.PedidoController;
 
 /**
@@ -44,8 +45,11 @@ public class DeletePedidoServlet extends HttpServlet {
 		// Si es por POST es porque el admin quiere rechazar el pedido
 		PedidoController pc = new PedidoController();
 		int IDPedidoRechazado = Integer.parseInt(request.getParameter("idRechazado"));
-		Pedido ped = pc.getPedidoByID(IDPedidoRechazado);
+		Usuario administrador = (Usuario)request.getSession().getAttribute("usuario");
 		String motivoRechazo = request.getParameter("motivoRechazo");
+		
+		Pedido ped = pc.getPedidoByID(IDPedidoRechazado);
+		ped.setAdmin(administrador);
 		ped.setMotivoRechazo(motivoRechazo);
 		pc.rechazarPedido(ped);
 		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);

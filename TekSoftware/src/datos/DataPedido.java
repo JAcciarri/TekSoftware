@@ -130,7 +130,7 @@ public class DataPedido {
 			PreparedStatement stmt=null;
 			ResultSet rs=null;
 			ArrayList<Pedido> listaPedidos= new ArrayList<>();
-			DataUsuario du = new DataUsuario();
+			UsuarioController uController = new UsuarioController();
 			
 			try {
 				stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
@@ -143,8 +143,10 @@ public class DataPedido {
 						Pedido p = new Pedido();
 						p.setIdPedido(rs.getInt("idPedido"));
 						p.setFechaPedido(rs.getTimestamp("fechaPedido"));
-						Usuario u = du.getByID(rs.getInt("idCliente"));
+						Usuario u = uController.getByID(rs.getInt("idCliente"));
+						Usuario admin = uController.getByID(rs.getInt("idAdmin"));
 						p.setCliente(u);
+						if (admin!=null) p.setAdmin(admin);
 						p.setEstado(rs.getString("estado"));
 						p.setMontoTotal(rs.getDouble("montoTotal"));
 						p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
@@ -173,7 +175,7 @@ public class DataPedido {
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
 		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
-		DataUsuario du = new DataUsuario();
+		UsuarioController uController = new UsuarioController();
 		
 		try {
 			
@@ -187,11 +189,14 @@ public class DataPedido {
 					Pedido p = new Pedido();
 					p.setIdPedido(rs.getInt("idPedido"));
 					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
-					Usuario user = du.getByID(IDCliente);
+					Usuario user = uController.getByID(IDCliente);
+					Usuario admin = uController.getByID(rs.getInt("idAdmin"));
 					p.setCliente(user);
+					p.setAdmin(admin);
 					p.setEstado(rs.getString("estado"));
 					p.setMontoTotal(rs.getDouble("montoTotal"));
 					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
+					p.setFechaCancelacion(rs.getTimestamp("fechaRechazo"));
 					pedidos.add(p);
 				}
 			}
@@ -252,7 +257,7 @@ public class DataPedido {
 	}
 	
 	public ArrayList<Pedido> getPedidosByPartialClient(String datosParciales){
-		    DataUsuario du = new DataUsuario();
+		    UsuarioController uController = new UsuarioController();
 			ArrayList<Pedido> pedidosDelCliente = new ArrayList<Pedido>();
 			PreparedStatement stmt = null;
 			ResultSet rs = null;
@@ -270,8 +275,10 @@ public class DataPedido {
 						Pedido p = new Pedido();
 						p.setIdPedido(rs.getInt("idPedido"));
 						p.setFechaPedido(rs.getTimestamp("fechaPedido"));
-						Usuario user = du.getByID(rs.getInt("idCliente"));
+						Usuario user = uController.getByID(rs.getInt("idCliente"));
+						Usuario admin = uController.getByID(rs.getInt("idAdmin"));
 						p.setCliente(user);
+						if (admin!=null) p.setAdmin(admin);
 						p.setEstado(rs.getString("estado"));
 						p.setMontoTotal(rs.getDouble("montoTotal"));
 						pedidosDelCliente.add(p);
@@ -309,11 +316,14 @@ public class DataPedido {
 					p.setIdPedido(rs.getInt("idPedido"));
 					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
 					Usuario user = uController.getByID((rs.getInt("idCliente")));
+					Usuario admin = uController.getByID(rs.getInt("idAdmin"));
 					p.setCliente(user);
+					if (admin!=null) p.setAdmin(admin);
 					p.setEstado(rs.getString("estado"));
 					p.setMontoTotal(rs.getDouble("montoTotal"));
 					p.setMotivoRechazo(rs.getString("motivoRechazo"));
 					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
+					
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -441,13 +451,14 @@ public class DataPedido {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-			"UPDATE pedidos SET fechaRechazo = ?, estado = ?, motivoRechazo = ? "
+			"UPDATE pedidos SET fechaRechazo = ?, estado = ?, motivoRechazo = ?, idAdmin = ? "
 			+ "WHERE idPedido=?");
 			
 			stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
 			stmt.setString(2, "Rechazado");
 			stmt.setString(3, p.getMotivoRechazo());
-			stmt.setInt(4, p.getIdPedido());
+			stmt.setInt(4, p.getAdmin().getIdUsuario());
+			stmt.setInt(5, p.getIdPedido());
 			stmt.executeUpdate();	
 			
 		}  catch (SQLException e) {
@@ -468,12 +479,13 @@ public class DataPedido {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-			"UPDATE pedidos SET fechaAprobacion = ?, estado = ?"
+			"UPDATE pedidos SET fechaAprobacion = ?, estado = ?, idAdmin = ? "
 			+ "WHERE idPedido=?");
 			
 			stmt.setTimestamp(1, new java.sql.Timestamp(new Date().getTime()));
 			stmt.setString(2, "Aprobado");
-			stmt.setInt(3, p.getIdPedido());
+			stmt.setInt(3, p.getAdmin().getIdUsuario());
+			stmt.setInt(4, p.getIdPedido());
 			stmt.executeUpdate();	
 			
 		}  catch (SQLException e) {
