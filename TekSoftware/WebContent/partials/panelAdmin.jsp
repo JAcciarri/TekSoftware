@@ -39,6 +39,11 @@
                             </a>
                         </li>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="estadisticas.jsp" aria-expanded="false">
+                               <i class="mdi mdi-chart-line"></i>
+                                <span class="hide-menu">Estadisticas</span>
+                            </a>
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LoginServlet" aria-expanded="false">
                                <i class="mdi mdi-close-circle"></i>
                                 <span class="hide-menu">Cerrar Sesion</span>

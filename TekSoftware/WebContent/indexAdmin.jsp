@@ -146,10 +146,10 @@
 
 					<div>
 						<h5>
-							Hay
-							<%=pedidosPendientes%>
-							pedidos pendientes actualmente, <a href="pedidosAdmin.jsp">¿desearias
-								verlos?</a>
+							Hay <%=pedidosPendientes%> pedidos pendientes actualmente 
+							<% if (pedidosPendientes != 0) {%>
+								<a href="pedidosAdmin.jsp">, ¿desearias verlos?</a>
+							<% } %>
 						</h5>
 					</div>
 

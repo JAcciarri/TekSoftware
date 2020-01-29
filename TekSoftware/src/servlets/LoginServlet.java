@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
 import entidades.Usuario;
-import logica.Login;
+import logica.LoginController;
 
 /**
  * Servlet implementation class LoginServlet
@@ -39,26 +39,27 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Login controlador = new Login();
-		Usuario u = new Usuario();
-		u.setUsername(request.getParameter("usuario"));
-		u.setPassword(request.getParameter("password"));
-		
-		u = controlador.validar(u);
-		if (u!=null) {
-			if(u.isAdmin()) {
-			request.getSession().setAttribute("usuario", u);
-			request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
-			}
-				else {
-					request.getSession().setAttribute("usuario", u);
-					request.getRequestDispatcher("index.jsp").forward(request, response);
-				}
-		}
-		else {
+		LoginController controlador = new LoginController();
+		Usuario user = new Usuario();
+		user.setUsername(request.getParameter("usuario"));
+		user.setPassword(request.getParameter("password"));
+		user = controlador.validar(user);
+		// Cuando el controlador valida puede encontrar el usuario y devolverlo, 
+		// de lo contrario devuelve NULL
+		if (user == null) {
 			String error = ("Usuario o contraseña incorrectos");
 			request.setAttribute("error", error);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}  else {
+			// Si lo encontro lo guardamos en la sesion y preguntamos si es Admin o Usuario comun
+			request.getSession().setAttribute("usuario", user);
+			
+			if (user.isAdmin()) { 
+				request.getRequestDispatcher("indexAdmin.jsp").forward(request, response);
+			}
+				else { // entonces es usuario comun
+					request.getRequestDispatcher("index.jsp").forward(request, response);
+				}
 		}
 	}
 

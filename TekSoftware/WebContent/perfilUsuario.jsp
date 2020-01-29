@@ -68,7 +68,7 @@
 							<center class="m-t-30">
 								<img src="assets/images/users/userdefault.png"
 									class="rounded-circle" width="150" />
-								<h4 class="card-title m-t-10"><%=user.getUsername()%></h4>
+								<h4 class="card-title m-t-10"><%=user.capitalizeAnything(user.getUsername())%></h4>
 								<div class="row text-center justify-content-md-center"></div>
 							</center>
 						</div>

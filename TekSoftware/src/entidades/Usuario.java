@@ -108,6 +108,9 @@ public class Usuario {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
+	
+	public String capitalizeAnything(String str) {
+		return new String((str.substring(0, 1).toUpperCase() + str.substring(1, str.length())));
+	}
 
 }

@@ -2,6 +2,8 @@ package logica;
 
 import java.util.ArrayList;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import datos.DataUsuario;
 import entidades.Usuario;
 
@@ -32,6 +34,9 @@ public class UsuarioController {
 	}
 	
 	public void add(Usuario u) {
+		//Metodo para encriptar la contraseña
+		String passEncrypted = DigestUtils.sha1Hex(u.getPassword());
+		u.setPassword(passEncrypted);
 		du.add(u);
 	}
 	

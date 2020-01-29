@@ -30,7 +30,7 @@ public class PedidoServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
+    
 	
 	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

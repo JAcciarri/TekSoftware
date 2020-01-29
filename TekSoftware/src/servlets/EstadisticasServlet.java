@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import logica.CaracteristicaController;
-import logica.UsuarioController;
-
 /**
- * Servlet implementation class AbmCaracteristicasServlet
+ * Servlet implementation class EstadisticasServlet
  */
-@WebServlet("/AbmCaracteristicasServlet")
-public class AbmCaracteristicasServlet extends HttpServlet {
+@WebServlet("/EstadisticasServlet")
+public class EstadisticasServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AbmCaracteristicasServlet() {
+    public EstadisticasServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,10 +26,8 @@ public class AbmCaracteristicasServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		CaracteristicaController carController = new CaracteristicaController();
-		request.setAttribute("listaCaracteristicas", carController.getAllCaracteristicas());
-		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
