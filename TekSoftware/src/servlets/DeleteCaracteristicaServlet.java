@@ -28,10 +28,12 @@ public class DeleteCaracteristicaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		CaracteristicaController cc = new CaracteristicaController();
 		int ID = Integer.parseInt(request.getParameter("id"));
-		cc.deleteCaracteristica(ID);
-		
+		CaracteristicaController cc = new CaracteristicaController();
+		String str = cc.deleteCaracteristica(ID);
+		if (str!=null) {
+			request.setAttribute("mensaje", str);
+		}
 		request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
 		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
 	}

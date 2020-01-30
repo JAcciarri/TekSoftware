@@ -4,6 +4,9 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
+
+import com.mysql.cj.xdevapi.Result;
+
 import entidades.Caracteristica;
 import entidades.Opcion;
 import entidades.Seleccion;
@@ -313,10 +316,25 @@ public class DataCaracteristica {
 		}
 	}
 	
-	public void deleteCaracteristica(int ID) {
-		
-		PreparedStatement stmt=null;
+	public String deleteCaracteristica(int ID) {
+		String str = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
 		try {
+			
+			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT COUNT(*) FROM pedido_caracteristicas WHERE idCaracteristica=?"
+					);
+			stmt.setInt(1, ID);
+			rs = stmt.executeQuery();
+			if (rs!=null && rs.next()) {
+				// preguntamos si hay al menos un pedido con esa caracteristica
+				if (rs.getInt(1) > 0) {
+					str = "Existe un pedido actualmente con esa Caracteristica";
+					return str;
+				} else {
+			stmt.close();
+			
 			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
 					"DELETE FROM valores WHERE idCaracteristica=?"
 					);
@@ -338,19 +356,21 @@ public class DataCaracteristica {
 					);
 			stmt.setInt(1, ID);
 			stmt.executeUpdate();
-			
-			
+			}
+		}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			try {
+				if (rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				FactoryConnection.getInstancia().releaseConn();
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
 		}
+		return str;
 	}
 	
 	public int getCountCaracteristicas() {
@@ -379,6 +399,38 @@ public class DataCaracteristica {
 		}
 		return count;
 	}
+	
+	public void addValores(ArrayList<Opcion> opciones, Caracteristica c) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		//para obtener la hora y convertirla a sql date
+		java.util.Date now = new java.util.Date();
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+		"INSERT INTO valores(idCaracteristica, idOpcion, fecha_desde, valor) VALUES (?,?,?,?)");
+		
+		for (Opcion op : opciones) {
+			stmt.setInt(1, c.getIdCaracteristica());
+			stmt.setInt(2, op.getIdOpcion());
+			stmt.setTimestamp(3, new java.sql.Timestamp(now.getTime()));
+			stmt.setFloat(4, op.getValorActual());
+			stmt.executeUpdate();	
+		}
+		} catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(stmt!=null) stmt.close();
+	            if (rs!=null) rs.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		}
+	
 	
 	
 }

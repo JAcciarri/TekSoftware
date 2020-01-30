@@ -43,11 +43,15 @@ public class CaracteristicaController {
 		dc.updateOpciones(c, opciones);
 	}
 	
-	public void deleteCaracteristica(int ID) {
-		dc.deleteCaracteristica(ID);
+	public String deleteCaracteristica(int ID) {
+		return dc.deleteCaracteristica(ID);
 	}
 	
 	public int getCountCaracteristicas() {
 		return dc.getCountCaracteristicas();
+	}
+	
+	public void addValores(ArrayList<Opcion> opciones, Caracteristica c) {
+		dc.addValores(opciones, c);
 	}
 }

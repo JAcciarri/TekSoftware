@@ -34,20 +34,20 @@ public class EditCaracteristicaServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+		// Esta llamada puede venir para editar una caracteristica completa o bien para
+		// editar los precios de una caracteristica en particular
 		CaracteristicaController carCtrl = new CaracteristicaController();
-		int ID = Integer.parseInt(request.getParameter("id"));
-		Caracteristica c = carCtrl.getByID(ID);
-		request.setAttribute("caracteristicaAEditar", c);
-		request.getRequestDispatcher("editarCaracteristica.jsp").forward(request, response);
+			int ID = Integer.parseInt(request.getParameter("id"));
+			Caracteristica c = carCtrl.getByID(ID);
+			request.setAttribute("caracteristicaAEditar", c);
+			request.getRequestDispatcher("editarCaracteristica.jsp").forward(request, response);
+		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		CaracteristicaController cc = new CaracteristicaController();
 		
 		int id = Integer.parseInt(request.getParameter("id"));
@@ -82,7 +82,6 @@ public class EditCaracteristicaServlet extends HttpServlet {
 		ArrayList<Caracteristica> caracteristicas = cc.getAllCaracteristicas();
 		request.setAttribute("listaCaracteristicas", caracteristicas);
 		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
-		
-	}
+		}
 
 }

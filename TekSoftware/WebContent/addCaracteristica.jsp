@@ -46,7 +46,7 @@
                         <i class="ti-menu ti-close"></i>
                     </a>
                     <div class="navbar-brand">
-                        <a href="index.html" class="logo">
+                        <a href="indexAdmin.jsp" class="logo">
                             <!-- Logo icon -->
                             <b class="logo-icon">
                                 <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
@@ -113,19 +113,19 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-1" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-1" autocomplete="off"  required class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
 				                                        <label class="col-md-12">Icono</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="icono-1" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="icono-1" autocomplete="off"  required placeholder="Ejemplo: fa-twitter" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Descripcion</label>
 				                                        <div class="col-md-12">
-				                                            <input style="line-height: 5;" type="text" name="descripcion-1" autocomplete="off" required="" class="form-control form-control-line">
+				                                            <input style="line-height: 5;" type="text" name="descripcion-1" autocomplete="off" required class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
 				                     </div>
@@ -147,7 +147,7 @@
                                     				<div class="form-group">
 				                                        <label class="col-md-12">Icono</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="icono-2" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="icono-2" autocomplete="off"  required placeholder="Ejemplo: fa-folder" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
 				                                    <div class="form-group">
@@ -167,13 +167,13 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-3" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-3" autocomplete="off"  required  class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
 				                                        <label class="col-md-12">Icono</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="icono-3" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="icono-3" autocomplete="off"  required placeholder="Ejemplo: fa-globe" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
 				                                    <div class="form-group">

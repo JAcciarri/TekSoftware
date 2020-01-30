@@ -14,6 +14,14 @@
 <link href="dist/css/style.extras.css" rel="stylesheet">
 <link rel="icon" type="image/png" sizes="16x16"
 	href="assets/images/favicon.png">
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -71,45 +79,51 @@
 
 		<div class="page-wrapper">
 			<div class="container-fluid">
-			
-			
-			<div class="col-lg-3 col-xlg-3 col-md-5">
-				<div class="card" style="background: #e4e8f0;">
-					<div class="card-body">
-						<h4 class="card-title m-t-10 text-center"><a href="EstadisticasServlet?servicio=clientes">Clientes</a></h4>
-						<center class="m-t-30">
-							<img src="images/clientes.png"
-								class="rounded-circle" width="150" />
-							<div class="row text-center justify-content-md-center"></div>
-						</center>
+
+
+				<div class="card-deck">
+					<div class="card">
+						<img class="card-img-top" src="images/clientes.jpg" alt="Clientes">
+						<div class="card-body" style="text-align: center">
+							<h4 class="card-title">Clientes</h4>
+							<p class="card-text  text-mutted">Ver estadísticas de
+								nuestros clientes</p>
+							<a href="EstadisticasServlet?servicio=clientes" class="btn btn-dark stretched-link"
+								style="width: 100%"></a>
+
+						</div>
 					</div>
-				</div>
-			</div>	
-			
-			<div class="col-lg-3 col-xlg-3 col-md-5">
-				<div class="card" style="background: #e4e8f0;">
-					<div class="card-body">
-						<h4 class="card-title m-t-10 text-center"><a href="EstadisticasServlet?servicio=pedidos">Pedidos</a></h4>
-						<center class="m-t-30">
-							<img src="images/pedidos.png"
-								class="rounded-circle" width="150" />
-							<div class="row text-center justify-content-md-center"></div>
-						</center>
+					<div class="card">
+						<img class="card-img-top" src="images/pedidos.jpg"
+							alt="Pedidos">
+						<div class="card-body mt-6" style="text-align: center">
+							<h4 class="card-title">Pedidos</h4>
+							<p class="card-text text-mutted">Ver estadísticas de nuestros
+								pedidos</p>
+							<a href="EstadisticasServlet?servicio=pedidos" class="btn btn-warning stretched-link"
+								style="width: 100%"></a>
+						</div>
+					</div>
+					<div class="card">
+						<img class="card-img-top" src="images/caract.png" alt="Pedidos">
+						<div class="card-body mt-auto" style="text-align: center">
+							<h4 class="card-title">Caracteristicas</h4>
+							<p class="card-text text-mutted">Ver estadísticas de nuestras
+								caracteristicas.</p>
+							<a href="EstadisticasServlet?servicio=caracteristicas" class="btn btn-danger stretched-link"
+								style="width: 100%"></a>
+						</div>
 					</div>
 				</div>
 			</div>
-	
-			</div>
+
+
+			<footer style="background: #f2f4f5;" class="footer text-center">
+				Todos los derechos reservados por <a href="index.jsp">
+					TekSoftware</a>.
+			</footer>
 		</div>
-
-
 	</div>
-
-
-	<footer style="background: #f2f4f5;" class="footer text-center">
-		Todos los derechos reservados por <a href="index.jsp"> TekSoftware</a>.
-	</footer>
-
 
 
 	<script src="assets/libs/jquery/dist/jquery.min.js"></script>

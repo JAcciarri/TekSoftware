@@ -66,7 +66,7 @@ public class AddCaracteristicaServlet extends HttpServlet {
 		int IDGenerated = cc.getMaxIDfromDB();
 		Caracteristica car = cc.getByID(IDGenerated);
 		request.setAttribute("caracteristicaAEditar", car);
-		request.getRequestDispatcher("editarCaracteristica.jsp").forward(request, response);;
+		request.getRequestDispatcher("precioCaracteristica.jsp").forward(request, response);;
 		
 		}
 

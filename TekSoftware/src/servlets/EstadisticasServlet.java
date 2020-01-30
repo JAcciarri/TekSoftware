@@ -28,7 +28,7 @@ public class EstadisticasServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// se podria hacer un case y segun el servicio mostrar las estadisticas solicitadas
 		
-		response.getWriter().println(request.getParameter("servicio"));
+		response.getWriter().println("Queries para el servicio: " + request.getParameter("servicio"));
 		
 	}
 
