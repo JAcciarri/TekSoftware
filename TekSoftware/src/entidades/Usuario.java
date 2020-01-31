@@ -13,6 +13,7 @@ public class Usuario {
 	private String username;
 	private String password;
 	private boolean privilegio;
+	private int pedidosHechos;
 	
 	public Usuario(){}
 
@@ -111,6 +112,14 @@ public class Usuario {
 	
 	public String capitalizeAnything(String str) {
 		return new String((str.substring(0, 1).toUpperCase() + str.substring(1, str.length())));
+	}
+
+	public int getPedidosHechos() {
+		return pedidosHechos;
+	}
+
+	public void setPedidosHechos(int pedidosHechos) {
+		this.pedidosHechos = pedidosHechos;
 	}
 
 }
