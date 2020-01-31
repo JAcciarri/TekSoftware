@@ -15,7 +15,7 @@ import entidades.Pedido;
 import entidades.Seleccion;
 import entidades.Usuario;
 import logica.UsuarioController;
-import oracle.jrockit.jfr.tools.ConCatRepository;
+
 
 
 public class DataPedido {
@@ -323,6 +323,7 @@ public class DataPedido {
 					p.setMontoTotal(rs.getDouble("montoTotal"));
 					p.setMotivoRechazo(rs.getString("motivoRechazo"));
 					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
+					p.setFechaCancelacion(rs.getTimestamp("fechaRechazo"));
 					
 				}
 		} catch (SQLException e) {

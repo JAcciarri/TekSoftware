@@ -127,6 +127,7 @@
                                             <th scope="col">Apellido</th>
                                             <th scope="col">Email</th>
                                             <th scope="col">Username</th>
+                                            <th scope="col">Admin</th>
                                             <th scope="col">Acciones</th>
                                         </tr>
                                     </thead>
@@ -146,9 +147,14 @@
                                             <td><%=u.getApellido() %></td>
                                             <td><%=u.getEmail() %></td>
                                             <td><%=u.getUsername()%>
-                                            <td>
-	                                           	 <a class="editbutton" href="EditUserServlet?id=<%=u.getIdUsuario()%> "> Editar </a>
-	                                           	 <a class="deletebutton" href="DeleteUserServlet?id=<%=u.getIdUsuario()%>"> Eliminar </a>
+                                           	<% if (u.isAdmin()){%>
+                                            	<td>Si</td>
+                                            <%} else {%>
+                                            	<td>No</td>
+                                            <%} %>
+                                         <td>
+	                                     <a class="editbutton" href="EditUserServlet?id=<%=u.getIdUsuario()%> "> Editar </a>
+	                                     <a class="deletebutton" href="DeleteUserServlet?id=<%=u.getIdUsuario()%>"> Eliminar </a>
                                             </td>
                                         </tr>
                     <%} %>
