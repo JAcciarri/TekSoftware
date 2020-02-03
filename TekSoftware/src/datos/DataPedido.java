@@ -168,6 +168,51 @@ public class DataPedido {
 			return listaPedidos;
 		}
 	
+	public ArrayList<Pedido> getPedidosByAdmin(Usuario admin){
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
+		UsuarioController uController = new UsuarioController();
+		
+		try {
+			
+			stmt= FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM pedidos WHERE idAdmin = ?");
+			stmt.setInt(1, admin.getIdUsuario());
+			rs = stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Pedido p = new Pedido();
+					p.setIdPedido(rs.getInt("idPedido"));
+					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
+					Usuario user = uController.getByID(rs.getInt("idCliente"));
+					p.setCliente(user);
+					p.setAdmin(admin);
+					p.setEstado(rs.getString("estado"));
+					p.setMontoTotal(rs.getDouble("montoTotal"));
+					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
+					p.setFechaCancelacion(rs.getTimestamp("fechaRechazo"));
+					pedidos.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return pedidos;
+	}
+	
 	public ArrayList<Pedido> getPedidosByCliente(int IDCliente){
 		
 		PreparedStatement stmt=null;

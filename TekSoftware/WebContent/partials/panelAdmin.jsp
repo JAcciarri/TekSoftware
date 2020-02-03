@@ -5,18 +5,13 @@
 <head>
 <meta charset="UTF-8">
   <link href="assets/libs/chartist/dist/chartist.min.css" rel="stylesheet">
-    <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
     
 <title></title>
 </head>
 <body>
   <aside class="left-sidebar" data-sidebarbg="skin5">
-            <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
-                <!-- Sidebar navigation-->
-                
-                
                 <nav class="sidebar-nav">
                     <ul id="sidebarnav">
                     
@@ -44,6 +39,11 @@
                                 <span class="hide-menu">Estadisticas</span>
                             </a>
                         <li class="sidebar-item">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                               <i class="mdi mdi-email"></i>
+                                <span class="hide-menu">Mensajes</span>
+                           </a>    
+                        <li class="sidebar-item">
                             <a class="sidebar-link waves-effect waves-dark sidebar-link" href="LoginServlet" aria-expanded="false">
                                <i class="mdi mdi-close-circle"></i>
                                 <span class="hide-menu">Cerrar Sesion</span>
@@ -51,9 +51,7 @@
                         </li>
                     </ul>
                 </nav>
-                <!-- End Sidebar navigation -->
             </div>
-            <!-- End Sidebar scroll-->
         </aside>
 </body>
 </html>

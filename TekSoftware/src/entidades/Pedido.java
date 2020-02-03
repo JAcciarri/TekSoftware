@@ -14,6 +14,7 @@ public class Pedido {
 	private double montoTotal;
 	private String motivoRechazo;
 	
+	
 	public int getIdPedido() {
 		return idPedido;
 	}

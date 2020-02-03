@@ -44,6 +44,9 @@ public class PedidoController {
 	public ArrayList<Pedido> getPedidosByCliente(int IDCliente){
 		return dp.getPedidosByCliente(IDCliente);
 	}
+	public ArrayList<Pedido> getPedidosByAdmin(Usuario admin){
+		return dp.getPedidosByAdmin(admin);
+	}
 	
 	public Pedido getPedidoPendienteByCliente(int IDCliente) {
 		return dp.getPedidoPendienteByCliente(IDCliente);

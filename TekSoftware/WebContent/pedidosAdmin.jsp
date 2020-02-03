@@ -200,7 +200,7 @@
 											}
 										%>
 						
-						<td><%=p.getMontoTotal() %></td>
+						<td>$<%=p.getMontoTotal() %></td>
 						<td>
 		               <a class="editbutton" href="PedidoServlet?idPedido=<%=p.getIdPedido()%>"> Ver </a>                                    
 	                    </td>

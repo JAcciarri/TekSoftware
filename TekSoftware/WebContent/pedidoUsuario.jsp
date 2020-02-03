@@ -80,7 +80,7 @@
 											<%} %>
 					<!-- Acciones -->		<td>
 										<% if (!p.getEstado().equals("Pendiente")){ %>
-											<a href="ContactoServlet?id=<%=p.getAdmin().getIdUsuario()%>" class="editbutton"> Contactar</a>
+											<a href="ContactoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton"> Contactar</a>
 										<%} %>
 											</td>
 										</tr>

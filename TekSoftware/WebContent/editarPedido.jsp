@@ -45,54 +45,42 @@
 						<table class="table">
 							<thead class="thead-light">
 								<tr>
-									<th scope="col">ID Pedido</th>
 									<th scope="col">Cliente</th>
-									<th scope="col">Fecha Pedido</th>
-									<th scope="col">Estado</th>
-									<th scope="col">Monto</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td scope="row"><%=p.getIdPedido()%></td>
-									<td><%=p.getCliente().getFullName()%></td>
+										<th scope="col">Fecha de pedido</th>
+										<th scope="col">Fecha aprobación/rechazo</th>
+										<th scope="col">Estado</th>
+										<th scope="col">Monto total</th>
+										<th scope="col">Revisado por</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+					<!-- cliente -->		<th scope="row"><%=p.getCliente().getFullName()%></th>
+					<!-- Fecha pedido -->	<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
 
-									<%
-										String fecha;
-										if (p.getFechaPedido() == null) {
-									%>
-									<td><%=("No especificado")%></td>
-									<%
-										} else {
-									%>
-									<td><%=p.getFechaPedido().toString().substring(0, 10)%></td>
-									<%
-										}
-									%>
-
-									<%
-											if (p.getEstado().equals("Pendiente")) {
-										%>
-									<td><span class="label label-info label-rounded"
-										style="color: #7a7c80;">Pendiente</span></td>
-									<%
-											} else  
-												if (p.getEstado().equals("Aprobado")){
-										%>
-									<td><span class="label label-success label-rounded"
-										style="color: #000">Aprobado</span></td>
-									<%
-											} else
-												if (p.getEstado().equals("Rechazado")){
-										%>
-									<td><span class="label label-danger label-rounded"
-										style="color: #000">Rechazado</span></td>
-									<%
-											}
-										%>
-
-									<td><%=p.getMontoTotal()%></td>
-							</tbody>
+					<!-- Estados -->		<% if (p.getEstado().equals("Aprobado")){ 
+											%>
+					<!-- y fechas -->		<td><%=p.getFechaAprobacion().toString().substring(0, 10)%></td>
+											<td><span class="label label-success label-rounded" style="color: #000">Aprobado</span></td>
+										
+										<% } else if (p.getEstado().equals("Rechazado")){%>
+											<td><%=p.getFechaCancelacion().toString().substring(0, 10)%></td>
+											<td><span class="label label-danger label-rounded" style="color: #000">Rechazado</span></td>
+										
+										<%} else { %>
+											<td><%=("Pendiente")%></td>
+											<td><span class="label label-info label-rounded" style="color: #000">Pendiente</span></td>
+										<%} %>
+											
+					<!-- Monto -->			<td>$<%=p.getMontoTotal() %></td>
+											<% if (p.getAdmin()!=null){%>
+				<!-- Admin que reviso -->		<td><%=p.getAdmin().getFullName() %></td>
+											<%} else {%>
+												<td><%=("Aún no revisado")%></td>
+											<%} %>
+					<!-- Acciones -->		
+										</tr>
+								</tbody>
 						</table>
 
 						<% if (p.getEstado().equals("Rechazado")){ %>
