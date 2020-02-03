@@ -5,6 +5,7 @@
 <%@ page import="entidades.Usuario"%>   
 <%@ page import="entidades.Seleccion"%> 
 <%@ page import="java.util.ArrayList"%> 
+    <%@ page import = "logica.ChatController" %>
 
 <!DOCTYPE html>
 <html>
@@ -19,6 +20,7 @@
 <body>
 
 	<%  PedidoController pc = new PedidoController();
+		ChatController chat = new ChatController();
 		Pedido p = (Pedido)request.getAttribute("pedido");
 		ArrayList<Seleccion> selecciones = pc.getSeleccionesByIDPedido(p.getIdPedido());
 	%>

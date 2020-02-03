@@ -11,7 +11,17 @@ public class Mensaje {
 	private String mensaje;
 	private Date fecha_hora;
 	
-
+	public Mensaje(){}
+	
+	public Mensaje(int idCliente, int idAdmin, int idPedido, String msj) {
+		Usuario cli = new Usuario(); cli.setIdUsuario(idCliente);
+		Usuario adm = new Usuario(); adm.setIdUsuario(idAdmin);
+		Pedido p = new Pedido(); p.setIdPedido(idPedido);
+		this.cliente = cli;
+		this.Admin = adm;
+		this.pedido = p;
+		this.mensaje = msj;
+	}
 	public Usuario getCliente() {
 		return cliente;
 	}

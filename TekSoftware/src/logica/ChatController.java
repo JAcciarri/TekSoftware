@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import datos.DataMensajes;
 import entidades.Mensaje;
 import entidades.Pedido;
+import entidades.Usuario;
 
 public class ChatController {
 
@@ -16,5 +17,13 @@ public class ChatController {
 		
 	public ArrayList<Mensaje> getAllMensajesByPedido(Pedido p) {
 		return dm.getAllMensajesByPedido(p);
+	}
+	
+	public ArrayList<Mensaje> getAllMensajesByAdmin(Usuario admin){
+		return dm.getAllMensajesByAdmin(admin);
+	}
+	
+	public void addMensaje(Mensaje msj) {
+		 dm.addMensaje(msj);
 	}
 }

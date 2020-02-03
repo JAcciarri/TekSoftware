@@ -39,7 +39,7 @@
                                 <span class="hide-menu">Estadisticas</span>
                             </a>
                         <li class="sidebar-item">
-                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="indexAdmin.jsp" aria-expanded="false">
+                            <a class="sidebar-link waves-effect waves-dark sidebar-link" href="ContactoServlet" aria-expanded="false">
                                <i class="mdi mdi-email"></i>
                                 <span class="hide-menu">Mensajes</span>
                            </a>    

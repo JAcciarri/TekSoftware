@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.Usuario" %>
     <%@ page import = "logica.PedidoController" %>
+    <%@ page import = "logica.ChatController" %>
     <%@ page import = "logica.CaracteristicaController" %>
 	<%@ page import = "java.util.ArrayList" %>
 	
@@ -45,6 +46,7 @@
       
       
       <% PedidoController pCtrl = new PedidoController();
+         ChatController chat = new ChatController();
          int IDCliente = user.getIdUsuario();
          Pedido pedidoPendiente = pCtrl.getPedidoPendienteByCliente(IDCliente);
       	 ArrayList<Pedido> pedidos = pCtrl.getPedidosByCliente(IDCliente);
@@ -139,7 +141,13 @@
 								<h6 class="card-subtitle">Aquí se encuentran los pedidos
 									que has realizado con anterioridad.</h6>
 							</div>
-
+							<%
+								if (request.getAttribute("mensajeError")!=null){
+								%>
+								<p style="color:red; margin-left:10px;"><%=request.getAttribute("mensajeError")%></p> 
+								<% }
+								%>
+								
 							<%
 								if (pedidos.isEmpty()) {
 							%>
@@ -198,6 +206,7 @@
 										<%} %>
 									</tbody>
 								</table>
+								
 							</div>
 							<% } // FIN DEL ELSE%>
 

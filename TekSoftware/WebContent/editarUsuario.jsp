@@ -187,31 +187,31 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nombre" value="<%=u.getNombre() %>" class="form-control form-control-line">
+                                            <input type="text" name="nombre" value="<%=u.getNombre() %>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Apellido</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="apellido" value="<%=u.getApellido() %>" class="form-control form-control-line">
+                                            <input type="text" name="apellido" value="<%=u.getApellido() %>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Email</label>
                                         <div class="col-md-12">
-                                            <input type="email" name="email" value="<%=u.getEmail() %>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="email" name="email" value="<%=u.getEmail() %>" required class="form-control form-control-line" name="example-email" id="example-email">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Telefono</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="telefono" value="<%=u.getTelefono() %>" class="form-control form-control-line">
+                                            <input type="text" name="telefono" value="<%=u.getTelefono() %>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Usuario</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="username" value="<%=u.getUsername() %>" class="form-control form-control-line">
+                                            <input type="text" name="username" value="<%=u.getUsername() %>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     

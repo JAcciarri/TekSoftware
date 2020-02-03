@@ -37,7 +37,7 @@ public class EstadisticasServlet extends HttpServlet {
 		if (request.getParameter("servicio").equals("clientes")) {
 			DataEstadistica de = new DataEstadistica();
 			HashMap<String, Integer> hashmap = de.getUsuariosDiferenciados();
-			response.getWriter().println("==============================================");
+			response.getWriter().println("==============Usuarios diferenciados=====================");
 			response.getWriter().println("Total de usuarios: " + hashmap.get("total"));
 			response.getWriter().println("---Cantidad de clientes: " +hashmap.get("users"));
 			response.getWriter().println("---Cantidad de administradores: " +hashmap.get("admins"));
@@ -45,9 +45,10 @@ public class EstadisticasServlet extends HttpServlet {
 		}
 		if (request.getParameter("servicio").equals("pedidos")) {
 			DataEstadistica de = new DataEstadistica();
-			response.getWriter().println("===========================================");
-			response.getWriter().println("El pedido más caro fue de: $" + de.getMaxMontoTotal());
-			response.getWriter().println("===========================================");
+			response.getWriter().println("=======Pedido más caro============");
+			response.getWriter().println("El pedido de mayor monto fue de: $" + de.getMaxMontoTotal());
+			response.getWriter().println();
+			response.getWriter().println("===========Count de pedidos=================");
 			response.getWriter().println("Al dia de hoy, hay " + de.getCountPedidosAprobados() + " pedidos Aprobados");
 			response.getWriter().println("Al dia de hoy, hay " + de.getCountPedidosPendientes() + " pedidos Pendientes");
 			response.getWriter().println("===========================================");

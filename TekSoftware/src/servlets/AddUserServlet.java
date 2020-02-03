@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import datos.DataUsuario;
 import entidades.Usuario;
 import logica.UsuarioController;
@@ -45,6 +47,7 @@ public class AddUserServlet extends HttpServlet {
 		String telefono = request.getParameter("telefono");
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		password = DigestUtils.sha1Hex(password);
 		
 		String[] values = request.getParameterValues("checkAdmin");
 		if (values!=null) admin = true; else admin = false;

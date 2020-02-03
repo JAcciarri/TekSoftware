@@ -19,8 +19,8 @@
 </head>
 <body>
 
-	<%// @include file = "/security/isLoggedIn.jsp" %>
-	<%// @include file = "/security/isAdmin.jsp" %>
+	<%@include file = "/security/isNotLoggedIn.jsp" %>
+	<%@include file = "/security/isNotAdmin.jsp" %>
 	<%
 	Usuario admin = (Usuario)session.getAttribute("usuario");
 	ChatController chat = new ChatController();

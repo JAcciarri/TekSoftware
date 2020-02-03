@@ -34,9 +34,7 @@ public class UsuarioController {
 	}
 	
 	public void add(Usuario u) {
-		//Metodo para encriptar la contraseña
-		String passEncrypted = DigestUtils.sha1Hex(u.getPassword());
-		u.setPassword(passEncrypted);
+		
 		du.add(u);
 	}
 	

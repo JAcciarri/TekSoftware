@@ -27,8 +27,10 @@ public class URLNotFound extends HttpServlet {
 			Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 			if (u.isAdmin()) {
 				request.setAttribute("url", "indexAdmin.jsp");
-			} 
-		} else request.setAttribute("url", "index.jsp");
+			} else request.setAttribute("url", "index.jsp");
+		} 
+		// si no hay nadie loggeado ...
+		else request.setAttribute("url", "index.jsp");
 		request.getRequestDispatcher("404-page/error404.jsp").forward(request, response);
 	}
 

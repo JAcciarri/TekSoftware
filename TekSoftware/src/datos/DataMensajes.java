@@ -59,4 +59,86 @@ public class DataMensajes {
 		}
 		return mensajes;
 	}
+
+public ArrayList<Mensaje> getAllMensajesByAdmin(Usuario admin){
+		
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		ArrayList<Mensaje> mensajes = null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							"SELECT c.idPedido, c.idCliente, c.idAdmin, c.mensaje, c.fechaHoraMensaje, u.nombre, u.apellido "
+							+ "FROM chat c " 
+							+ "INNER JOIN usuarios u "
+							+  "ON u.idUsuario = c.idCliente "
+							+  "WHERE idAdmin = ? "
+							+  "GROUP BY idPedido, idCliente, fechaHoraMensaje "
+							);
+			stmt.setInt(1, admin.getIdUsuario());
+			rs = stmt.executeQuery();
+			
+			if (rs!=null) {
+				mensajes = new ArrayList<Mensaje>();
+				while (rs.next()) {
+					Mensaje m = new Mensaje();
+					
+					Pedido p = new Pedido();
+					p.setIdPedido(rs.getInt("c.idPedido"));
+					m.setPedido(p);
+					Usuario cliente = new Usuario();
+					Usuario administrador = new Usuario();
+						cliente.setIdUsuario(rs.getInt("c.idCliente"));
+						cliente.setNombre(rs.getString("u.nombre"));
+						cliente.setApellido(rs.getString("u.apellido"));
+					m.setCliente(cliente);
+						administrador.setIdUsuario(rs.getInt("c.idAdmin"));
+					m.setAdmin(administrador);
+					m.setMensaje(rs.getString("c.mensaje"));
+					m.setFecha_hora(rs.getTimestamp("fechaHoraMensaje"));
+					mensajes.add(m);
+				}
+			} 
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(rs!=null) rs.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		return mensajes;
+	}
+	
+	public void addMensaje(Mensaje msj) {
+		PreparedStatement stmt = null;
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							" INSERT INTO chat (idPedido, idCliente, idAdmin, mensaje) "
+							+ " VALUES(?,?,?,?) "
+							);
+			stmt.setInt(1, msj.getPedido().getIdPedido());
+			stmt.setInt(2, msj.getCliente().getIdUsuario());
+			stmt.setInt(3, msj.getAdmin().getIdUsuario());
+			stmt.setString(4, msj.getMensaje());
+			stmt.executeUpdate();
+			
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	           
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+
+	}
 }

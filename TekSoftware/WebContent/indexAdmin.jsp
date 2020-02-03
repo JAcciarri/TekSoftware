@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page import="entidades.Usuario"%>
+<%@ page import="entidades.Mensaje"%>
 <%@ page import="logica.PedidoController"%>
 <%@ page import="logica.UsuarioController"%>
+<%@ page import="logica.ChatController"%>
 <%@ page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html dir="ltr" lang="en">
@@ -33,7 +35,15 @@
 	<%@ include file="/security/isNotLoggedIn.jsp"%>
 	<%@ include file="/security/isNotAdmin.jsp"%>
 
-	<% PedidoController pCtrl = new PedidoController();
+	<% 
+	   Usuario admin = (Usuario)session.getAttribute("usuario");
+	   ChatController chat = new ChatController();
+	   ArrayList<Mensaje> mensajes = chat.getAllMensajesByAdmin(admin);
+	   String msjpendiente = "";
+	   if (mensajes.size() > 0) {
+		   msjpendiente = (", tenes mensajes sin leer");
+	   }
+	   PedidoController pCtrl = new PedidoController();
        int pedidosPendientes = pCtrl.getCountPedidosPendientes();
        String msj;
        if (pedidosPendientes == 0) {
@@ -100,8 +110,8 @@
 							Usuario u = (Usuario) session.getAttribute("usuario");
 						%>
 						<h4 class="page-title mb-4">
-							<strong>Bienvenido,
-							<%=u.getNombre()%></strong></h4>
+							<strong>Bienvenido
+							<%=u.getNombre() + msjpendiente %></strong></h4>
 					</div>
 				</div>
 		

@@ -35,8 +35,34 @@ public class ContactoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// Este servlet funciona tanto para dejar un mensaje o contactar un admin 
+		if (request.getParameter("idPedido")!=null) {
+			// entonces el usuario quiere dejar un mensaje 
+			PedidoController pCtrl = new PedidoController();
+			ChatController chat = new ChatController();
+			int idPedido = Integer.parseInt(request.getParameter("idPedido"));
+			Pedido p = pCtrl.getPedidoByID(idPedido);
+			if (chat.getAllMensajesByPedido(p).size() > 0 ) {
+				request.setAttribute("mensajeError", ("Ya has dejado un mensaje para este pedido"));
+				request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
+			} else {
+			request.setAttribute("pedido", p);
+			request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
+			}
+		} else {
+		// sino el admin es quien quiere ver los mensajes que le dejaron
+		Usuario admin = (Usuario)request.getSession().getAttribute("usuario");
+		ChatController chat = new ChatController();
+		ArrayList<Mensaje> mensajes = chat.getAllMensajesByAdmin(admin);
+		request.setAttribute("mensajes", mensajes);
+		request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
+		}
+		/*
+		 * 
+		 * // Este servlet funciona tanto para dejar un mensaje o contactar un admin 
 		// como para recuperar los mensajes ya existentes de un pedido por parte de un administrador
+		 * 
+		 * Por ahora no esta en uso pero podriamos llegar a utilizarlo
+		 * 
 		PedidoController pCtrl = new PedidoController();
 		ChatController chatCtrl = new ChatController();
 		if (request.getParameter("chat") != null) {
@@ -49,17 +75,28 @@ public class ContactoServlet extends HttpServlet {
 		else { // y sino es porque el usuario quiere dejar un mensaje
 		int idPedido = Integer.parseInt(request.getParameter("idPedido"));
 		Pedido p = pCtrl.getPedidoByID(idPedido);
+		request.setAttribute("pedido", p);
+		request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
+		
 		response.getWriter().println("Queres dejar un mensaje para el pedido " + p.getIdPedido());
 		response.getWriter().println("El admin es " + p.getAdmin().getFullName() + " y vos sos " + p.getCliente().getFullName());
 		}
+		
+		*/
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		ChatController chatCtrl = new ChatController();
+		String mensaje = request.getParameter("mensaje");
+		int idPedido = Integer.parseInt(request.getParameter("idPedido"));
+		int idAdmin = Integer.parseInt(request.getParameter("idAdmin"));
+		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
+		Mensaje m = new Mensaje(idCliente, idAdmin, idPedido, mensaje);
+		chatCtrl.addMensaje(m);
+		request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
 	}
 
 }
