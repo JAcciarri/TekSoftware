@@ -1,7 +1,9 @@
 package servlets;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -37,66 +39,79 @@ public class ContactoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if (request.getParameter("idPedido")!=null) {
 			// entonces el usuario quiere dejar un mensaje 
-			PedidoController pCtrl = new PedidoController();
+			
 			ChatController chat = new ChatController();
-			int idPedido = Integer.parseInt(request.getParameter("idPedido"));
-			Pedido p = pCtrl.getPedidoByID(idPedido);
-			if (chat.getAllMensajesByPedido(p).size() > 0 ) {
-				request.setAttribute("mensajeError", ("Ya has dejado un mensaje para este pedido"));
-				request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
-			} else {
-			request.setAttribute("pedido", p);
-			request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
-			}
-		} else {
-		// sino el admin es quien quiere ver los mensajes que le dejaron
-		Usuario admin = (Usuario)request.getSession().getAttribute("usuario");
-		ChatController chat = new ChatController();
-		ArrayList<Mensaje> mensajes = chat.getAllMensajesByAdmin(admin);
-		request.setAttribute("mensajes", mensajes);
-		request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
-		}
-		/*
-		 * 
-		 * // Este servlet funciona tanto para dejar un mensaje o contactar un admin 
-		// como para recuperar los mensajes ya existentes de un pedido por parte de un administrador
-		 * 
-		 * Por ahora no esta en uso pero podriamos llegar a utilizarlo
-		 * 
-		PedidoController pCtrl = new PedidoController();
-		ChatController chatCtrl = new ChatController();
-		if (request.getParameter("chat") != null) {
-			int ID = Integer.parseInt(request.getParameter("chat"));
-			Pedido p = pCtrl.getPedidoByID(ID);
-			ArrayList<Mensaje> mensajes = chatCtrl.getAllMensajesByPedido(p);
+			PedidoController pCtrl = new PedidoController();
+			Pedido p = new Pedido();
+			p.setIdPedido(Integer.parseInt(request.getParameter("idPedido")));
+			p = pCtrl.getPedidoByID(p.getIdPedido());
+			ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
 			request.setAttribute("mensajes", mensajes);
-			request.getRequestDispatcher("mensajesAdmin.jsp").forward(request, response);
-		} 
-		else { // y sino es porque el usuario quiere dejar un mensaje
-		int idPedido = Integer.parseInt(request.getParameter("idPedido"));
-		Pedido p = pCtrl.getPedidoByID(idPedido);
-		request.setAttribute("pedido", p);
-		request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
+			request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
+		} else {
+			
+		// sino el admin es quien quiere ver los mensajes que le dejaron
 		
-		response.getWriter().println("Queres dejar un mensaje para el pedido " + p.getIdPedido());
-		response.getWriter().println("El admin es " + p.getAdmin().getFullName() + " y vos sos " + p.getCliente().getFullName());
+		if (request.getParameter("chat") != null) {
+			ChatController chat = new ChatController();
+			PedidoController pCtrl = new PedidoController();
+			Pedido p = new Pedido();
+			p.setIdPedido(Integer.parseInt(request.getParameter("chat")));
+			p = pCtrl.getPedidoByID(p.getIdPedido());
+			ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
+			request.setAttribute("mensajes", mensajes);
+			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
+		}	
+			else {
+			Usuario admin = (Usuario)request.getSession().getAttribute("usuario");
+			ChatController chat = new ChatController();
+			LinkedList<Pedido> ids = chat.getIDsPedidosByAdmin(admin);
+			
+			request.setAttribute("ids", ids);
+			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
+			}
 		}
+		 // Este servlet funciona tanto para dejar un mensaje o contactar un admin 
+		// como para recuperar los mensajes ya existentes de un pedido (chat)
 		
-		*/
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//Sirve tanto para dejar un mensaje del lado del usuario como del admin
+		
+		//Esta parte es igual para ambos
 		ChatController chatCtrl = new ChatController();
-		String mensaje = request.getParameter("mensaje");
+		PedidoController pCtrl = new PedidoController();
 		int idPedido = Integer.parseInt(request.getParameter("idPedido"));
 		int idAdmin = Integer.parseInt(request.getParameter("idAdmin"));
 		int idCliente = Integer.parseInt(request.getParameter("idCliente"));
-		Mensaje m = new Mensaje(idCliente, idAdmin, idPedido, mensaje);
-		chatCtrl.addMensaje(m);
-		request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
+		
+		//Luego
+		if (request.getParameter("mensajeAdmin") != null ) {
+			
+			 // Entonces estamos recuperando un mensaje del admin
+			String msj = request.getParameter("mensajeAdmin");
+			Mensaje mensaje = new Mensaje(idCliente, idAdmin, idPedido, msj, false);
+			chatCtrl.addMensaje(mensaje);
+			LinkedList<Pedido> ids = chatCtrl.getIDsPedidosByAdmin((Usuario)request.getSession().getAttribute("usuario"));
+			request.setAttribute("ids", ids);
+			request.setAttribute("exito", ("Mensaje enviado con exito"));
+			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
+		}
+		else {
+			
+			// Y sino el usuario quiere dejar un mensaje suyo
+			String msj = request.getParameter("mensajeUserComun");
+			Mensaje m = new Mensaje(idCliente, idAdmin, idPedido, msj, true);
+			chatCtrl.addMensaje(m);
+			Pedido p = pCtrl.getPedidoByID(idPedido);
+			request.setAttribute("pedido", p);
+			request.setAttribute("exito", ("Mensaje enviado con exito"));
+			request.getRequestDispatcher("pedidoUsuario.jsp").forward(request, response);
+		}
 	}
 
 }

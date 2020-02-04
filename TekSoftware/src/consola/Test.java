@@ -1,6 +1,12 @@
 package consola;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
+
+import entidades.Mensaje;
 import entidades.Pedido;
+import entidades.Usuario;
 import logica.ChatController;
 import logica.EstadisticaController;
 import logica.PedidoController;
@@ -12,14 +18,22 @@ public class Test {
 	
 					PedidoController pCtrl = new PedidoController();
 					ChatController chat = new ChatController();
-					int idPedido = 61;
-					Pedido p = pCtrl.getPedidoByID(idPedido);
+					Usuario admin = new Usuario();
+					admin.setIdUsuario(27);
+					Pedido p = new Pedido();
+					p.setIdPedido(55);
+					ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
 					
-					if (chat.getAllMensajesByPedido(p).size()>0) {
-						System.out.println("ya dejaste un mensaje");
-					} else {
-					System.out.println("todavia no hay mensajes");
+					for (Mensaje msj : mensajes) {
+						if (msj.getIsFromUser()){
+							System.out.println("el mensaje : " + msj.getMensaje() + " viene de un usuario");
+						}
+						else {
+							System.out.println("el mensaje : " + msj.getMensaje() + " viene de un admin");
+						}
 					}
+					System.out.println(mensajes.get(0).getPedido());
+					
 	}
 
 }

@@ -1,6 +1,7 @@
 package logica;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import datos.DataMensajes;
 import entidades.Mensaje;
@@ -23,7 +24,11 @@ public class ChatController {
 		return dm.getAllMensajesByAdmin(admin);
 	}
 	
+	public LinkedList<Pedido> getIDsPedidosByAdmin(Usuario admin){
+		return dm.getIDsPedidosByAdmin(admin);
+	}
 	public void addMensaje(Mensaje msj) {
 		 dm.addMensaje(msj);
 	}
+	
 }

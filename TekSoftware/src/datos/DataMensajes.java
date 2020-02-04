@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import entidades.Mensaje;
 import entidades.Pedido;
@@ -21,10 +22,10 @@ public class DataMensajes {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-							"SELECT c.idPedido, u.nombre, u.apellido, c.mensaje, c.fechaHoraMensaje, c.idAdmin "
+							"SELECT c.idPedido, u.nombre, u.apellido, c.mensaje, c.fechaHoraMensaje, c.idCliente, c.idAdmin, c.isFromUser "
 							+ "FROM chat c "
 							+ "INNER JOIN usuarios u "
-							+ "	 ON u.idUsuario = c.idCliente OR u.idUsuario = c.idAdmin "
+							+ "	 ON u.idUsuario = c.idCliente "
 							+ " WHERE c.idPedido = ? "
 							);
 			stmt.setInt(1, p.getIdPedido());
@@ -35,13 +36,18 @@ public class DataMensajes {
 				while (rs.next()) {
 					Mensaje m = new Mensaje();
 					Usuario user = new Usuario();
-					user.setNombre(rs.getString("nombre"));
-					user.setApellido(rs.getString("apellido"));
-					Boolean isadmin = rs.getBoolean("c.idAdmin");
-					if (isadmin) user.setPrivilegio(true);
+					Usuario admin = new Usuario();
+					user.setNombre(rs.getString("u.nombre"));
+					user.setApellido(rs.getString("u.apellido"));
+					user.setIdUsuario(rs.getInt("c.idCliente"));
+					admin.setIdUsuario(rs.getInt("c.idAdmin"));
+					Boolean isfromuser = rs.getBoolean("c.isFromUser");
+					if (isfromuser) 
+						m.setIsFromUser(true); else m.setIsFromUser(false);
 					m.setUser(user);
-					m.setMensaje(rs.getString("mensaje"));
-					m.setFecha_hora(rs.getTimestamp("fechaHoraMensaje"));
+					m.setAdmin(admin);
+					m.setMensaje(rs.getString("c.mensaje"));
+					m.setFecha_hora(rs.getTimestamp("c.fechaHoraMensaje"));
 					m.setPedido(p);
 					mensajes.add(m);
 				}
@@ -60,7 +66,7 @@ public class DataMensajes {
 		return mensajes;
 	}
 
-public ArrayList<Mensaje> getAllMensajesByAdmin(Usuario admin){
+	public ArrayList<Mensaje> getAllMensajesByAdmin(Usuario admin){
 		
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -113,19 +119,64 @@ public ArrayList<Mensaje> getAllMensajesByAdmin(Usuario admin){
 		return mensajes;
 	}
 	
+	public LinkedList<Pedido> getIDsPedidosByAdmin(Usuario admin){
+		LinkedList<Pedido> listaIDS = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							"SELECT c.idPedido, u.nombre, u.apellido " +
+							"FROM chat c " +
+							"INNER JOIN usuarios u " +
+								"ON c.idCliente = u.idUsuario " +
+							"WHERE idAdmin = ? " +
+							"GROUP BY idPedido "
+							);
+			stmt.setInt(1, admin.getIdUsuario());
+			rs = stmt.executeQuery();
+			
+			if (rs!=null) {
+				listaIDS = new LinkedList<Pedido>();
+				while (rs.next()) {
+					int ID = rs.getInt("idPedido");
+					String nombre = rs.getString("u.nombre");
+					String apellido = rs.getString("u.apellido");
+					Pedido pedido = new Pedido();
+					Usuario u = new Usuario(); u.setNombre(nombre); u.setApellido(apellido);
+					pedido.setCliente(u);
+					pedido.setIdPedido(ID);
+					listaIDS.add(pedido);
+				}
+			} 
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(rs!=null) rs.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		return listaIDS;
+	}
+	
 	public void addMensaje(Mensaje msj) {
 		PreparedStatement stmt = null;
 		
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-							" INSERT INTO chat (idPedido, idCliente, idAdmin, mensaje) "
-							+ " VALUES(?,?,?,?) "
+							" INSERT INTO chat (idPedido, idCliente, idAdmin, mensaje, isFromUser) "
+							+ " VALUES(?,?,?,?,?) "
 							);
 			stmt.setInt(1, msj.getPedido().getIdPedido());
 			stmt.setInt(2, msj.getCliente().getIdUsuario());
 			stmt.setInt(3, msj.getAdmin().getIdUsuario());
 			stmt.setString(4, msj.getMensaje());
+			stmt.setBoolean(5, msj.getIsFromUser());
 			stmt.executeUpdate();
 			
 			}  catch (SQLException e) {

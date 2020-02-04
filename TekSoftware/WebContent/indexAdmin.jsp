@@ -39,9 +39,9 @@
 	   Usuario admin = (Usuario)session.getAttribute("usuario");
 	   ChatController chat = new ChatController();
 	   ArrayList<Mensaje> mensajes = chat.getAllMensajesByAdmin(admin);
-	   String msjpendiente = "";
+	   Boolean flag = false;
 	   if (mensajes.size() > 0) {
-		   msjpendiente = (", tenes mensajes sin leer");
+		   flag = true;
 	   }
 	   PedidoController pCtrl = new PedidoController();
        int pedidosPendientes = pCtrl.getCountPedidosPendientes();
@@ -110,8 +110,13 @@
 							Usuario u = (Usuario) session.getAttribute("usuario");
 						%>
 						<h4 class="page-title mb-4">
-							<strong>Bienvenido
-							<%=u.getNombre() + msjpendiente %></strong></h4>
+							Bienvenido <%=u.getNombre()%>
+						</h4>
+						<% if (flag){%> 
+							<h6> <strong>Tienes <a href="ContactoServlet">mensajes no leídos</a> </strong></h6>
+							<br>
+						<%} %> 
+					
 					</div>
 				</div>
 		

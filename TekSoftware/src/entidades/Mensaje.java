@@ -10,10 +10,11 @@ public class Mensaje {
 	private Pedido pedido;
 	private String mensaje;
 	private Date fecha_hora;
+	private Boolean isFromUser;
 	
 	public Mensaje(){}
 	
-	public Mensaje(int idCliente, int idAdmin, int idPedido, String msj) {
+	public Mensaje(int idCliente, int idAdmin, int idPedido, String msj, Boolean isFromUser) {
 		Usuario cli = new Usuario(); cli.setIdUsuario(idCliente);
 		Usuario adm = new Usuario(); adm.setIdUsuario(idAdmin);
 		Pedido p = new Pedido(); p.setIdPedido(idPedido);
@@ -21,6 +22,7 @@ public class Mensaje {
 		this.Admin = adm;
 		this.pedido = p;
 		this.mensaje = msj;
+		this.isFromUser = isFromUser;
 	}
 	public Usuario getCliente() {
 		return cliente;
@@ -57,5 +59,13 @@ public class Mensaje {
 	}
 	public void setUser(Usuario user) {
 		this.user = user;
+	}
+
+	public Boolean getIsFromUser() {
+		return isFromUser;
+	}
+
+	public void setIsFromUser(Boolean isFromUser) {
+		this.isFromUser = isFromUser;
 	}
 }

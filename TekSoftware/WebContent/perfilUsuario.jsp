@@ -141,12 +141,7 @@
 								<h6 class="card-subtitle">Aquí se encuentran los pedidos
 									que has realizado con anterioridad.</h6>
 							</div>
-							<%
-								if (request.getAttribute("mensajeError")!=null){
-								%>
-								<p style="color:red; margin-left:10px;"><%=request.getAttribute("mensajeError")%></p> 
-								<% }
-								%>
+							
 								
 							<%
 								if (pedidos.isEmpty()) {
@@ -199,7 +194,7 @@
 					<!-- Acciones -->		<td>
 											<a href="PedidoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton" > Ver</a>
 										<% if (!p.getEstado().equals("Pendiente")){ %>
-											<a href="ContactoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton"> Contactar</a>
+											<a href="ContactoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton">Chatear</a>
 										<%} %>
 											</td>
 										</tr>

@@ -40,8 +40,12 @@
 								Aquí esta tu pedido,
 								<%=user.capitalizeAnything(user.getUsername()) %></h6>
 						</div>
-
-
+						
+						<% if (request.getAttribute("exito") != null){ %>
+						<p style="color:green"><%=request.getAttribute("exito")%></p>
+						<%} %>
+						
+						
 						<div class="table-responsive">
 							<table class="table">
 								<thead class="thead-light">
@@ -82,7 +86,7 @@
 											<%} %>
 					<!-- Acciones -->		<td>
 										<% if (!p.getEstado().equals("Pendiente")){ %>
-											<a href="ContactoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton"> Contactar</a>
+											<a href="ContactoServlet?idPedido=<%=p.getIdPedido()%>" class="editbutton">Chatear</a>
 										<%} %>
 											</td>
 										</tr>
