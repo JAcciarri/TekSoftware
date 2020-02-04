@@ -39,6 +39,7 @@
           <target>1.8</target>
         </configuration>
       </plugin>
+      
       <plugin>
         <artifactId>maven-war-plugin</artifactId>
         <version>3.2.1</version>
@@ -46,6 +47,15 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
+      
+      <plugin>            
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-war-plugin</artifactId>
+  <configuration>
+    <webXml>TekSoftware\WebContent\WEB-INF\web.xml</webXml>        
+  </configuration>
+</plugin>
+
     </plugins>
   </build>
 </project>
