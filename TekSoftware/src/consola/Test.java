@@ -16,24 +16,18 @@ public class Test {
 	
 	public static void main(String[] args) {
 	
-					PedidoController pCtrl = new PedidoController();
-					ChatController chat = new ChatController();
-					Usuario admin = new Usuario();
-					admin.setIdUsuario(27);
-					Pedido p = new Pedido();
-					p.setIdPedido(55);
-					ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
 					
-					for (Mensaje msj : mensajes) {
-						if (msj.getIsFromUser()){
-							System.out.println("el mensaje : " + msj.getMensaje() + " viene de un usuario");
-						}
-						else {
-							System.out.println("el mensaje : " + msj.getMensaje() + " viene de un admin");
-						}
-					}
-					System.out.println(mensajes.get(0).getPedido());
-					
+		ChatController chat = new ChatController();
+		PedidoController pCtrl = new PedidoController();
+		Pedido p = new Pedido();
+		p.setIdPedido(62);
+		p = pCtrl.getPedidoByID(p.getIdPedido());
+		System.out.println();
+		ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
+		System.out.println(mensajes.isEmpty());
+		System.out.println(mensajes.size());
+		System.out.println(mensajes == null);
+		
 	}
 
 }

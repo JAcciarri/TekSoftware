@@ -37,6 +37,9 @@ public class ContactoServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		 // Este servlet funciona tanto para dejar un mensaje o contactar un admin 
+		// como para recuperar los mensajes ya existentes de un pedido (chat)
+		
 		if (request.getParameter("idPedido")!=null) {
 			// entonces el usuario quiere dejar un mensaje 
 			
@@ -45,11 +48,19 @@ public class ContactoServlet extends HttpServlet {
 			Pedido p = new Pedido();
 			p.setIdPedido(Integer.parseInt(request.getParameter("idPedido")));
 			p = pCtrl.getPedidoByID(p.getIdPedido());
-			ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
-			request.setAttribute("mensajes", mensajes);
+			ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>();
+			mensajes = chat.getAllMensajesByPedido(p);
+					if (mensajes.isEmpty()) { // es porque no se encontro ningun mensaje
+						// enviamos solo un mensaje para poder recuperar los IDS de pedido, admin y cliente
+						Mensaje msj = new Mensaje();
+						msj.setPedido(p);
+						request.setAttribute("msj", msj);
+						
+						// y sino enviamos todos los mensajes encontrados
+					} else request.setAttribute("mensajes", mensajes);
 			request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
+		
 		} else {
-			
 		// sino el admin es quien quiere ver los mensajes que le dejaron
 		
 		if (request.getParameter("chat") != null) {
@@ -71,9 +82,6 @@ public class ContactoServlet extends HttpServlet {
 			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
 			}
 		}
-		 // Este servlet funciona tanto para dejar un mensaje o contactar un admin 
-		// como para recuperar los mensajes ya existentes de un pedido (chat)
-		
 	}
 
 	/**

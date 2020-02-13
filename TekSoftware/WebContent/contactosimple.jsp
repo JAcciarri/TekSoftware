@@ -23,11 +23,24 @@
 	<%@ include file="/security/isAdmin.jsp"%>
 
 	<%	
-	   ArrayList<Mensaje> mensajes = null;
-	   
-	   if (request.getAttribute("mensajes") != null ){
+	   ArrayList<Mensaje> mensajes = new ArrayList<Mensaje>();
+	   int idPedido, idAdmin, idCliente;
+	
+	   if (request.getAttribute("mensajes") != null){
+		   // si hay muchos mensajes los recuperamos
 		   mensajes = (ArrayList<Mensaje>)request.getAttribute("mensajes");
+		   idPedido = mensajes.get(0).getPedido().getIdPedido();
+		   idCliente = mensajes.get(0).getPedido().getCliente().getIdUsuario();
+		   idAdmin = mensajes.get(0).getPedido().getAdmin().getIdUsuario();
 	   } 
+	   else {
+		   // si nunca se habia dejado uno entonces mostramos el chat vacio
+		   Mensaje men = (Mensaje)request.getAttribute("msj");
+		   idPedido = men.getPedido().getIdPedido();
+		   idCliente = men.getPedido().getCliente().getIdUsuario();
+		   idAdmin = men.getPedido().getAdmin().getIdUsuario();
+	   }
+	   
 	%>
 	
 	
@@ -51,6 +64,8 @@
 					<p style="color:green; margin-left:5px;"> <%=request.getAttribute("exito")%>
 				<%} %>
 				
+				
+				<%  if (mensajes.size() > 0) { %>
 					<!-- //  CHAT SIMPLE  //  -->	
 				<% for (Mensaje msj : mensajes) {
 
@@ -73,17 +88,19 @@
 				</div>
 
 				<%
+						}
 					}
 				}
-				%>	
+				%>
+					
 				<form action="ContactoServlet" method="POST">
 					<div class="panel-footer">
 	                    <div class="input-group">
 	                        <input name="mensajeUserComun" id="btn-input" type="text" class="form-control input-sm chat_input" placeholder="Deja tu mensaje aqui..." autocomplete="off" required />
 	                        <span class="input-group-btn">
-	                        <input hidden="true"name="idCliente"  value="<%=mensajes.get(0).getPedido().getCliente().getIdUsuario()%>" >
-							<input hidden="true" name="idAdmin" value="<%=mensajes.get(0).getAdmin().getIdUsuario()%>" >
-							<input hidden="true" name="idPedido" value="<%=mensajes.get(0).getPedido().getIdPedido()%>" >
+	                        <input hidden="true"name="idCliente"  value="<%=idCliente%>" >
+							<input hidden="true" name="idAdmin" value="<%=idAdmin%>" >
+							<input hidden="true" name="idPedido" value="<%=idPedido%>" >
 	                        </span>
 	                        <button class="btn btn-primary btn-sm" id="btn-chat">Enviar</button>
 	                    </div>
