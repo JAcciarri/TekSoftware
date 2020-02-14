@@ -24,11 +24,21 @@ public class ChatController {
 		return dm.getAllMensajesByAdmin(admin);
 	}
 	
-	public LinkedList<Pedido> getIDsPedidosByAdmin(Usuario admin){
-		return dm.getIDsPedidosByAdmin(admin);
+	public LinkedList<Pedido> getIDsPedidosForChat(Usuario admin){
+		return dm.getIDsPedidosForChat(admin);
 	}
 	public void addMensaje(Mensaje msj) {
 		 dm.addMensaje(msj);
+	}
+	
+	public Boolean hasMensajesNoLeidosByAdmin(Usuario admin) {
+		return dm.hasMensajesNoLeidosByAdmin(admin);
+	}
+	public Boolean hasMensajesNoLeidosByPedido(Pedido p) {
+		return dm.hasMensajesNoLeidosByPedido(p);
+	}
+	public void setMensajesLeidos(Pedido p) {
+		dm.setMensajesLeidos(p);
 	}
 	
 }

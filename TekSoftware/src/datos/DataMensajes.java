@@ -80,7 +80,7 @@ public class DataMensajes {
 							+ "INNER JOIN usuarios u "
 							+  "ON u.idUsuario = c.idCliente "
 							+  "WHERE idAdmin = ? "
-							+  "GROUP BY idPedido, idCliente, fechaHoraMensaje "
+							+  "GROUP BY 1,2,3,4,5,6,7 "
 							);
 			stmt.setInt(1, admin.getIdUsuario());
 			rs = stmt.executeQuery();
@@ -120,7 +120,7 @@ public class DataMensajes {
 		return mensajes;
 	}
 	
-	public LinkedList<Pedido> getIDsPedidosByAdmin(Usuario admin){
+	public LinkedList<Pedido> getIDsPedidosForChat(Usuario admin){
 		LinkedList<Pedido> listaIDS = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -132,7 +132,7 @@ public class DataMensajes {
 							"INNER JOIN usuarios u " +
 								"ON c.idCliente = u.idUsuario " +
 							"WHERE idAdmin = ? " +
-							"GROUP BY idPedido "
+							"GROUP BY 1, 2, 3 "
 							);
 			stmt.setInt(1, admin.getIdUsuario());
 			rs = stmt.executeQuery();
@@ -170,14 +170,18 @@ public class DataMensajes {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
-							" INSERT INTO chat (idPedido, idCliente, idAdmin, mensaje, isFromUser) "
-							+ " VALUES(?,?,?,?,?) "
+							" INSERT INTO chat (idPedido, idCliente, idAdmin, mensaje, isFromUser, leidoPorAdmin) "
+							+ " VALUES(?,?,?,?,?,?) "
 							);
 			stmt.setInt(1, msj.getPedido().getIdPedido());
 			stmt.setInt(2, msj.getCliente().getIdUsuario());
 			stmt.setInt(3, msj.getAdmin().getIdUsuario());
 			stmt.setString(4, msj.getMensaje());
 			stmt.setBoolean(5, msj.getIsFromUser());
+			if (!msj.getIsFromUser()) {
+				stmt.setBoolean(6, true);
+			} else stmt.setBoolean(6, false);
+			
 			stmt.executeUpdate();
 			
 			}  catch (SQLException e) {
@@ -193,4 +197,108 @@ public class DataMensajes {
 		}
 
 	}
+
+	public Boolean hasMensajesNoLeidosByAdmin(Usuario admin) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Boolean flag = false;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							"SELECT COUNT(*) "
+							+ "FROM chat "
+							+ "WHERE idAdmin=? AND leidoPorAdmin=?"
+							);
+			
+			stmt.setInt(1, admin.getIdUsuario());
+			stmt.setInt(2, new Integer(0));
+			rs = stmt.executeQuery();
+			
+			if (rs!=null && rs.next()) {
+				
+				if (rs.getInt("COUNT(*)") > 0) {
+					flag = true;
+				}
+			} 
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(rs!=null) rs.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		
+		return flag;
+	}
+
+	public Boolean hasMensajesNoLeidosByPedido(Pedido p) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		Boolean flag = false;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							"SELECT COUNT(*) "
+							+ "FROM chat "
+							+ "WHERE idPedido=? AND leidoPorAdmin=?"
+							);
+			
+			stmt.setInt(1, p.getIdPedido());
+			stmt.setInt(2, new Integer(0));
+			rs = stmt.executeQuery();
+			
+			if (rs!=null && rs.next()) {
+				
+				if (rs.getInt("COUNT(*)") > 0) {
+					flag = true;
+				}
+			} 
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(rs!=null) rs.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		
+		return flag;
+	}
+	
+	public void setMensajesLeidos(Pedido p) {
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().
+					prepareStatement(
+							"UPDATE chat " 
+							+ "SET leidoPorAdmin = 1 " 
+							+ "WHERE idAdmin = ? AND idPedido = ? "
+							);
+			
+			stmt.setInt(1, p.getAdmin().getIdUsuario());
+			stmt.setInt(2, p.getIdPedido());
+			stmt.executeUpdate();
+			
+			}  catch (SQLException e) {
+	        e.printStackTrace();
+		} finally {
+	        try {
+	            if(rs!=null) rs.close();
+	            if(stmt!=null) stmt.close();
+	            FactoryConnection.getInstancia().releaseConn();
+	        } catch (SQLException e) {
+	        	e.printStackTrace();
+	        }
+		}
+		
+	}
+
 }

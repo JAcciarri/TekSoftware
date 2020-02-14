@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="entidades.Mensaje"%>
 <%@ page import="entidades.Pedido"%>
+<%@ page import="logica.ChatController"%>
 <%@ page import="java.util.ArrayList"%>
 <%@ page import="java.util.LinkedList"%>
 
@@ -116,6 +117,7 @@
 							<tr>
 								<th scope="col">ID Pedido</th>
 								<th scope="col">Cliente</th>
+								<th scope="col">Mensajes</th>
 								<th scope="col">Acciones</th>
 							</tr>
 						</thead>
@@ -124,24 +126,33 @@
 				   if (ids.isEmpty()){ %>
 							<p>No tienes mensajes</p>
 							<% } 
-						// y sino mostramos todos los pedidos
-					   else { 
-	                	  for (Pedido p : ids) {
-	                  %>
+							// y sino mostramos todos los pedidos
+				   else { 
+                	  for (Pedido p : ids) {
+                		  ChatController chat = new ChatController();
+                		  String msj;
+                		  if (chat.hasMensajesNoLeidosByPedido(p)){
+                			  msj = ("Hay mensajes nuevos");
+                		  }
+                		  else msj = ("No hay mensajes sin leer");
+                		  
+                  %>
 
-							<tr>
-								<td scope="row"><%=p.getIdPedido()%></td>
-								<td scope="row"><%=p.getCliente().getFullName()%></td>
-								<td><a class="editbutton"
-									href="ContactoServlet?chat=<%=p.getIdPedido()%>">Ver Chat</a></td>
-								<% } 
-	                    }%>
-							</tr>
+						<tr>
+							<td scope="row"><%=p.getIdPedido()%></td>
+							<td scope="row"><%=p.getCliente().getFullName()%></td>
+							<td scope="row"><%=msj%></td>
+							<td><a class="editbutton"
+								href="ContactoServlet?chat=<%=p.getIdPedido()%>">Ver Chat</a></td>
+							<% } 
+				   		}
+                    %>
+						</tr>
 
-						</tbody>
-					</table>
+					</tbody>
+				</table>
 
-				</div>
+			</div>
 
 				<%
 					} else {

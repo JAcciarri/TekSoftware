@@ -6,7 +6,7 @@ public class FactoryConnection {
 
 		private static FactoryConnection instancia;
 		
-		private String driver="com.mysql.jdbc.Driver";
+		private String driver="com.mysql.cj.jdbc.Driver";
 		private String host="localhost";
 		private String port="3306";
 		private String user="sistema";

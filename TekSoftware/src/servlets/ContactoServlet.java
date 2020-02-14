@@ -61,6 +61,9 @@ public class ContactoServlet extends HttpServlet {
 			request.getRequestDispatcher("contactosimple.jsp").forward(request, response);
 		
 		} else {
+			
+			
+			
 		// sino el admin es quien quiere ver los mensajes que le dejaron
 		
 		if (request.getParameter("chat") != null) {
@@ -70,13 +73,15 @@ public class ContactoServlet extends HttpServlet {
 			p.setIdPedido(Integer.parseInt(request.getParameter("chat")));
 			p = pCtrl.getPedidoByID(p.getIdPedido());
 			ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
+			chat.setMensajesLeidos(p);
+			
 			request.setAttribute("mensajes", mensajes);
 			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
 		}	
 			else {
 			Usuario admin = (Usuario)request.getSession().getAttribute("usuario");
 			ChatController chat = new ChatController();
-			LinkedList<Pedido> ids = chat.getIDsPedidosByAdmin(admin);
+			LinkedList<Pedido> ids = chat.getIDsPedidosForChat(admin);
 			
 			request.setAttribute("ids", ids);
 			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
@@ -104,7 +109,7 @@ public class ContactoServlet extends HttpServlet {
 			String msj = request.getParameter("mensajeAdmin");
 			Mensaje mensaje = new Mensaje(idCliente, idAdmin, idPedido, msj, false);
 			chatCtrl.addMensaje(mensaje);
-			LinkedList<Pedido> ids = chatCtrl.getIDsPedidosByAdmin((Usuario)request.getSession().getAttribute("usuario"));
+			LinkedList<Pedido> ids = chatCtrl.getIDsPedidosForChat((Usuario)request.getSession().getAttribute("usuario"));
 			request.setAttribute("ids", ids);
 			request.setAttribute("exito", ("Mensaje enviado con exito"));
 			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);

@@ -11,6 +11,7 @@ public class Mensaje {
 	private String mensaje;
 	private Date fecha_hora;
 	private Boolean isFromUser;
+	private Boolean isLeido;
 	
 	public Mensaje(){}
 	
@@ -67,5 +68,13 @@ public class Mensaje {
 
 	public void setIsFromUser(Boolean isFromUser) {
 		this.isFromUser = isFromUser;
+	}
+
+	public Boolean getIsLeido() {
+		return isLeido;
+	}
+
+	public void setIsLeido(Boolean isLeido) {
+		this.isLeido = isLeido;
 	}
 }

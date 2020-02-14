@@ -1,9 +1,18 @@
 package consola;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.concurrent.TimeUnit;
 
+import com.mysql.cj.util.TimeUtil;
+
+import datos.FactoryConnection;
+import entidades.Caracteristica;
 import entidades.Mensaje;
 import entidades.Pedido;
 import entidades.Usuario;
@@ -13,20 +22,15 @@ import logica.PedidoController;
 
 public class Test {
 	
+
+    
+	public static void main(String[] args) throws SQLException {
 	
-	public static void main(String[] args) {
-	
-					
 		ChatController chat = new ChatController();
-		PedidoController pCtrl = new PedidoController();
-		Pedido p = new Pedido();
-		p.setIdPedido(62);
-		p = pCtrl.getPedidoByID(p.getIdPedido());
-		System.out.println();
-		ArrayList<Mensaje> mensajes = chat.getAllMensajesByPedido(p);
-		System.out.println(mensajes.isEmpty());
-		System.out.println(mensajes.size());
-		System.out.println(mensajes == null);
+		Usuario admin = new Usuario();
+		admin.setIdUsuario(27);
+		System.out.println("Tiene mensajes no leidos: " + chat.hasMensajesNoLeidosByAdmin(admin));
+		
 		
 	}
 

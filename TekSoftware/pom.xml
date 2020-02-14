@@ -8,6 +8,7 @@
   <build>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
+    
     <plugin>
       <groupId>org.apache.maven.plugins</groupId>
       <artifactId>maven-dependency-plugin</artifactId>
@@ -31,6 +32,7 @@
         </execution>
       </executions>
     </plugin>
+    
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.0</version>
@@ -47,14 +49,20 @@
           <warSourceDirectory>WebContent</warSourceDirectory>
         </configuration>
       </plugin>
-      
-      <plugin>            
-  <groupId>org.apache.maven.plugins</groupId>
-  <artifactId>maven-war-plugin</artifactId>
-  <configuration>
-    <webXml>TekSoftware\WebContent\WEB-INF\web.xml</webXml>        
-  </configuration>
-</plugin>
+
+	<plugin>
+		<groupId>org.apache.maven.plugins</groupId>
+		<artifactId>maven-war-plugin</artifactId>
+		<configuration>
+			<webXml>TekSoftware\WebContent\WEB-INF\web.xml</webXml>
+		</configuration>
+	</plugin>
+
+	<plugin>
+		<groupId>com.github.marlonlom</groupId>
+		<artifactId>timeago</artifactId>
+		<version>$latestVersion</version>
+	</plugin>
 
     </plugins>
   </build>

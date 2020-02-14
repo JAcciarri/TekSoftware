@@ -38,11 +38,8 @@
 	<% 
 	   Usuario admin = (Usuario)session.getAttribute("usuario");
 	   ChatController chat = new ChatController();
-	   ArrayList<Mensaje> mensajes = chat.getAllMensajesByAdmin(admin);
-	   Boolean flag = false;
-	   if (mensajes.size() > 0) {
-		   flag = true;
-	   }
+	   Boolean flag = chat.hasMensajesNoLeidosByAdmin(admin);
+	   
 	   PedidoController pCtrl = new PedidoController();
        int pedidosPendientes = pCtrl.getCountPedidosPendientes();
        String msj;
