@@ -1,6 +1,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.DataEstadistica;
+import entidades.Opcion;
+import entidades.Pedido;
+import entidades.Usuario;
+import logica.EstadisticaController;
 
 /**
  * Servlet implementation class EstadisticasServlet
@@ -33,26 +38,44 @@ public class EstadisticasServlet extends HttpServlet {
 		// se podria hacer un case y segun el servicio mostrar las estadisticas solicitadas
 		
 		response.getWriter().println("Queries para el servicio: " + request.getParameter("servicio") + "\n");
+		EstadisticaController ctrl = new EstadisticaController();
+		String servicio = request.getParameter("servicio");
+		switch(servicio) {
+			case "pedidos":{
+				ArrayList<Pedido> pedidos = ctrl.getPedidosParaPromedio();
+				double[] numeros = ctrl.getPromedioAprobacion();
+				double maxMonto = ctrl.getMaxMontoTotal();
+				
+				request.setAttribute("servicio", "pedidos");
+				request.setAttribute("maxMonto", maxMonto);
+				request.setAttribute("pedidos", pedidos);
+				request.setAttribute("numeros", numeros);
+				request.getRequestDispatcher("estadisticaServicio.jsp").forward(request, response);
+				break;
+			}
+			case "clientes":{
+				Usuario cliente = ctrl.getClienteMasPedidor();
+				Usuario ultimoCliente = ctrl.getLastUser();
+				HashMap<String, Integer> map = ctrl.getUsuariosDiferenciados();
+				
+				request.setAttribute("servicio", "clientes");
+				request.setAttribute("clientePedidor", cliente);
+				request.setAttribute("map", map);
+				request.setAttribute("ultimoCliente", ultimoCliente);
+				request.getRequestDispatcher("estadisticaServicio.jsp").forward(request, response);
+				break;
+			}
+			case "caracteristicas":{
+				ArrayList<Opcion> opciones = ctrl.getRankingOpciones();
+				
+				request.setAttribute("servicio", "caracteristicas");
+				request.setAttribute("opciones", opciones);
+				request.getRequestDispatcher("estadisticaServicio.jsp").forward(request, response);
+				break;
+			}
+			
+		}
 		
-		if (request.getParameter("servicio").equals("clientes")) {
-			DataEstadistica de = new DataEstadistica();
-			HashMap<String, Integer> hashmap = de.getUsuariosDiferenciados();
-			response.getWriter().println("==============Usuarios diferenciados=====================");
-			response.getWriter().println("Total de usuarios: " + hashmap.get("total"));
-			response.getWriter().println("---Cantidad de clientes: " +hashmap.get("users"));
-			response.getWriter().println("---Cantidad de administradores: " +hashmap.get("admins"));
-			response.getWriter().println("==============================================");
-		}
-		if (request.getParameter("servicio").equals("pedidos")) {
-			DataEstadistica de = new DataEstadistica();
-			response.getWriter().println("=======Pedido más caro============");
-			response.getWriter().println("El pedido de mayor monto fue de: $" + de.getMaxMontoTotal());
-			response.getWriter().println();
-			response.getWriter().println("===========Count de pedidos=================");
-			response.getWriter().println("Al dia de hoy, hay " + de.getCountPedidosAprobados() + " pedidos Aprobados");
-			response.getWriter().println("Al dia de hoy, hay " + de.getCountPedidosPendientes() + " pedidos Pendientes");
-			response.getWriter().println("===========================================");
-		}
 	}
 
 	/**

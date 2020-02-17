@@ -1,8 +1,11 @@
 package logica;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import datos.DataEstadistica;
+import entidades.Opcion;
+import entidades.Pedido;
 import entidades.Usuario;
 
 public class EstadisticaController {
@@ -21,6 +24,9 @@ public class EstadisticaController {
 	public HashMap<String, Integer> getUsuariosDiferenciados(){
 		return de.getUsuariosDiferenciados();
 	}
+	public Usuario getLastUser() {
+		return de.getLastUser();
+	}
 	
 	//Pedidos
 	public double getMaxMontoTotal() {
@@ -32,5 +38,17 @@ public class EstadisticaController {
 	public int getCountPedidosPendientes() {
 		return de.getCountPedidosPendientes();
 	}
+	
+	public double[] getPromedioAprobacion() {
+		return de.getPromedioAprobacion();
+	}
+	public ArrayList<Pedido> getPedidosParaPromedio(){
+		return de.getPedidosParaPromedios();
+	}
+	
 	//Caracteristicas
+	public ArrayList<Opcion> getRankingOpciones(){
+		return de.getRankingOpciones();
+	}
+	
 }

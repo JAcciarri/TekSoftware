@@ -46,6 +46,10 @@ public class SigninServlet extends HttpServlet {
 		String apellido = request.getParameter("apellido");
 		String telefono = request.getParameter("telefono");
 		String email = request.getParameter("email");
+		//Algunas validaciones
+		
+		
+		
 		//Metodo para encriptar la contraseña
 		password = DigestUtils.sha1Hex(password);
 		Usuario user = new Usuario(nombre, apellido, usuario, password, email, telefono);

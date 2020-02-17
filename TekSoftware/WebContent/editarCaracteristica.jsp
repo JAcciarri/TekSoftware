@@ -102,7 +102,7 @@
                                    <div class="form-group">
                                         <label class="col-md-12">Titulo Caracteristica</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="titulo" value="<%=c.getTitulo()%>" class="form-control form-control-line">
+                                            <input type="text" name="titulo" value="<%=c.getTitulo()%>" required pattern="[A-Za-z0-9 ¿?¡!]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
                                         </div>
                                     </div>
                                     
@@ -111,7 +111,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 1</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="subtitulo-1" value="<%=opciones.get(0).getSubtitulo()%>" class="form-control form-control-line">
+                                            <input type="text" name="subtitulo-1" value="<%=opciones.get(0).getSubtitulo()%>" required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -123,13 +123,13 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Descripcion</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="descripcion-1" value="<%=opciones.get(0).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="text" name="descripcion-1" value="<%=opciones.get(0).getDescripcion()%>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="precio-1" value="<%=opciones.get(0).getValorActual()%>" autofocus required class="form-control form-control-line">
+                                            <input type="text" name="precio-1" value="<%=opciones.get(0).getValorButString()%>" required pattern="[0-9]+" title="Solo numeros enteros"  class="form-control form-control-line">
                                         </div>
                                     </div>
                                    
@@ -139,7 +139,7 @@
                                    <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 2</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="subtitulo-2" value="<%=opciones.get(1).getSubtitulo()%>" class="form-control form-control-line">
+                                            <input type="text" name="subtitulo-2" value="<%=opciones.get(1).getSubtitulo()%>" required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -151,13 +151,13 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Descripcion</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="descripcion-2" value="<%=opciones.get(1).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="text" name="descripcion-2" value="<%=opciones.get(1).getDescripcion()%>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="precio-2" value="<%=opciones.get(1).getValorActual()%>" class="form-control form-control-line" >
+                                            <input type="text" name="precio-2" value="<%=opciones.get(1).getValorButString()%>" required pattern="[0-9]+" title="Solo numeros enteros" class="form-control form-control-line" >
                                         </div>
                                     </div>
                                     
@@ -167,7 +167,7 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Subtitulo Opcion 3</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="subtitulo-3" value="<%=opciones.get(2).getSubtitulo()%>" class="form-control form-control-line">
+                                            <input type="text" name="subtitulo-3" value="<%=opciones.get(2).getSubtitulo()%>" required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -179,14 +179,14 @@
                                     <div class="form-group">
                                         <label for="example-email" class="col-md-12">Descripcion</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="descripcion-3" value="<%=opciones.get(2).getDescripcion()%>" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="text" name="descripcion-3" value="<%=opciones.get(2).getDescripcion()%>" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                    
                                  	<div class="form-group">
                                         <label for="example-email" class="col-md-12" style=font-weight:bold;>Precio</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="precio-3" value="<%=opciones.get(2).getValorActual()%>" required class="form-control form-control-line" >
+                                            <input type="text" name="precio-3" value="<%=opciones.get(2).getValorButString()%>" required pattern="[0-9]+" title="Solo numeros enteros" class="form-control form-control-line" >
                                         </div>
                                     </div>
                                     

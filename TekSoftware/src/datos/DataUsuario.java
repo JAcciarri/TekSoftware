@@ -209,8 +209,36 @@ public class DataUsuario {
 		return users;
 	}
 	
+	public int getMAXID() {
+		int max = 0;
+		PreparedStatement stmt = null;
+		ResultSet rs = null; 
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT MAX(idUsuario) FROM usuarios"
+					);
+		
+			rs = stmt.executeQuery();
+			
+			if(rs!=null && rs.next()) {
+				max = rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return max;
+	}
 	
-		public void add(Usuario u) {
+	public void add(Usuario u) {
 			int admin;
 			PreparedStatement stmt = null;
 			ResultSet keyResultSet = null;

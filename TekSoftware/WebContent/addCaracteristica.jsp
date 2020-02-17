@@ -99,7 +99,7 @@
                                      <div class="form-group">
                                         <label class="col-md-12">Titulo</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="titulo" autocomplete="off" required="" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="text" name="titulo" autocomplete="off" required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line" >
                                         </div>
                                     </div>
                                    <div class="simple-container">
@@ -107,13 +107,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">ID Opcion 1</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="idopcion1" readonly value="1" autocomplete="off" class="form-control form-control-line" name="example-email" id="example-email">
+                                            <input type="text" name="idopcion1" readonly value="1" autocomplete="off" class="form-control form-control-line">
                                         </div>
                                     </div>
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-1" autocomplete="off"  required class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-1" autocomplete="off" pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." required class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
@@ -141,7 +141,7 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-2" autocomplete="off"  required="" class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-2" autocomplete="off"  required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
@@ -167,7 +167,7 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-3" autocomplete="off"  required  class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-3" autocomplete="off"  pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." required  class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">

@@ -6,8 +6,8 @@ public class Opcion {
 	private String textIcono;
 	private String descripcion;
 	private float valorActual;
-	
-	
+	private Caracteristica caractPerteneciente;
+	private int vecesElegida;
 	
 	public Opcion() {}
 	public Opcion(int id, String subtitulo, String text, String desc) {
@@ -27,6 +27,18 @@ public class Opcion {
 	
 	public float getValorActual() {
 		return valorActual;
+	}
+	
+	//metodo que devuelve el valor en substring, quita el punto y el decimal
+	public String getValorButString() {
+		//ademas si el valor es cero devolvemos string vacio para asegurarnos que defina un precio
+		String s = "";
+		if (this.valorActual == 0) {
+			return s;
+		} else {
+			s += this.valorActual;
+		return s.substring(0, s.length()-2);
+		}
 	}
 	public void setValorActual(float valorActual) {
 		this.valorActual = valorActual;
@@ -54,5 +66,17 @@ public class Opcion {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+	public Caracteristica getCaractPerteneciente() {
+		return caractPerteneciente;
+	}
+	public void setCaractPerteneciente(Caracteristica caractPerteneciente) {
+		this.caractPerteneciente = caractPerteneciente;
+	}
+	public int getVecesElegida() {
+		return vecesElegida;
+	}
+	public void setVecesElegida(int vecesElegida) {
+		this.vecesElegida = vecesElegida;
 	}
 }

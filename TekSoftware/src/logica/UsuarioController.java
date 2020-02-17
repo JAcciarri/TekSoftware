@@ -45,4 +45,9 @@ public class UsuarioController {
 	public void delete(int ID) {
 		du.delete(ID);
 	}
+	
+	public Usuario getLastUser() {
+		int maxID = du.getMAXID();
+		return du.getByID(maxID);
+	}
 }

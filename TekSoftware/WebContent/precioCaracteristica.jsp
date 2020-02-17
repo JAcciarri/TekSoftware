@@ -113,7 +113,7 @@
 							</a>
 							<h4><%=opciones.get(0).getSubtitulo()%></h4>
 							<p><%=opciones.get(0).getDescripcion()%></p>
-							<input type="text" placeholder="Precio" name="precio1" required
+							<input type="text" placeholder="Precio" name="precio1" pattern="[0-9]{1,10}" title="Solo numeros enteros. Máximo: 10 digitos" required
 								class="form-control form-control-line">
 						</div>
 
@@ -123,7 +123,7 @@
 							</a>
 							<h4><%=opciones.get(1).getSubtitulo()%></h4>
 							<p><%=opciones.get(1).getDescripcion()%></p>
-							<input type="text" placeholder="Precio" name="precio2" required
+							<input type="text" placeholder="Precio" name="precio2" pattern="[0-9]{1,10}" title="Solo numeros enteros. Máximo: 10 digitos" required
 								class="form-control">
 						</div>
 
@@ -133,7 +133,7 @@
 							</a>
 							<h4><%=opciones.get(2).getSubtitulo()%></h4>
 							<p><%=opciones.get(2).getDescripcion()%></p>
-							<input type="text" placeholder="Precio" name="precio3" required
+							<input type="text" placeholder="Precio" name="precio3" pattern="[0-9]{1,10}" title="Solo numeros enteros. Máximo: 10 digitos" required
 								class="form-control">
 						</div>
 

@@ -13,7 +13,7 @@ public class Pedido {
 	private String estado;
 	private double montoTotal;
 	private String motivoRechazo;
-	
+	private int diferenciaDias;
 	
 	public int getIdPedido() {
 		return idPedido;
@@ -69,6 +69,12 @@ public class Pedido {
 	}
 	public void setMotivoRechazo(String motivoRechazo) {
 		this.motivoRechazo = motivoRechazo;
+	}
+	public int getDiferenciaDias() {
+		return diferenciaDias;
+	}
+	public void setDiferenciaDias(int diferenciaDias) {
+		this.diferenciaDias = diferenciaDias;
 	}
 	
 		

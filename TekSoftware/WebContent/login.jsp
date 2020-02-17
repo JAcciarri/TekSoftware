@@ -65,13 +65,13 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="user">Usuario</label>
-                <input type="text" name="usuario" id="user" class="form-control ">
+                <input type="text" name="usuario" id="user" required  pattern="[A-Za-z0-9]{5,15}" title="No utilices espacios o caracteres especiales. Longitud mínima: 5 caracteres" class="form-control ">
               </div>
             </div>
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="pass">Contraseña</label>
-                <input type="password" name="password" id="pass" class="form-control ">
+                <input type="password" name="password" id="pass" required class="form-control ">
               </div>
             </div>
 
