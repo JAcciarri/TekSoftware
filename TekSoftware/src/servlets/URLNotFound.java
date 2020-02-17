@@ -23,6 +23,7 @@ public class URLNotFound extends HttpServlet {
     		
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		// seteamos la url que le corresponde a cada usuario
 		if (request.getSession().getAttribute("usuario") != null ) {
 			Usuario u = (Usuario)request.getSession().getAttribute("usuario");
 			if (u.isAdmin()) {
