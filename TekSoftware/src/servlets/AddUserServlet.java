@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import datos.DataUsuario;
+import entidades.MyResult;
 import entidades.Usuario;
 import logica.UsuarioController;
 
@@ -54,7 +55,8 @@ public class AddUserServlet extends HttpServlet {
 		
 		Usuario u = new Usuario(nombre, apellido, username, password, email, telefono, admin);
 		UsuarioController userControl = new UsuarioController();
-		userControl.add(u);
+		MyResult result = userControl.add(u);
+		request.setAttribute("result", result);
 		request.setAttribute("listaUsuarios", userControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response); 
 	}

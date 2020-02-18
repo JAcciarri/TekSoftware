@@ -32,8 +32,11 @@
 	<%@ include file = "/security/isLoggedIn.jsp" %>
     
 	<%@ include file ="/partials/navBar.jsp" %>
-	<% String error = (String)request.getAttribute("error"); %>
-
+	
+	<% MyResult res = (MyResult)request.getAttribute("result");
+	
+	 %>
+	
   <div class="inner-page">
     <div class="slider-item overlay" style="background-image: url('images/hero_2.jpg');"
       data-stellar-background-ratio="0.5">
@@ -55,13 +58,25 @@
           
           
           <form action="LoginServlet" method="POST">
-	           <% if (error!=null){ %>
+	           <% if (res != null){ 
+	           	
+	        	   if (res.getResult().equals(MyResult.results.OK)){
+	           %>
 	            <div class="row">
 	              <div class="col-md-12 form-group">
-	                <label style="color:red"><%=error%></label>
+	                <label style="color:green"><%=res.getErr_message()%></label>
 	              </div>
 	            </div>
-	            <%} %>
+	            <%} else { %>
+	            <div class="row">
+	              <div class="col-md-12 form-group">
+	                <label style="color:red"><%=res.getErr_message()%></label>
+	              </div>
+	            </div>
+	            <%}
+	         }%>
+	            
+	          
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="user">Usuario</label>

@@ -93,6 +93,20 @@
 			</div>
 
 			<div class="container-fluid">
+			
+			<% if (request.getAttribute("result")!=null) {
+        	   MyResult res = (MyResult)request.getAttribute("result");
+        	   if(res.getResult().equals(MyResult.results.OK)){
+        		   %>
+                   <p style="color:green"><%=res.getErr_message()%></p>
+                  <%
+        	   } else {
+        	      %>
+                   <p style="color:red"><%=res.getErr_message()%></p>
+                   <%}
+                   }
+                 %>
+			
 				<div class="table-responsive">
 					<table class="table">
 						<thead class="thead-light">

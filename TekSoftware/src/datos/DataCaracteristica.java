@@ -8,11 +8,12 @@ import java.util.Date;
 import com.mysql.cj.xdevapi.Result;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Opcion;
 import entidades.Seleccion;
 import entidades.Usuario;
 
-public class DataCaracteristica {
+public class DataCaracteristica extends DataMethods{
 
 	
 	public ArrayList<Caracteristica> getAllCaracteristicas(){
@@ -151,8 +152,8 @@ public class DataCaracteristica {
 
 	
 	
-		public void add(Caracteristica c) {
-			
+		public MyResult add(Caracteristica c) {
+			int resultado = -1;
 			PreparedStatement stmt = null;
 			ResultSet keyResultSet = null;
 			try {
@@ -162,7 +163,7 @@ public class DataCaracteristica {
 						PreparedStatement.RETURN_GENERATED_KEYS);
 				
 				stmt.setString(1, c.getTitulo());
-				stmt.executeUpdate();
+				resultado = stmt.executeUpdate();
 				
 				keyResultSet = stmt.getGeneratedKeys();
 			       
@@ -171,20 +172,21 @@ public class DataCaracteristica {
 		        }
 				
 			}  catch (SQLException e) {
-		        e.printStackTrace();
+				return Add(resultado);
 			} finally {
 		        try {
 		            if(keyResultSet!=null) keyResultSet.close();
 		            if(stmt!=null) stmt.close();
 		            FactoryConnection.getInstancia().releaseConn();
 		        } catch (SQLException e) {
-		        	e.printStackTrace();
+		        	return Add(resultado);
 		        }
 			}
+			return Add(resultado);
 		}
 		
-		public void addOpciones(ArrayList<Opcion> opciones, Caracteristica c) {
-			
+		public MyResult addOpciones(ArrayList<Opcion> opciones, Caracteristica c) {
+			int resultado = -1;
 			PreparedStatement stmt = null;
 			ResultSet keyResultSet = null;
 			try {
@@ -199,20 +201,21 @@ public class DataCaracteristica {
 					stmt.setString(3, opciones.get(i-1).getSubtitulo());
 					stmt.setString(4, opciones.get(i-1).getDescripcion());
 					stmt.setString(5, opciones.get(i-1).getTextIcono());
-					stmt.executeUpdate();
+					resultado = stmt.executeUpdate();
 				}
 				
 			}  catch (SQLException e) {
-		        e.printStackTrace();
+		        return Add(resultado);
 			} finally {
 		        try {
 		            if(keyResultSet!=null) keyResultSet.close();
 		            if(stmt!=null) stmt.close();
 		            FactoryConnection.getInstancia().releaseConn();
 		        } catch (SQLException e) {
-		        	e.printStackTrace();
+		        	return Add(resultado);
 		        }
 			}
+			return Add(resultado);
 		}
 		
 		
@@ -245,7 +248,8 @@ public class DataCaracteristica {
 		}
 		
 		
-	public void updateCaracteristica(Caracteristica c) {
+	public MyResult updateCaracteristica(Caracteristica c) {
+		int resultado = -1;
 		PreparedStatement stmt = null;
 		
 		try {
@@ -254,23 +258,25 @@ public class DataCaracteristica {
 			"UPDATE caracteristicas SET titulo=? WHERE idCaracteristica=?");
 			stmt.setString(1, c.getTitulo());
 			stmt.setInt(2, c.getIdCaracteristica());
-			stmt.executeUpdate();	
+			resultado = stmt.executeUpdate();	
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Update(resultado);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Update(resultado);
 	        }
 		}
+		// si llego aca esta todo OK
+		return Update(resultado);
 	}
 	
-	public void updateOpciones(Caracteristica c, ArrayList<Opcion> opciones) {
+	public MyResult updateOpciones(Caracteristica c, ArrayList<Opcion> opciones) {
 		PreparedStatement stmt = null;
-		
+		int resultado = -1;
 		// PRIMERO ACTUALIZAMOS LAS OPCIONES
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
@@ -284,7 +290,7 @@ public class DataCaracteristica {
 				stmt.setString(3, op.getTextIcono());
 				stmt.setInt(4, c.getIdCaracteristica());
 				stmt.setInt(5, op.getIdOpcion());
-				stmt.executeUpdate();	
+				resultado = stmt.executeUpdate();	
 			}
 			
 			 //para obtener la hora y convertirla a sql date
@@ -300,24 +306,25 @@ public class DataCaracteristica {
 				stmt.setInt(2, op.getIdOpcion());
 				stmt.setTimestamp(3, new java.sql.Timestamp(now.getTime()));
 				stmt.setFloat(4, op.getValorActual());
-				stmt.executeUpdate();	
+				resultado = stmt.executeUpdate();	
 			}
 			
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+			return Update(resultado);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Update(resultado);
 	        }
 		}
+		return Update(resultado);
 	}
 	
-	public String deleteCaracteristica(int ID) {
-		String str = null;
+	public MyResult deleteCaracteristica(int ID) {
+		int r = 1;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
 		try {
@@ -330,8 +337,10 @@ public class DataCaracteristica {
 			if (rs!=null && rs.next()) {
 				// preguntamos si hay al menos un pedido con esa caracteristica
 				if (rs.getInt(1) > 0) {
-					str = "Existe un pedido actualmente con esa Caracteristica";
-					return str;
+					MyResult res = new MyResult();
+					res.setResult(MyResult.results.Err);
+					res.setErr_message("Existe un pedido actualmente con esa Caracteristica");
+					return res;
 				} else {
 			stmt.close();
 			
@@ -339,7 +348,10 @@ public class DataCaracteristica {
 					"DELETE FROM valores WHERE idCaracteristica=?"
 					);
 			stmt.setInt(1, ID);
-			stmt.executeUpdate();
+			r = stmt.executeUpdate();
+			if (r == 0) {
+				return Delete(0);
+			}
 			stmt.close();
 			
 			
@@ -347,7 +359,10 @@ public class DataCaracteristica {
 					"DELETE FROM opciones WHERE idCaracteristica=?"
 					);
 			stmt.setInt(1, ID);
-			stmt.executeUpdate();
+			r = stmt.executeUpdate();
+			if (r == 0) {
+				return Delete(0);
+			}
 			stmt.close();
 			
 			
@@ -355,22 +370,26 @@ public class DataCaracteristica {
 					"DELETE FROM caracteristicas WHERE idCaracteristica=?"
 					);
 			stmt.setInt(1, ID);
-			stmt.executeUpdate();
+			r = stmt.executeUpdate();
+			if (r == 0) {
+				return Delete(0);
+			}
 			}
 		}
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return Delete(0);
 		}finally {
 			try {
 				if (rs!=null) {rs.close();}
 				if(stmt!=null) {stmt.close();}
 				FactoryConnection.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				return Delete(0);
 			}
 		}
-		return str;
+		// si llego hasta aca esta todo OK
+		return Delete(1);
 	}
 	
 	public int getCountCaracteristicas() {
@@ -400,9 +419,10 @@ public class DataCaracteristica {
 		return count;
 	}
 	
-	public void addValores(ArrayList<Opcion> opciones, Caracteristica c) {
+	public MyResult addValores(ArrayList<Opcion> opciones, Caracteristica c) {
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		int resultado = -1;
 		//para obtener la hora y convertirla a sql date
 		java.util.Date now = new java.util.Date();
 		
@@ -416,20 +436,21 @@ public class DataCaracteristica {
 			stmt.setInt(2, op.getIdOpcion());
 			stmt.setTimestamp(3, new java.sql.Timestamp(now.getTime()));
 			stmt.setFloat(4, op.getValorActual());
-			stmt.executeUpdate();	
+			resultado = stmt.executeUpdate();	
 		}
 		} catch (SQLException e) {
-	        e.printStackTrace();
+	       return Add(resultado);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            if (rs!=null) rs.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	 return Add(resultado);
 	        }
 		}
-		}
+		return Add(resultado);
+	}
 	
 	
 	

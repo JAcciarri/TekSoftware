@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Opcion;
 import logica.CaracteristicaController;
 
@@ -48,9 +49,9 @@ public class EditPrecioServlet extends HttpServlet {
 		opciones.get(0).setValorActual(Integer.parseInt(request.getParameter("precio1")));
 		opciones.get(1).setValorActual(Integer.parseInt(request.getParameter("precio2")));
 		opciones.get(2).setValorActual(Integer.parseInt(request.getParameter("precio3")));
-		cc.addValores(opciones, cara);
+		MyResult res = cc.addValores(opciones, cara);
 		
-		
+		request.setAttribute("result", res);
 		request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
 		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
 		

@@ -14,6 +14,8 @@ import logica.ExceptionController;
 /**
  * Servlet implementation class ExceptionHandler
  */
+// clase para manejar las excepciones ocurridas
+
 @WebServlet("/ExceptionHandler")
 public class ExceptionHandler extends HttpServlet {
 	private static final long serialVersionUID = 1L;

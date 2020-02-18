@@ -68,10 +68,7 @@ public class PedidoController {
 	}
 	
 	public void deletePedido(int IDPedido) {
-		// lo borramos solo si es que existe
-		if (dp.getPedidoByID(IDPedido) != null) {
 		 dp.deletePedido(IDPedido);
-		}
 	}
 	
 	public void rechazarPedido(Pedido pedido) {

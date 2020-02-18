@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.MysqlType;
+
 import datos.DataUsuario;
+import entidades.MyResult;
 import entidades.Usuario;
 import logica.LoginController;
 
@@ -47,8 +50,10 @@ public class LoginServlet extends HttpServlet {
 		// Cuando el controlador valida puede encontrar el usuario y devolverlo, 
 		// de lo contrario devuelve NULL
 		if (user == null) {
-			String error = ("Usuario o contraseña incorrectos");
-			request.setAttribute("error", error);
+			MyResult res = new MyResult();
+			res.setResult(MyResult.results.Err);
+			res.setErr_message("Usuario o contraseñas incorrectos");
+			request.setAttribute("result", res);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}  else {
 			// Si lo encontro lo guardamos en la sesion y preguntamos si es Admin o Usuario comun

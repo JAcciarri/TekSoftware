@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import datos.DataUsuario;
+import entidades.MyResult;
 import entidades.Usuario;
 import logica.UsuarioController;
 
@@ -54,9 +55,14 @@ public class SigninServlet extends HttpServlet {
 		password = DigestUtils.sha1Hex(password);
 		Usuario user = new Usuario(nombre, apellido, usuario, password, email, telefono);
 		UsuarioController usControl = new UsuarioController();
-		usControl.add(user);
+		MyResult res = usControl.add(user);
+		if (res.getResult().equals(MyResult.results.OK)){
+			res.setErr_message("Cuenta registrada con exito");
+		} else {
+			res.setErr_message("No se pudo registrar la cuenta correctamente. Intente de nuevo");
+		}
+		request.setAttribute("result", res);
 		request.getRequestDispatcher("login.jsp").forward(request, response);
-		
 		
 	}
 

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.apache.commons.codec.digest.DigestUtils;
 
 import datos.DataUsuario;
+import entidades.MyResult;
 import entidades.Usuario;
 
 public class UsuarioController {
@@ -33,17 +34,16 @@ public class UsuarioController {
 		return du.getByID(ID);
 	}
 	
-	public void add(Usuario u) {
-		
-		du.add(u);
+	public MyResult add(Usuario u) {
+		return du.add(u);
 	}
 	
-	public void update(Usuario u) {
-		du.update(u);
+	public MyResult update(Usuario u) {
+		return du.update(u);
 	}
 	
-	public void delete(int ID) {
-		du.delete(ID);
+	public MyResult delete(int ID) {
+		return du.delete(ID);
 	}
 	
 	public Usuario getLastUser() {

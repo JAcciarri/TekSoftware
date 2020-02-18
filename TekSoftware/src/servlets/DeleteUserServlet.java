@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
+import entidades.MyResult;
 import logica.UsuarioController;
 
 /**
@@ -31,7 +32,8 @@ public class DeleteUserServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		UsuarioController usControl = new UsuarioController();
 		int ID = Integer.parseInt(request.getParameter("id"));
-		usControl.delete(ID);
+		MyResult res = usControl.delete(ID);
+		request.setAttribute("result", res);
 		request.setAttribute("listaUsuarios", usControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);;
 	}

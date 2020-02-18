@@ -4,9 +4,10 @@ package datos;
 import java.sql.*;
 import java.util.ArrayList;
 
+import entidades.MyResult;
 import entidades.Usuario;
 
-public class DataUsuario {
+public class DataUsuario extends DataMethods{
 
 	
 	public ArrayList<Usuario> getAllUsers(){
@@ -238,8 +239,8 @@ public class DataUsuario {
 		return max;
 	}
 	
-	public void add(Usuario u) {
-			int admin;
+	public MyResult add(Usuario u) {
+			int admin, resultado;
 			PreparedStatement stmt = null;
 			ResultSet keyResultSet = null;
 			try {
@@ -256,31 +257,32 @@ public class DataUsuario {
 				stmt.setString(6, u.getPassword());
 				if (u.isAdmin()) admin=1; else admin=0;
 				stmt.setInt(7, admin);
-				stmt.executeUpdate();
+				
+			    resultado = stmt.executeUpdate();
 				
 				keyResultSet = stmt.getGeneratedKeys();
-		       
 				if(keyResultSet!=null && keyResultSet.next()){
 		            u.setIdUsuario(keyResultSet.getInt(1));
 		        }
-		
 				
 			}  catch (SQLException e) {
-		        e.printStackTrace();
+				return Add(0);
 			} finally {
 		        try {
 		            if(keyResultSet!=null) keyResultSet.close();
 		            if(stmt!=null) stmt.close();
 		            FactoryConnection.getInstancia().releaseConn();
 		        } catch (SQLException e) {
-		        	e.printStackTrace();
+		        	return Add(0);
 		        }
 			}
+			return Add(resultado);
 		}
 		
-	public void update(Usuario u) {
+	public MyResult update(Usuario u) {
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
+		int resultado = -1;
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
@@ -292,7 +294,7 @@ public class DataUsuario {
 			stmt.setString(3, u.getEmail());
 			stmt.setString(4, u.getTelefono());
 			stmt.setString(5, u.getUsername());
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
 			
 			keyResultSet = stmt.getGeneratedKeys();
 	       
@@ -302,37 +304,39 @@ public class DataUsuario {
 	
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Update(resultado);
 		} finally {
 	        try {
 	            if(keyResultSet!=null) keyResultSet.close();
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Update(resultado);
 	        }
 		}
+		return Update(resultado);
 	}
 	
-	public void delete(int ID) {
-		
+	public MyResult delete(int ID) {
+		int resultado = -1;
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
 					"DELETE FROM usuarios WHERE idUsuario=?"
 					);
 			stmt.setInt(1, ID);
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return Delete(resultado);
 		}finally {
 			try {
 				if(stmt!=null) {stmt.close();}
 				FactoryConnection.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				Delete(resultado);
 			}
 		}
+		return Delete(resultado);
 	}
 	
 	

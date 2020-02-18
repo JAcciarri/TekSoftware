@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Opcion;
 import logica.CaracteristicaController;
 
@@ -59,14 +60,18 @@ public class AddCaracteristicaServlet extends HttpServlet {
 		opciones.add(new Opcion(3, subtitulo3, texticono3, descripcion3));
 	
 		//LA AGREGAMOS A LA BD
-		cc.addCaracteristica(new Caracteristica(titulo) , opciones);
-		
-		// UNA VEZ INSERTADA EN LA BD LA RECUPERAMOS Y REDIRIGIMOS A LA PAGINA EDITAR
+		MyResult res = cc.addCaracteristica(new Caracteristica(titulo) , opciones);
+		if (res.getResult().equals(MyResult.results.Err)) {
+			request.setAttribute("result", res);
+			request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
+			request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
+		}
+		// UNA VEZ INSERTADA EN LA BD CORRECTAMENTE LA RECUPERAMOS Y REDIRIGIMOS A LA PAGINA EDITAR
 		// PARA ASI PONERLE EL PRECIO, EL ID ES AUTOINCREMENTAL.
 		int IDGenerated = cc.getMaxIDfromDB();
 		Caracteristica car = cc.getByID(IDGenerated);
 		request.setAttribute("caracteristicaAEditar", car);
-		request.getRequestDispatcher("precioCaracteristica.jsp").forward(request, response);;
+		request.getRequestDispatcher("precioCaracteristica.jsp").forward(request, response);
 		
 		}
 

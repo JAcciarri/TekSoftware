@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Opcion;
 import entidades.Usuario;
 import logica.CaracteristicaController;
@@ -72,15 +73,13 @@ public class EditCaracteristicaServlet extends HttpServlet {
 		opciones.add(new Opcion(2, subtitulo2, texticono2, descripcion2, precio2));
 		opciones.add(new Opcion(3, subtitulo3, texticono3, descripcion3, precio3));
 		
-		try {
-			cc.updateCaracteristica(car);
-			cc.updateOpciones(car, opciones);
-		} catch (Exception e) {
-			e.printStackTrace();
+		MyResult res = new MyResult();
+		res = cc.updateCaracteristica(car);
+		if (res.getResult().equals(MyResult.results.OK)) {		 
+			res = cc.updateOpciones(car, opciones);
 		}
-		
-		ArrayList<Caracteristica> caracteristicas = cc.getAllCaracteristicas();
-		request.setAttribute("listaCaracteristicas", caracteristicas);
+		request.setAttribute("result", res);
+		request.setAttribute("listaCaracteristicas", cc.getAllCaracteristicas());
 		request.getRequestDispatcher("abmCaracteristicas.jsp").forward(request, response);
 		}
 

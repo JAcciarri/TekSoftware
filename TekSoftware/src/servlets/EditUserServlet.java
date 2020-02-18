@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import datos.DataUsuario;
+import entidades.MyResult;
 import entidades.Usuario;
 import logica.UsuarioController;
 
@@ -49,7 +50,8 @@ public class EditUserServlet extends HttpServlet {
 		u.setEmail(request.getParameter("email"));
 		u.setTelefono(request.getParameter("telefono"));
 		u.setUsername(request.getParameter("username"));
-		usControl.update(u);
+		MyResult res = usControl.update(u);
+		request.setAttribute("result", res);
 		request.setAttribute("listaUsuarios", usControl.getAllUsers());
 		request.getRequestDispatcher("abmUsuarios.jsp").forward(request, response);
 	}
