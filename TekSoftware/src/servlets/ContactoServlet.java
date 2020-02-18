@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Mensaje;
+import entidades.MyResult;
 import entidades.Pedido;
 import entidades.Usuario;
 import logica.ChatController;
@@ -108,21 +109,22 @@ public class ContactoServlet extends HttpServlet {
 			 // Entonces estamos recuperando un mensaje del admin
 			String msj = request.getParameter("mensajeAdmin");
 			Mensaje mensaje = new Mensaje(idCliente, idAdmin, idPedido, msj, false);
-			chatCtrl.addMensaje(mensaje);
+			MyResult res = chatCtrl.addMensaje(mensaje);
 			LinkedList<Pedido> ids = chatCtrl.getIDsPedidosForChat((Usuario)request.getSession().getAttribute("usuario"));
 			request.setAttribute("ids", ids);
-			request.setAttribute("exito", ("Mensaje enviado con exito"));
+			request.setAttribute("result", res);
 			request.getRequestDispatcher("misMensajes.jsp").forward(request, response);
 		}
 		else {
 			
 			// Y sino el usuario quiere dejar un mensaje suyo
+			Pedido p = pCtrl.getPedidoByID(idPedido);
 			String msj = request.getParameter("mensajeUserComun");
 			Mensaje m = new Mensaje(idCliente, idAdmin, idPedido, msj, true);
-			chatCtrl.addMensaje(m);
-			Pedido p = pCtrl.getPedidoByID(idPedido);
+			// aca ya recibimos el Result con el mensaje para la vista jsp
+			MyResult res = chatCtrl.addMensaje(m);
 			request.setAttribute("pedido", p);
-			request.setAttribute("exito", ("Mensaje enviado con exito"));
+			request.setAttribute("result", res);
 			request.getRequestDispatcher("pedidoUsuario.jsp").forward(request, response);
 		}
 	}

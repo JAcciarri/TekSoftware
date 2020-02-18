@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Opcion;
 import entidades.Pedido;
 import entidades.Seleccion;
@@ -16,11 +17,11 @@ import logica.UsuarioController;
 
 
 
-public class DataPedido {
+public class DataPedido extends DataMethods{
 
 	
-	public void add(Pedido p) {
-	
+	public MyResult add(Pedido p) {
+		int resultado = -1;
 		PreparedStatement stmt = null;
 		ResultSet keyResultSet = null;
 		try {
@@ -33,7 +34,7 @@ public class DataPedido {
 			stmt.setTimestamp(2, new java.sql.Timestamp(p.getFechaPedido().getTime()));
 			stmt.setString(3, p.getEstado());
 			stmt.setDouble(4, p.getMontoTotal());
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
 			
 			keyResultSet = stmt.getGeneratedKeys();
 	       
@@ -43,21 +44,22 @@ public class DataPedido {
 	
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Add(resultado);
 		} finally {
 	        try {
 	            if(keyResultSet!=null) keyResultSet.close();
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Add(resultado);
 	        }
 		}
+		return Add(resultado);
 	}
 	
-	public void addOpciones(ArrayList<Seleccion> selecciones, Pedido p) {
+	public MyResult addOpciones(ArrayList<Seleccion> selecciones, Pedido p) {
 		PreparedStatement stmt = null;
-		// ResultSet rs = null;
+		int resultado = -1;
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
@@ -68,20 +70,24 @@ public class DataPedido {
 				stmt.setInt(1, p.getIdPedido());
 				stmt.setInt(2, sel.getNroCaracteristica());
 				stmt.setInt(3, sel.getNroOpcion());
-				stmt.executeUpdate();
+				resultado = stmt.executeUpdate();
+				if (resultado == 0) {
+					return Add(0);
+				}
 			}
 			
 		
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Add(0);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Add(0);
 	        }
 		}
+		return Add(1);
 	}
 	
 	public double getValoresActuales(ArrayList<Seleccion> selects) {
@@ -167,6 +173,52 @@ public class DataPedido {
 			
 			return listaPedidos;
 		}
+	
+	public ArrayList<Pedido> getAllPendientes(){
+		
+		PreparedStatement stmt=null;
+		ResultSet rs=null;
+		ArrayList<Pedido> listaPedidos= new ArrayList<>();
+		UsuarioController uController = new UsuarioController();
+		
+		try {
+			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
+					"SELECT * FROM pedidos WHERE estado=?");
+			
+			stmt.setString(1, "Pendiente");
+			rs = stmt.executeQuery();
+			
+			if(rs!=null) {
+				while(rs.next()) {
+					Pedido p = new Pedido();
+					p.setIdPedido(rs.getInt("idPedido"));
+					p.setFechaPedido(rs.getTimestamp("fechaPedido"));
+					Usuario u = uController.getByID(rs.getInt("idCliente"));
+					Usuario admin = uController.getByID(rs.getInt("idAdmin"));
+					p.setCliente(u);
+					if (admin!=null) p.setAdmin(admin);
+					p.setEstado(rs.getString("estado"));
+					p.setMontoTotal(rs.getDouble("montoTotal"));
+					p.setFechaAprobacion(rs.getTimestamp("fechaAprobacion"));
+					listaPedidos.add(p);
+				}
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			try {
+				if(rs!=null) {rs.close();}
+				if(stmt!=null) {stmt.close();}
+				FactoryConnection.getInstancia().releaseConn();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return listaPedidos;
+	}
 	
 	public ArrayList<Pedido> getPedidosByAdmin(Usuario admin){
 		PreparedStatement stmt=null;
@@ -458,40 +510,47 @@ public class DataPedido {
 		return count;
 	}
 	
-	public void deletePedido(int IDPedido) {
-		
+	public MyResult deletePedido(int IDPedido) {
+		int resultado = -1;
 		PreparedStatement stmt=null;
 		try {
 			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
 					"DELETE FROM pedido_caracteristicas WHERE idPedido=?"
 					);
 			stmt.setInt(1, IDPedido);
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
+			if (resultado == 0) {
+				return Delete(0);
+			}
 			stmt.close();
 			
 			stmt=FactoryConnection.getInstancia().getConn().prepareStatement(
 					"DELETE FROM pedidos WHERE idPedido=?"
 					);
 			stmt.setInt(1, IDPedido);
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
+			if (resultado == 0) {
+				return Delete(0);
+			}
 			stmt.close();
 			
 			
 		} catch (SQLException e) {
-			e.printStackTrace();
+			return Delete(0);
 		}finally {
 			try {
 				if(stmt!=null) {stmt.close();}
 				FactoryConnection.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				e.printStackTrace();
+				return Delete(0);
 			}
 		}
+		return Delete(1);
 	}
 	
-	public void rechazarPedido(Pedido p) {
+	public MyResult rechazarPedido(Pedido p) {
 		PreparedStatement stmt = null;
-		
+		int resultado = -1;
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
@@ -503,23 +562,28 @@ public class DataPedido {
 			stmt.setString(3, p.getMotivoRechazo());
 			stmt.setInt(4, p.getAdmin().getIdUsuario());
 			stmt.setInt(5, p.getIdPedido());
-			stmt.executeUpdate();	
+			resultado = stmt.executeUpdate();	
+			
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Update(0);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Update(0);
 	        }
 		}
+		if (resultado == 1) {
+			return Update(1);
+		}
+		else return Update(0);
 	}
 	
-	public void aprobarPedido(Pedido p) {
+	public MyResult aprobarPedido(Pedido p) {
 		PreparedStatement stmt = null;
-		
+		int resultado = -1;
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
@@ -530,18 +594,22 @@ public class DataPedido {
 			stmt.setString(2, "Aprobado");
 			stmt.setInt(3, p.getAdmin().getIdUsuario());
 			stmt.setInt(4, p.getIdPedido());
-			stmt.executeUpdate();	
+			resultado = stmt.executeUpdate();	
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+			return Update(0);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Update(0);
 	        }
 		}
+		if (resultado == 1) {
+			return Update(1);
+		}
+		else return Update(0);
 	}
 
 }

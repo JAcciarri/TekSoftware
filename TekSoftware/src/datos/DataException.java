@@ -3,12 +3,13 @@ package datos;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import entidades.MyException;
+import entidades.MyResult;
 
-public class DataException {
+public class DataException extends DataMethods{
 
 	
-	public void add(MyException myExc) {
-		
+	public MyResult add(MyException myExc) {
+		int resultado = -1;
 		PreparedStatement stmt = null;
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
@@ -18,18 +19,21 @@ public class DataException {
 			stmt.setInt(1, myExc.getStatusCode());
 			stmt.setString(2, myExc.getServletName());
 			stmt.setString(3, myExc.getErr_exception());
-			stmt.executeUpdate();
-			
+			resultado = stmt.executeUpdate();
+			if (resultado != 1) {
+				return Add(0);
+			}
 			
 		}  catch (SQLException e) {
-	        e.printStackTrace();
+			return Add(0);
 		} finally {
 	        try {
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Add(0);
 	        }
 		}
+		return Add(1);
 	}
 }

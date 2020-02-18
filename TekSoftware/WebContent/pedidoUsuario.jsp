@@ -3,6 +3,7 @@
 <%@ page import="logica.PedidoController"%>
 <%@ page import="entidades.Pedido"%>    
 <%@ page import="entidades.Usuario"%>   
+<%@ page import="entidades.MyResult"%>    
 <%@ page import="entidades.Seleccion"%> 
 <%@ page import="java.util.ArrayList"%> 
     <%@ page import = "logica.ChatController" %>
@@ -40,12 +41,21 @@
 								Aquí esta tu pedido,
 								<%=user.capitalizeAnything(user.getUsername()) %></h6>
 						</div>
-						
-						<% if (request.getAttribute("exito") != null){ %>
-						<p style="color:green"><%=request.getAttribute("exito")%></p>
-						<%} %>
-						
-						
+
+						<%
+							if (request.getAttribute("result") != null) {
+								MyResult res = (MyResult) request.getAttribute("result");
+								if (res.getResult().equals(MyResult.results.OK)) {
+						%>
+						<p style="color: green"><%=res.getErr_message()%></p>
+						<%
+							} else {
+						%>
+						<p style="color: red"><%=res.getErr_message()%></p>
+						<%
+							}
+						}
+						%>
 						<div class="table-responsive">
 							<table class="table">
 								<thead class="thead-light">

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.MyResult;
 import entidades.Pedido;
 import entidades.Usuario;
 import logica.PedidoController;
@@ -37,7 +38,8 @@ public class EditPedidoServlet extends HttpServlet {
 		Usuario administrador = (Usuario)request.getSession().getAttribute("usuario");
 		p.setAdmin(administrador);
 		
-		pCtrl.aprobarPedido(p);
+		MyResult res = pCtrl.aprobarPedido(p);
+		request.setAttribute("result", res);
 		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);;
 	}
 

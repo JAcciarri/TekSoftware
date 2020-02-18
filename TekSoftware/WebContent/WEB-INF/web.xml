@@ -8,6 +8,10 @@
     <error-code>404</error-code>
     <location>/URLNotFound</location>
   </error-page>
+  <error-page>
+    <error-code>500</error-code>
+    <location>/ExceptionHandler</location>
+  </error-page>
   <error-page> 
 	<exception-type>java.lang.Exception</exception-type> 
 	<location>/ExceptionHandler</location> 

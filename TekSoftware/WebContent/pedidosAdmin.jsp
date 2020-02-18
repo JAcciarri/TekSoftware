@@ -1,3 +1,4 @@
+<%@page import="entidades.MyResult.results"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import = "entidades.*" %>    
@@ -29,13 +30,21 @@
     <%@ include file = "/security/isNotAdmin.jsp" %>
 	
 	<%			 
+		
 	   PedidoController pController = new PedidoController();
 	   ArrayList<Pedido> pedidos = new ArrayList<Pedido>();
 	   
-	   if (request.getAttribute("pedidosDelCliente") == null){
-		    pedidos = pController.getAllPedidos();
+	   if (request.getAttribute("pedidosDelCliente") != null){
+		   //entonces quiere ver los pedidos de un cliente particular
+		    pedidos = (ArrayList<Pedido>)request.getAttribute("pedidosDelCliente");
 	   } else{
-		   pedidos = (ArrayList<Pedido>)request.getAttribute("pedidosDelCliente");
+		   if (request.getAttribute("pedidosPendientes") != null){
+			   // entonces quiere ver solo los pendientes
+			   pedidos = (ArrayList<Pedido>)request.getAttribute("pedidosPendientes");
+		   } else{
+		   // entonces quiere ver todos
+		   pedidos = pController.getAllPedidos();
+	   	}
 	   }
 	
 	%>
@@ -138,11 +147,30 @@
                 <div class="row">
                     <div class="col-5 align-self-center">
                         <h4 class="page-title">Lista de Pedidos</h4>
-                        
                     </div>
-                   
                 </div>
-            </div>
+                <br>
+                <form action="PedidoServlet" METHOD="POST">
+                <button class="btn btn-warning">Ver solo los Pendientes</button>
+                <input hidden="true" name="see" value="pendientes">
+            	</form>
+
+				<%
+					// recuperamos si hubo un error o si se actualizo correctamente
+					if (request.getAttribute("result") != null) {
+						MyResult res = (MyResult) request.getAttribute("result");
+						if (res.getResult().equals(results.OK)) {
+				%>
+				<p style="color: green;"><%=res.getErr_message()%></p>
+				<%
+					} else {
+				%>
+				<p style="color: red;"><%=res.getErr_message()%></p>
+				<%
+					}
+				}
+				%>
+			</div>
            
             <div class="container-fluid">
                             <div class="table-responsive">

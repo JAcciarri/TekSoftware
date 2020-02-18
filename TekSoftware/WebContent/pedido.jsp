@@ -63,7 +63,26 @@
 		
 	
 	if (request.getAttribute("pedidoJustCreated") != null) {  
-		Pedido p = (Pedido)request.getAttribute("pedido");
+		// preguntamos si hubo un error
+		if (request.getAttribute("result")!=null){
+			//si lo hubo debemos mostrar el mensaje de error
+		%>
+		
+		<section class="features-section spad">
+		<div class="container">
+			<div class="section-title">
+				<h2>Ha ocurrido un error al crear el pedido</h2>
+				<br>
+				<p>Por favor reintenta, te redirigimos hacia <a href="perfilUsuario.jsp">Tu Perfil</a></p>
+				<br><br> <br>
+			
+			</div>
+		</div>
+	</section>
+		
+		<% } else {
+			Pedido p = (Pedido)request.getAttribute("pedido");
+		
 	%>
 	
 		<section class="features-section spad">
@@ -79,6 +98,7 @@
 		</div>
 	</section>
 	<% }
+	}
 	else{
 		
 	CaracteristicaController carCtrl = new CaracteristicaController();

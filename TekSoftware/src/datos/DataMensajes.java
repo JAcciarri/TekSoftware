@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import entidades.Mensaje;
+import entidades.MyResult;
 import entidades.Pedido;
 import entidades.Usuario;
 
 
-public class DataMensajes {
+public class DataMensajes extends DataMethods {
 
 
 	public ArrayList<Mensaje> getAllMensajesByPedido(Pedido p){
@@ -164,9 +165,9 @@ public class DataMensajes {
 		return listaIDS;
 	}
 	
-	public void addMensaje(Mensaje msj) {
+	public MyResult addMensaje(Mensaje msj) {
 		PreparedStatement stmt = null;
-		
+		int resultado = -1; 
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().
 					prepareStatement(
@@ -182,20 +183,21 @@ public class DataMensajes {
 				stmt.setBoolean(6, true);
 			} else stmt.setBoolean(6, false);
 			
-			stmt.executeUpdate();
+			resultado = stmt.executeUpdate();
 			
 			}  catch (SQLException e) {
-	        e.printStackTrace();
+	        return Add(resultado);
 		} finally {
 	        try {
 	           
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	e.printStackTrace();
+	        	return Add(resultado);
 	        }
 		}
-
+		// si llego hasta aca esta todo OK
+		return Add(resultado);
 	}
 
 	public Boolean hasMensajesNoLeidosByAdmin(Usuario admin) {

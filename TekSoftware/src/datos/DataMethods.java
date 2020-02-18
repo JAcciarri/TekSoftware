@@ -1,6 +1,7 @@
 package datos;
 
 import entidades.MyResult;
+import entidades.MyResult.results;
 
 public class DataMethods {
      
@@ -45,4 +46,11 @@ public class DataMethods {
 		 return result;
 	 }
 	 
+	 static MyResult ConnectCloseError() {
+		 // para manejar las conexiones o cierres fallidos. Aun no implementado
+		 MyResult res = new MyResult();
+		 res.setResult(results.Err);
+		 res.setErr_message("Ocurrio un error al intentar conectar o cerrar una conexion");
+		 return res;
+	 }
 }

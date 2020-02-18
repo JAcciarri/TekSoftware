@@ -179,7 +179,7 @@ public class DataCaracteristica extends DataMethods{
 		            if(stmt!=null) stmt.close();
 		            FactoryConnection.getInstancia().releaseConn();
 		        } catch (SQLException e) {
-		        	return Add(resultado);
+		        	ConnectCloseError();
 		        }
 			}
 			return Add(resultado);
@@ -212,7 +212,7 @@ public class DataCaracteristica extends DataMethods{
 		            if(stmt!=null) stmt.close();
 		            FactoryConnection.getInstancia().releaseConn();
 		        } catch (SQLException e) {
-		        	return Add(resultado);
+		        	ConnectCloseError();
 		        }
 			}
 			return Add(resultado);
@@ -267,7 +267,7 @@ public class DataCaracteristica extends DataMethods{
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	return Update(resultado);
+	        	ConnectCloseError();
 	        }
 		}
 		// si llego aca esta todo OK
@@ -317,7 +317,7 @@ public class DataCaracteristica extends DataMethods{
 	            if(stmt!=null) stmt.close();
 	            FactoryConnection.getInstancia().releaseConn();
 	        } catch (SQLException e) {
-	        	return Update(resultado);
+	        	ConnectCloseError();
 	        }
 		}
 		return Update(resultado);
@@ -385,7 +385,7 @@ public class DataCaracteristica extends DataMethods{
 				if(stmt!=null) {stmt.close();}
 				FactoryConnection.getInstancia().releaseConn();
 			} catch (SQLException e) {
-				return Delete(0);
+				ConnectCloseError();
 			}
 		}
 		// si llego hasta aca esta todo OK

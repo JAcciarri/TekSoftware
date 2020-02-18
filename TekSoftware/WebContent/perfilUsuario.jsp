@@ -1,6 +1,7 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.Usuario" %>
+    <%@ page import = "entidades.MyResult" %>
     <%@ page import = "logica.PedidoController" %>
     <%@ page import = "logica.ChatController" %>
     <%@ page import = "logica.CaracteristicaController" %>
@@ -50,9 +51,18 @@
          int IDCliente = user.getIdUsuario();
          Pedido pedidoPendiente = pCtrl.getPedidoPendienteByCliente(IDCliente);
       	 ArrayList<Pedido> pedidos = pCtrl.getPedidosByCliente(IDCliente);
+      	 String msg= null; String color = null;
       	 if (pedidoPendiente != null) {
       		 pedidos.add(pedidoPendiente);
       	 }
+      	 if (request.getAttribute("result")!=null){
+      		 MyResult res = (MyResult)request.getAttribute("result");
+      		 msg = res.getErr_message();
+      		 if (res.getResult().equals(MyResult.results.OK)){
+      			  color = "green";
+      		 } else  color = "red";
+      	 }
+      	 
       %>
 
 	<div class="slider-item overlay" data-stellar-background-ratio="0.5"
@@ -71,6 +81,11 @@
 								<img src="assets/images/users/userdefault.png"
 									class="rounded-circle" width="150" />
 								<h4 class="card-title m-t-10"><%=user.capitalizeAnything(user.getUsername())%></h4>
+								<% if (request.getAttribute("result")!=null){ %>
+									<h6 style=color:<%=color%>> <%=msg%></h6>
+								<% }
+								%>
+								
 								<div class="row text-center justify-content-md-center"></div>
 							</center>
 						</div>

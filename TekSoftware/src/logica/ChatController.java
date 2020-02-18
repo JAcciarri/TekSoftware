@@ -5,6 +5,8 @@ import java.util.LinkedList;
 
 import datos.DataMensajes;
 import entidades.Mensaje;
+import entidades.MyResult;
+import entidades.MyResult.results;
 import entidades.Pedido;
 import entidades.Usuario;
 
@@ -27,8 +29,15 @@ public class ChatController {
 	public LinkedList<Pedido> getIDsPedidosForChat(Usuario admin){
 		return dm.getIDsPedidosForChat(admin);
 	}
-	public void addMensaje(Mensaje msj) {
-		 dm.addMensaje(msj);
+	public MyResult addMensaje(Mensaje msj) {
+		MyResult res = dm.addMensaje(msj);
+		// sobreescribimos el mensaje para devolver a la vista
+		if (res.getResult().equals(results.OK)) {
+			res.setErr_message("Mensaje enviado con exito");
+		} else {
+			res.setErr_message("No se pudo enviar el mensaje. Por favor reintentar");
+		}
+		return res;
 	}
 	
 	public Boolean hasMensajesNoLeidosByAdmin(Usuario admin) {

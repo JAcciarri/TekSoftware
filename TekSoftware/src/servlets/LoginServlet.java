@@ -52,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 		if (user == null) {
 			MyResult res = new MyResult();
 			res.setResult(MyResult.results.Err);
-			res.setErr_message("Usuario o contraseñas incorrectos");
+			res.setErr_message("Usuario o contraseña incorrectos");
 			request.setAttribute("result", res);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		}  else {

@@ -6,6 +6,7 @@ import datos.DataPedido;
 
 import java.util.ArrayList;
 import entidades.*;
+import entidades.MyResult.results;
 
 public class PedidoController {
 
@@ -18,6 +19,9 @@ public class PedidoController {
 	public ArrayList<Pedido> getAllPedidos(){
 		return dp.getAllPedidos();
 	}
+	public ArrayList<Pedido> getAllPendientes(){
+		return dp.getAllPendientes();
+	}
 	
 	public Pedido registrarPedido(ArrayList<Seleccion> selecciones, Usuario cliente) {
 		Pedido p = new Pedido();
@@ -25,19 +29,22 @@ public class PedidoController {
 		p.setCliente(cliente);
 		p.setEstado("Pendiente");
 		p.setFechaPedido(new Date());
-		this.calcularMontoTotal(p, selecciones);
-		dp.add(p);
-		dp.addOpciones(selecciones, p);
-		
-		return p;
+		p.setMontoTotal(this.calcularMontoTotal(selecciones));
+		MyResult res = dp.add(p);
+		if (res.getResult().equals(results.OK)) {
+			res = dp.addOpciones(selecciones, p);
+			if (res.getResult().equals(results.OK)) {
+				// entonces esta todo OK y retornamos el pedido
+				return p;
+			} else return null;
+		} else return null;
 	}
 	
 	
 	//separamos la logica de calcular el monto total porque el dia de mañana
 	// puede variar la forma en que calculamos el mismo
-	public void calcularMontoTotal(Pedido p, ArrayList<Seleccion> selects) {
-		double total = dp.getValoresActuales(selects);
-		p.setMontoTotal(total);
+	public double calcularMontoTotal(ArrayList<Seleccion> selects) {
+		return dp.getValoresActuales(selects);
 	}
 	
 	public ArrayList<Pedido> getPedidosByCliente(int IDCliente){
@@ -67,15 +74,27 @@ public class PedidoController {
 		return dp.getCountPedidosPendientes();
 	}
 	
-	public void deletePedido(int IDPedido) {
-		 dp.deletePedido(IDPedido);
+	public MyResult deletePedido(int IDPedido) {
+		MyResult res = dp.deletePedido(IDPedido);
+		if (res.getResult().equals(results.Err)) {
+			res.setErr_message("No se pudo eliminar el pedido. Por favor reintentar");
+		} else res.setErr_message("Pedido eliminado correctamente");
+		return res;
 	}
 	
-	public void rechazarPedido(Pedido pedido) {
-		dp.rechazarPedido(pedido);
+	public MyResult rechazarPedido(Pedido pedido) {
+		MyResult res = dp.rechazarPedido(pedido);
+		if (res.getResult().equals(results.Err)) {
+			res.setErr_message("No se pudo rechazar el pedido. Por favor reintentar");
+		} else res.setErr_message("Pedido rechazado satisfactoriamente");
+		return res;
 	}
 	
-	public void aprobarPedido(Pedido pedido) {
-		dp.aprobarPedido(pedido);
+	public MyResult aprobarPedido(Pedido pedido) {
+		MyResult res = dp.aprobarPedido(pedido);
+		if (res.getResult().equals(results.Err)) {
+		res.setErr_message("No se pudo aprobar el pedido. Por favor reintentar");
+		} else res.setErr_message("Pedido aprobado satisfactoriamente");
+		return res;
 	}
 }

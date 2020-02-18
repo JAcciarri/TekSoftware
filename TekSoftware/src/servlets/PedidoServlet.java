@@ -10,9 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entidades.Caracteristica;
+import entidades.MyResult;
 import entidades.Pedido;
 import entidades.Seleccion;
 import entidades.Usuario;
+import entidades.MyResult.results;
 import logica.CaracteristicaController;
 import logica.PedidoController;
 
@@ -81,7 +83,16 @@ public class PedidoServlet extends HttpServlet {
 			Usuario usu = (Usuario)request.getSession().getAttribute("usuario");
 			Pedido p = new Pedido();
 			p = pCtrl.registrarPedido(selecciones, usu);
-			request.setAttribute("pedido", p);
+			if (p == null) {
+				MyResult res = new MyResult();
+				res.setErr_message("No se ha podido crear el pedido. Por favor reintentar");
+				res.setResult(results.Err);
+				request.setAttribute("result", res);
+			} else { 
+				// estuvo todo OK , seteamos el pedido
+				request.setAttribute("pedido", p); 
+			  }
+			
 			request.setAttribute("pedidoJustCreated", true);
 		} 
 		
@@ -93,9 +104,15 @@ public class PedidoServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//palabra en el buscador
-		String datosParciales = request.getParameter("datosParciales");
 		PedidoController pController = new PedidoController();
+		
+		if (request.getParameter("see").equals("pendientes")) {
+			request.setAttribute("pedidosPendientes", pController.getAllPendientes());
+			request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);
+		}
+		
+		//sino quiso buscar un cliente en el buscador
+		String datosParciales = request.getParameter("datosParciales");
 		ArrayList<Pedido> pedidosDelCliente = pController.getPedidosByPartialClient(datosParciales);
 		request.setAttribute("pedidosDelCliente", pedidosDelCliente);
 		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);

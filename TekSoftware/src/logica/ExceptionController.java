@@ -2,6 +2,7 @@ package logica;
 
 import datos.DataException;
 import entidades.MyException;
+import entidades.MyResult;
 
 public class ExceptionController {
 	private DataException de;
@@ -10,7 +11,7 @@ public class ExceptionController {
 		this.de = new DataException();
 	}
 	
-	public void add(MyException myExc) {
-		de.add(myExc);
+	public MyResult add(MyException myExc) {
+		return de.add(myExc);
 	}
 }

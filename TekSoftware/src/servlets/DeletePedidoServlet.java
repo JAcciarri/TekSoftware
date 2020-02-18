@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entidades.MyResult;
 import entidades.Pedido;
 import entidades.Usuario;
 import logica.PedidoController;
@@ -33,7 +34,8 @@ public class DeletePedidoServlet extends HttpServlet {
 		// Si la llamda es por GET es porque el usuario quiere cancelar su pedido. Lo eliminamos
 		PedidoController pc = new PedidoController();
 			int IDPedido = Integer.parseInt(request.getParameter("id"));
-			pc.deletePedido(IDPedido);
+			MyResult res = pc.deletePedido(IDPedido);
+			request.setAttribute("result", res);
 			request.getRequestDispatcher("perfilUsuario.jsp").forward(request, response);
 		
 	}
@@ -51,7 +53,8 @@ public class DeletePedidoServlet extends HttpServlet {
 		Pedido ped = pc.getPedidoByID(IDPedidoRechazado);
 		ped.setAdmin(administrador);
 		ped.setMotivoRechazo(motivoRechazo);
-		pc.rechazarPedido(ped);
+		MyResult res = pc.rechazarPedido(ped);
+		request.setAttribute("result", res);
 		request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);
 	}
 
