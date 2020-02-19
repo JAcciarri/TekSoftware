@@ -9,8 +9,8 @@ public class FactoryConnection {
 		private String driver="com.mysql.cj.jdbc.Driver";
 		private String host="localhost";
 		private String port="3306";
-		private String user="sistema";
-		private String password="simplesystem";
+		private String user="root";
+		private String password="XNPbkq61628";
 		private String db="tp_software";
 		private int conectados=0;
 		private Connection conn=null;
@@ -33,7 +33,7 @@ public class FactoryConnection {
 		public Connection getConn() {
 			try {
 				if(conn==null || conn.isClosed()) {
-					conn=DriverManager.getConnection("jdbc:mysql://"+host+":"+port+"/"+db+"?serverTimezone=UTC", user, password);
+					conn=DriverManager.getConnection("jdbc:mysql://node52220-teksoftware.jl.serv.net.mx/"+db+"?serverTimezone=UTC", user, password);
 					conectados=0;
 				}
 			} catch (SQLException e) {
