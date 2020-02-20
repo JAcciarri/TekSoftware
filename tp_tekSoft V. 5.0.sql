@@ -316,6 +316,33 @@ CREATE TEMPORARY TABLE tt_2
 SELECT  idCaracteristica, MAX(cantidad) as maxi
 FROM  tt_1
 GROUP BY 1;
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `tt_for_ranking`()
+BEGIN
+DROP TEMPORARY TABLE IF EXISTS tt_1;
+CREATE TEMPORARY TABLE tt_1
+SELECT  idCaracteristica, idOpcion, COUNT(*) as cantidad
+FROM  pedido_caracteristicas
+GROUP BY 1, 2;
+
+DROP TEMPORARY TABLE IF EXISTS tt_2;
+CREATE TEMPORARY TABLE tt_2
+SELECT  idCaracteristica, MAX(cantidad) as maxi
+FROM  tt_1
+GROUP BY 1;
+
+SELECT t1.idCaracteristica, t1.idOpcion, car.titulo, op.subtitulo, op.descripcion, t2.maxi  
+FROM tt_1 t1  
+INNER JOIN tt_2 t2 
+	ON t1.idCaracteristica = t2.idCaracteristica   
+INNER JOIN opciones op 
+	ON t1.idCaracteristica = op.idCaracteristica AND t1.idOpcion = op.idOpcion 
+INNER JOIN caracteristicas car 
+	ON t1.idCaracteristica = car.idCaracteristica 
+WHERE t1.cantidad = t2.maxi 
+GROUP BY 1, 2, 3, 4, 5; 
+
+END
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
