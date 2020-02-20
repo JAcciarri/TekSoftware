@@ -216,6 +216,7 @@ public class DataEstadistica {
 	
 	//Caracteristicas
 	
+
 	public ArrayList<Opcion> getRankingOpciones(){
 		PreparedStatement stmt=null;
 		ResultSet rs=null;
@@ -224,22 +225,6 @@ public class DataEstadistica {
 		try {
 			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
 					"CALL tt_for_ranking"
-					);
-			
-		    stmt.execute();
-		    if(stmt!=null) {stmt.close();}
-			
-			stmt = FactoryConnection.getInstancia().getConn().prepareStatement(
-					" SELECT t1.idCaracteristica, t1.idOpcion, car.titulo, op.subtitulo, op.descripcion, t2.maxi " + 
-					"		FROM tt_1 t1 " + 
-					"		INNER JOIN tt_2 t2  " + 
-					"			ON t1.idCaracteristica = t2.idCaracteristica " + 
-					"		INNER JOIN opciones op " + 
-					"			ON t1.idCaracteristica = op.idCaracteristica AND t1.idOpcion = op.idOpcion " + 
-					"		INNER JOIN caracteristicas car " + 
-					"			ON t1.idCaracteristica = car.idCaracteristica " + 
-					"		WHERE t1.cantidad = t2.maxi " + 
-					"		GROUP BY 1, 2, 3, 4, 5; "
 					);
 			
 			rs = stmt.executeQuery();
