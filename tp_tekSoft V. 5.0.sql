@@ -342,7 +342,6 @@ INNER JOIN caracteristicas car
 WHERE t1.cantidad = t2.maxi 
 GROUP BY 1, 2, 3, 4, 5; 
 
-END
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
