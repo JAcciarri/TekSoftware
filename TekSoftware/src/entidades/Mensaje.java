@@ -12,6 +12,7 @@ public class Mensaje {
 	private Date fecha_hora;
 	private Boolean isFromUser;
 	private Boolean isLeido;
+	private String fecha_hora_string;
 	
 	public Mensaje(){}
 	
@@ -27,7 +28,11 @@ public class Mensaje {
 	}
 	
 	public String getFechaHoraString() {
-		String base = this.getFecha_hora().toString();
+		return fecha_hora_string;
+	}
+	
+	public void setFechaHoraString(Date datetime_sql) {
+		String base = datetime_sql.toString();
 		String year = base.substring(0, 4);
 		String month = base.substring(5, 7);
 		String day = base.substring(8, 10);
@@ -46,9 +51,8 @@ public class Mensaje {
 		case "11": {month = "Nov"; break;}
 		case "12": {month = "Dic"; break;}
 		}
-		String fin = new String(day +" "+ month + " " + year +", "+ hour);
 		// Ejemplo: 03 Mar 2020, 14:30 
-		return fin;
+		this.fecha_hora_string = new String(day +" "+ month + " " + year +", "+ hour);
 	}
 	
 	public Usuario getCliente() {

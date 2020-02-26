@@ -49,6 +49,7 @@ public class DataMensajes extends DataMethods {
 					m.setAdmin(admin);
 					m.setMensaje(rs.getString("c.mensaje"));
 					m.setFecha_hora(rs.getTimestamp("c.fechaHoraMensaje"));
+					m.setFechaHoraString(rs.getTimestamp("c.fechaHoraMensaje"));
 					m.setPedido(p);
 					mensajes.add(m);
 				}
@@ -104,6 +105,7 @@ public class DataMensajes extends DataMethods {
 					m.setAdmin(administrador);
 					m.setMensaje(rs.getString("c.mensaje"));
 					m.setFecha_hora(rs.getTimestamp("fechaHoraMensaje"));
+					m.setFechaHoraString(rs.getTimestamp("c.fechaHoraMensaje"));
 					mensajes.add(m);
 				}
 			} 
