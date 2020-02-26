@@ -5,7 +5,7 @@
 <%@ page import="logica.CaracteristicaController"%>
 
 <!DOCTYPE html>
-<html lang="es">
+<html dir="ltr" lang="es">
 
 <head>
 <title>TekSoftware &mdash;</title>

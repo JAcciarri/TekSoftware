@@ -25,6 +25,32 @@ public class Mensaje {
 		this.mensaje = msj;
 		this.isFromUser = isFromUser;
 	}
+	
+	public String getFechaHoraString() {
+		String base = this.getFecha_hora().toString();
+		String year = base.substring(0, 4);
+		String month = base.substring(5, 7);
+		String day = base.substring(8, 10);
+		String hour = base.substring(11, 16);
+		switch(month) {
+		case "01": {month = "Ene"; break;}
+		case "02": {month = "Feb"; break;}
+		case "03": {month = "Mar"; break;}
+		case "04": {month = "Abr"; break;}
+		case "05": {month = "May"; break;}
+		case "06": {month = "Jun"; break;}
+		case "07": {month = "Jul"; break;}
+		case "08": {month = "Ago"; break;}
+		case "09": {month = "Sep"; break;}
+		case "10": {month = "Oct"; break;}
+		case "11": {month = "Nov"; break;}
+		case "12": {month = "Dic"; break;}
+		}
+		String fin = new String(day +" "+ month + " " + year +", "+ hour);
+		// Ejemplo: 03 Mar 2020, 14:30 
+		return fin;
+	}
+	
 	public Usuario getCliente() {
 		return cliente;
 	}

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.*" %>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -13,7 +13,7 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Añadir usuario</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
      <link href="dist/css/style.extras.css" rel="stylesheet">
@@ -176,13 +176,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nombre" autocomplete="off" required="" class="form-control form-control-line">
+                                            <input type="text" name="nombre" autocomplete="off" required="" pattern="[A-Za-z ]{1,20}" title="No utilices caracteres especiales. Máximo 20 caracteres" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Apellido</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="apellido" autocomplete="off" required="" class="form-control form-control-line">
+                                            <input type="text" name="apellido" autocomplete="off" required="" pattern="[A-Za-z ]{1,20}" title="No utilices caracteres especiales. Máximo 20 caracteres" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -194,19 +194,19 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Telefono</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="telefono" autocomplete="off"  required="" class="form-control form-control-line">
+                                            <input type="text" name="telefono" autocomplete="off"  required="" pattern="[0-9]{6,20}" title="Ingresa un número de telefono válido"class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Usuario</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="username" autocomplete="off" required="" class="form-control form-control-line">
+                                            <input type="text" name="username" autocomplete="off" required="" pattern="[A-Za-z0-9]{5,15}" title="No utilices caracteres especiales. Mínimo 5 caracteres, máximo 15" class="form-control form-control-line">
                                         </div>
                                     </div>
                                      <div class="form-group">
                                         <label class="col-md-12">Contraseña</label>
                                         <div class="col-md-12">
-                                            <input type="password" name="password" autocomplete="off" required="" class="form-control form-control-line">
+                                            <input type="password" name="password" autocomplete="off" required="" pattern="[A-Za-z0-9]{8,15}" title="La contraseña debe tener entre 8 y 15 caracteres. No utilices espacios en blancos o caracteres especiales" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     

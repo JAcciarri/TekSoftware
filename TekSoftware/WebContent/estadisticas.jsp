@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="es">
 
 <head>
 <title>Estadisticas</title>

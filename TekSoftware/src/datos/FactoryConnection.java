@@ -29,7 +29,7 @@ public class FactoryConnection {
 			}
 			return instancia;
 		}
-		
+
 		public Connection getConn() {
 			try {
 				if(conn==null || conn.isClosed()) {

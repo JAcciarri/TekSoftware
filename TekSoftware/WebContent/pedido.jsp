@@ -7,7 +7,7 @@
  		 %>
     
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="es">
 <head>
 	<title>Pedido de Software</title>
 	<meta charset="UTF-8">

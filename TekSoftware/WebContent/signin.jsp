@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="es">
 
 <head>
   <title>Sign Up</title>
@@ -55,11 +55,11 @@
             <div class="row">
               <div class="col-md-6 form-group">
                 <label for="name">Nombre</label>
-                <input type="text" name="nombre" id="name" pattern="[A-Za-z]{2,20}" title="No utilices espacios o caracteres especiales." class="form-control" autocomplete="off" required>
+                <input type="text" name="nombre" id="name" pattern="[A-Za-z ]{2,20}" title="No utilices caracteres especiales." class="form-control" autocomplete="off" required>
               </div>
               <div class="col-md-6 form-group">
                 <label for="phone">Apellido</label>
-                <input type="text" name="apellido" id="phone" pattern="[A-Za-z]{2,30}" title="No utilices espacios o caracteres especiales." class="form-control" autocomplete="off" required>
+                <input type="text" name="apellido" id="phone" pattern="[A-Za-z ]{2,30}" title="No utilices caracteres especiales." class="form-control" autocomplete="off" required>
               </div>
             </div>
             <div class="row">
@@ -87,7 +87,7 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="pass">Contraseña</label>
-                <input type="password" name="password" id="pass" class="form-control" pattern="[A-Za-z0-9]{5,15}" title="La contraseña debe tener entre 5 y 15 caracteres. No utilices espacios en blancos o caracteres especiales" autocomplete="off" required>
+                <input type="password" name="password" id="pass" class="form-control" pattern="[A-Za-z0-9]{8,15}" title="La contraseña debe tener entre 8 y 15 caracteres. No utilices espacios en blancos o caracteres especiales" autocomplete="off" required>
               </div>
             </div>
 

@@ -6,9 +6,9 @@
 <%@ page import="java.util.LinkedList"%>
 
 <!DOCTYPE html>
-<html>
+<html dir="ltr" lang="es">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <title>Mensajes</title>
 
 <link href="dist/css/style.min.css" rel="stylesheet">
@@ -75,7 +75,7 @@
 				<div class="container">
 					<img src="assets/images/users/userdefault.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFecha_hora()%></span>
+					<span class="time-left"><%=msj.getFechaHoraString()%></span>
 				</div>
 				<%
 					} else {
@@ -84,7 +84,7 @@
 				<div class="container darker">
 					<img src="assets/images/users/admin.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFecha_hora()%></span>
+					<span class="time-left"><%=msj.getFechaHoraString()%></span>
 				</div>
 
 				<%

@@ -5,7 +5,7 @@
 <%@ page import="logica.CaracteristicaController"%>
 
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="es">
 
 <head>
 <meta charset="utf-8">

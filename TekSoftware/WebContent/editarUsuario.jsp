@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.*" %>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -13,15 +13,9 @@
     <meta name="author" content="">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
-    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Editar usuario</title>
     <!-- Custom CSS -->
     <link href="dist/css/style.min.css" rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-<![endif]-->
 </head>
 
 <body>
@@ -187,13 +181,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Nombre</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="nombre" value="<%=u.getNombre() %>" required class="form-control form-control-line">
+                                            <input type="text" name="nombre" value="<%=u.getNombre() %>" pattern="[A-Za-z ]{1,20}" title="No utilices caracteres especiales. Máximo 20 caracteres" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Apellido</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="apellido" value="<%=u.getApellido() %>" required class="form-control form-control-line">
+                                            <input type="text" name="apellido" value="<%=u.getApellido() %>" required pattern="[A-Za-z ]{1,20}" title="No utilices caracteres especiales. Máximo 20 caracteres" class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -205,13 +199,13 @@
                                     <div class="form-group">
                                         <label class="col-md-12">Telefono</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="telefono" value="<%=u.getTelefono() %>" required class="form-control form-control-line">
+                                            <input type="text" name="telefono" value="<%=u.getTelefono() %>" pattern="[0-9]{6,20}" title="Ingresa un número de telefono válido" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-md-12">Usuario</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="username" value="<%=u.getUsername() %>" required class="form-control form-control-line">
+                                            <input type="text" name="username" value="<%=u.getUsername() %>" pattern="[A-Za-z0-9]{5,15}" title="No utilices caracteres especiales. Mínimo 5 caracteres, máximo 15" required class="form-control form-control-line">
                                         </div>
                                     </div>
                                     

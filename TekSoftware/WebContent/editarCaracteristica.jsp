@@ -5,7 +5,7 @@
     <%@ page import = "logica.CaracteristicaController" %>
     
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -102,7 +102,7 @@
                                    <div class="form-group">
                                         <label class="col-md-12">Titulo Caracteristica</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="titulo" value="<%=c.getTitulo()%>" required pattern="[A-Za-z0-9 ¿?¡!]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
+                                            <input type="text" name="titulo" value="<%=c.getTitulo()%>" required pattern="[A-Za-z0-9 ¿?¡!]{1,45}" title="No utilices caracteres especiales." class="form-control form-control-line">
                                         </div>
                                     </div>
                                     

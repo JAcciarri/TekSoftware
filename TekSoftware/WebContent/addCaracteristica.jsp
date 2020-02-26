@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <%@ page import = "entidades.*" %>
 <!DOCTYPE html>
-<html dir="ltr" lang="en">
+<html dir="ltr" lang="es">
 
 <head>
     <meta charset="utf-8">
@@ -99,7 +99,7 @@
                                      <div class="form-group">
                                         <label class="col-md-12">Titulo</label>
                                         <div class="col-md-12">
-                                            <input type="text" name="titulo" autocomplete="off" required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line" >
+                                            <input type="text" name="titulo" autocomplete="off" required pattern="[A-Za-z0-9¿?!¡ ]{1,45}" title="No utilices caracteres especiales." class="form-control form-control-line" >
                                         </div>
                                     </div>
                                    <div class="simple-container">
@@ -113,7 +113,7 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-1" autocomplete="off" pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." required class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-1" autocomplete="off" pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales. Maximo: 25 caracteres" required class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
@@ -141,7 +141,7 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-2" autocomplete="off"  required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-2" autocomplete="off"  required pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales. Maximo: 25 caracteres" class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">
@@ -167,7 +167,7 @@
 				                                    <div class="form-group">
 				                                        <label class="col-md-12">Subtitulo</label>
 				                                        <div class="col-md-12">
-				                                            <input type="text" name="subtitulo-3" autocomplete="off"  pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales." required  class="form-control form-control-line">
+				                                            <input type="text" name="subtitulo-3" autocomplete="off"  pattern="[A-Za-z0-9 ]{1,25}" title="No utilices caracteres especiales. Maximo: 25 caracteres" required  class="form-control form-control-line">
 				                                        </div>
 				                                    </div>
                                     				<div class="form-group">

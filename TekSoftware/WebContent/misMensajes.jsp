@@ -8,9 +8,9 @@
 <%@ page import="java.util.LinkedList"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta charset="UTF-8">
+<meta>
 <title>Mensajes</title>
 
 <link href="dist/css/style.min.css" rel="stylesheet">
@@ -169,6 +169,7 @@
 				<%
 					} else {
 						//  CHAT SIMPLE  //	
+						
 						for (Mensaje msj : mensajes) {
 
 							if (msj.getIsFromUser()) {
@@ -177,7 +178,7 @@
 				<div class="container">
 					<img src="assets/images/users/userdefault.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFecha_hora()%></span>
+					<span class="time-left"><%=msj.getFechaHoraString()%></span>
 				</div>
 				<%
 					} else {
@@ -186,7 +187,7 @@
 				<div class="container darker">
 					<img src="assets/images/users/admin.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFecha_hora()%></span>
+					<span class="time-left"><%=msj.getFechaHoraString()%></span>
 				</div>
 
 				<%

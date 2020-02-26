@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
-<html lang="en">
+<html dir="ltr" lang="es">
 
 <head>
   <title>Login</title>
@@ -86,7 +86,7 @@
             <div class="row">
               <div class="col-md-12 form-group">
                 <label for="pass">Contraseña</label>
-                <input type="password" name="password" id="pass" required class="form-control ">
+                <input type="password" name="password" id="pass" required pattern="[A-Za-z0-9]{8,15}" title="La longitud mínima debe ser de 8 caracteres" class="form-control ">
               </div>
             </div>
 

@@ -9,7 +9,7 @@
     <%@ page import = "logica.ChatController" %>
 
 <!DOCTYPE html>
-<html>
+<html dir="ltr" lang="es">
 <head>
 <meta charset="UTF-8">
 <link href="dist/css/style.extras.css" rel="stylesheet">
