@@ -178,7 +178,7 @@
 				<div class="container">
 					<img src="assets/images/users/userdefault.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFechaHoraString()%></span>
+					<span class="time-left"><%=msj.getFecha_hora()%></span>
 				</div>
 				<%
 					} else {
@@ -187,7 +187,7 @@
 				<div class="container darker">
 					<img src="assets/images/users/admin.png" alt="Avatar">
 					<p><%=msj.getMensaje()%></p>
-					<span class="time-left"><%=msj.getFechaHoraString()%></span>
+					<span class="time-left"><%=msj.getFecha_hora()%></span>
 				</div>
 
 				<%
