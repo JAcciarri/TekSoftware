@@ -33,7 +33,7 @@ public class FactoryConnection {
 		public Connection getConn() {
 			try {
 				if(conn==null || conn.isClosed()) {
-					conn=DriverManager.getConnection("jdbc:mysql://node52377-teksoftwarejava.jl.serv.net.mx//"+db+"?serverTimezone=UTC", user, password);
+					conn=DriverManager.getConnection("jdbc:mysql://node52377-teksoftwarejava.jl.serv.net.mx/"+db+"?serverTimezone=UTC", user, password);
 					conectados=0;
 				}
 			} catch (SQLException e) {
