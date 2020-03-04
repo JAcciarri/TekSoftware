@@ -104,7 +104,7 @@ public class DataMensajes extends DataMethods {
 						administrador.setIdUsuario(rs.getInt("c.idAdmin"));
 					m.setAdmin(administrador);
 					m.setMensaje(rs.getString("c.mensaje"));
-					m.setFecha_hora(rs.getTimestamp("fechaHoraMensaje"));
+					m.setFecha_hora(rs.getTimestamp("c.fechaHoraMensaje"));
 					m.setFechaHoraString(rs.getTimestamp("c.fechaHoraMensaje"));
 					mensajes.add(m);
 				}
