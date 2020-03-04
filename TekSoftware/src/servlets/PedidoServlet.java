@@ -106,7 +106,7 @@ public class PedidoServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		PedidoController pController = new PedidoController();
 		
-		if (request.getParameter("see").equals("pendientes")) {
+		if (request.getParameter("see")!=null && request.getParameter("see").equals("pendientes")) {
 			request.setAttribute("pedidosPendientes", pController.getAllPendientes());
 			request.getRequestDispatcher("pedidosAdmin.jsp").forward(request, response);
 		}
